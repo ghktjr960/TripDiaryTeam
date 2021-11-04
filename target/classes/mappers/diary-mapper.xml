@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tripdiary.TMdao.diaryDao">
+
+	<select id="selectEmblem" resultType="emblemCmd">
+		select
+		*
+		from emblem
+	</select>
+
+	<select id="haveEmblem" parameterType="int"
+		resultType="haveEmblemCmd">
+		select
+		member_num,
+		emblem_num
+		from emblem_get where member_num
+		= #{memberNum}
+	</select>
+
+	<select id="getActCnt" parameterType="int"
+		resultType="memberActCmd">
+		select
+		td_like_press_cnt,
+		pick_press_cnt,
+		board_write_cnt,
+		reply_write_cnt,
+		td_like_receive_cnt
+		from member_act_cnt where
+		member_num = #{memberNum}
+	</select>
+
+	<insert id="getEmblem" parameterType="getEmblemCmd">
+		insert into emblem_get (
+		emblem_get_num,
+		member_num,
+		emblem_num
+		)
+		values (
+		emblem_get_seq.nextval,
+		#{memberNum},
+		#{emblemNum}
+		)
+	</insert>
+
+	<!-- 나중에 날짜 정보를 가진 데이터가 있다면 삭제 -->
+	<select id="getDate" parameterType="int" resultType="String">
+		select
+		TO_CHAR(tripdate, 'YYYY-MM-DD')
+		from board where member_num =
+		#{memberNum}
+	</select>
+
+	<select id="getProfile" parameterType="int"
+		resultType="profileCmd">
+		SELECT
+		A.MEMBER_NUM,
+		A.NICKNAME,
+		B.MESSAGE,
+		C.STORE_FILE_NAME,
+		C.FILE_TYPE
+		FROM MEMBER A
+		INNER JOIN PROFILE B
+		ON A.MEMBER_NUM = B.MEMBER_NUM
+		INNER JOIN PROFILE_IMG C
+		ON B.MEMBER_NUM = C.MEMBER_NUM
+		WHERE A.MEMBER_NUM = #{memberNum}
+	</select>
+
+	<!-- 프로필 사진 업데이트 -->
+	<update id="profileImgUpdate" parameterType="hashMap">
+		update profile_img
+		set
+		org_file_name = #{org_file_name},
+		store_file_name= #{store_file_name},
+		file_size= #{file_size},
+		file_type= #{file_type}
+		where member_num = #{member_num}
+	</update>
+
+	<!-- 프로필 상태메세지 업데이트 -->
+	<update id="profileMessageUpdate" parameterType="hashMap">
+		update profile
+		set
+		message = #{message}
+		where member_num = #{member_num}
+	</update>
+
+	<select id="getMap" parameterType="int" resultType="mapCmd">
+		select
+		marker_lat,
+		marker_lng
+		from map
+		where member_num = #{memberNum}
+	</select>
+
+	<select id="getArticleCount" resultType="int">
+		select count(*) from
+		BOARD where member_num = #{memberNum}
+	</select>
+
+	<select id="getBoardList" parameterType="pageCmd" resultType="boardListVO">
+	<![CDATA[
+		select * from (select rownum rnum, board.* from
+		(select
+			A.board_num,
+			A.tripdate,
+			A.td_like_cnt,
+			B.store_file_name AS board_file_name,
+			C.nickname,
+			D.store_file_name AS profile_file_name
+		from board A
+			inner join board_img B
+				on A.board_num = B.board_num and main_img = 1
+			inner join member C
+				on C.member_num = A.member_num
+			inner join PROFILE_IMG D
+				on D.member_num = A.member_num
+		where A.member_num = #{memberNum} order by tripdate desc) board)
+		where rnum >= #{first} and rnum <= #{second}
+	]]>
+	</select>
+	
+	<select id="getTagList" parameterType="int" resultType="String">
+		select tag
+		from tag where board_num = #{boardNum} order by tag_num asc
+	</select>
+	
+</mapper>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.tripdiary.TMdao.writeDao">
+ 	<!-- 게시글 DB 저장 -->
+ 	<insert id="write" parameterType="writeCmd"
+		useGeneratedKeys="true" keyProperty="boardNum">
+		<selectKey keyProperty="boardNum" resultType="int" order="BEFORE">
+			select
+			board_seq.nextval from dual
+		</selectKey>
+		insert into "BOARD"
+		(board_num, member_num, place, content, regdate, tripdate, td_like_cnt)
+		values
+		(#{boardNum}, #{memberNum}, #{place}, #{content}, SYSDATE, #{tripdate}, 0)
+	</insert>
+	
+	<!-- 첨부파일 DB 저장 -->
+	<insert id="insertFile" parameterType="hashMap">
+		insert into board_img(
+		board_img_num,
+		board_num,
+		org_file_name,
+		store_file_name,
+		file_size,
+		file_type,
+		main_img
+		)
+		values(
+		board_img_seq.nextval,
+		#{board_num},
+		#{org_file_name},
+		#{store_file_name},
+		#{file_size},
+		#{file_type},
+		#{main_img}
+		)
+	</insert>
+	
+	<!-- 태그 DB저장 -->
+	<insert id="insertTag" parameterType="hashMap">
+		insert into tag(
+		tag_num,
+		board_num,
+		tag
+		)
+		values(
+		tag_seq.nextval,
+		#{boardNum},
+		#{tag}
+		)
+	</insert>
+	
+	<!-- 맵 위도 경도 DB저장 -->
+	<insert id="insertMap" parameterType="mapCmd">
+		insert into map(
+		map_num,
+		board_num,
+		member_num,
+		marker_lat,
+		marker_lng
+		)
+		values(
+		map_seq.nextval,
+		#{boardNum},
+		#{memberNum},
+		#{markerLat},
+		#{markerLng}
+		)
+	</insert>
+	
+	<!-- 회원 활동 글작성 카운트 +1 -->
+	<update id="cntUp" parameterType="int">
+		update member_act_cnt 
+		set board_write_cnt = board_write_cnt+ 1 
+		where member_num = #{memberNum}
+	</update>
+	
+	<!-- 게시글 정보 가져오기 -->
+	<select id="getBoard" parameterType="int" resultType="writeCmd">
+		select *
+		from board where board_num = #{boardNum}
+	</select>
+	
+	<!-- 태그 정보 가져오기 -->
+	<select id="getTag" parameterType="int" resultType="String">
+		select 
+		tag
+		from tag where board_num = #{boardNum} order by tag_num asc
+	</select>
+	
+	<!-- 글 수정하기 -->
+	<update id="writeUpdate" parameterType="writeCmd">
+		update board
+		set 
+			tripdate = #{tripdate},
+			place= #{place},
+			content= #{content}
+		where board_num = #{boardNum}
+	</update>
+	
+	<delete id="deleteTag" parameterType="int"> 
+		delete from tag where board_num = #{boardNum} 
+	</delete>
+
+	<delete id="deleteThumbnail" parameterType="int"> 
+		delete from board_img where board_num = #{boardNum} and main_img = 1
+	</delete>
+	
+	<delete id="deleteFile" parameterType="int"> 
+		delete from board_img where board_num = #{boardNum} and main_img = 0
+	</delete>
+	
+	<select id="getMainImg" parameterType="int" resultType="String">
+		select
+		store_file_name
+		from board_img
+		where board_num = #{boardNum} and main_img = 1
+	</select>
+	
+	<select id="getSubImg" parameterType="int" resultType="String">
+		select
+		store_file_name
+		from board_img
+		where board_num = #{boardNum} and main_img = 0
+	</select>
+	
+ </mapper>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminMapper">
+
+	<select id="reportCnt" parameterType="reportCntVo" resultType="reportCntVo">
+		select
+		    A.id,
+		    A.member_num,
+		    B.report_com_cnt,
+		    B.report_cnt,
+		    B.warning_cnt
+		from
+		    member A,
+		    report_cnt B
+		where
+		    A.member_num = B.member_num
+		    <if test='id!=null and !id.equals("")'>
+				and A.id = #{id}
+			</if>
+		order by
+			A.regdate
+	</select>		
+	
+	<delete id="adminMemberDelete" parameterType="int">
+		delete from member where member_num = #{memberNum}
+	</delete>
+	
+	<select id="delMemberSelectList" resultType="delMemberVo">
+		select * from del_member
+	</select>
+
+	<select id="delMemberSelectOne" parameterType="int" resultType="delMemberVo">
+		select * from del_member where member_num = #{memberNum}
+	</select>
+	
+	<insert id="delMemberInsert" parameterType="memberVo_HS">
+		insert into del_member values(del_member_seq.nextval, #{memberNum}, #{id}, 1, sysdate)
+	</insert>
+	
+	<update id="delMemberUpdate" parameterType="int">
+		update del_member set timeover = 1 where member_num = #{memberNum}
+	</update>
+	
+	<select id="getMemberVo" parameterType="int" resultType="memberVo_HS">
+		select * from member where member_num = #{memberNum}
+	</select>
+	
+	<select id="reportBoardList" resultType="reportBoardVo">
+		select * from report_board
+	</select>
+
+	<select id="reportBoardOne" parameterType="int" resultType="reportBoardVo">
+		select * from report_board where report_board_num = #{reportBoardNum}
+	</select>
+	
+	<delete id="reportBoardDelete" parameterType="reportBoardVo">
+		delete from report_board where report_board_num = #{reportBoardNum}
+	</delete>
+	
+	<delete id="mainBoardDelete" parameterType="reportBoardVo">
+		delete from board where board_num = #{boardNum}
+	</delete>
+	
+	<insert id="reportMemberInsert" parameterType="reportBoardVo">
+		insert into report_member values(report_member_seq.nextval, #{memberNumReceive}, #{reportType})
+	</insert>
+	
+	<update id="reportCntSend" parameterType="int">
+		update report_cnt set report_com_cnt = report_com_cnt+1 where member_num = #{memberNumSend}
+	</update>
+
+	<update id="reportCntReceive" parameterType="int">
+		update report_cnt set warning_cnt = warning_cnt+1 where member_num = #{memberNumReceive}
+	</update>
+	
+	<select id="reportReplyList" resultType="reportReplyVo">
+		select * from report_reply
+	</select>
+
+	<select id="reportReplyOne" parameterType="int" resultType="reportReplyVo">
+		select * from report_reply where report_reply_num = #{reportReplyNum}
+	</select>
+	
+	<delete id="reportReplyDelete" parameterType="reportReplyVo">
+		delete from report_reply where report_reply_num = #{reportReplyNum}
+	</delete>
+	
+	<delete id="mainReplyDelete" parameterType="reportReplyVo">
+		delete from reply where reply_num = #{replyNum}
+	</delete>
+	
+	<!-- 똑같은 코드임 수정해야됨 -->
+	<insert id="reportMemberInsertReply" parameterType="reportReplyVo">
+		insert into report_member values(report_member_seq.nextval, #{memberNumReceive}, #{reportType})
+	</insert>
+	
+</mapper>

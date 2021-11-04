@@ -1,0 +1,33 @@
+.ulWrite {
+		padding: 16px 0;
+		list-style: none;
+		margin-bottom: 0px;
+	}
+	
+	.ulWrite li {
+		display: inline-block;
+		margin: 0 5px;
+		margin-top: 5px;
+		font-size: 14px;
+		letter-spacing: -.5px;
+	}
+	
+	ul li.tag-item {
+		padding: 4px 8px;
+		background-color: #6c757d;
+		border: 1px solid #6c757d;
+		border-radius: 0.25rem;
+		color: #fff;
+	}
+	
+	.tag-item:hover {
+		background-color: #52575a;
+		color: #fff;
+	}
+	
+	.del-btn {
+		font-size: 12px;
+		font-weight: bold;
+		cursor: pointer;
+		margin-left: 8px;
+	}

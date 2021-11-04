@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.project.regist.mappers.member.memberMapper">
+
+ <select id="select" resultType="memberVo">
+        SELECT ID, PASSWORD ,NICKNAME, EMAIL,GENDER, ADMIN FROM MEMBER
+    </select>
+
+<!-- 회원가입 -->
+ <insert id="regist">
+        INSERT INTO MEMBER (
+            ID, PASSWORD, NICKNAME, EMAIL, BIRTH_YEAR, BIRTH, GENDER) 
+            VALUES (
+            #{id}, #{password}, #{nickname}, #{email}, #{birthyear}, #{birth}, #{gender}
+        )
+        
+        
+    </insert> 
+
+
+<!-- 멤버활동 테이블 데이터 삽입 -->
+<insert id="registAdd" parameterType="memberVo">
+
+<selectKey resultType ="int" keyProperty="memberNum" order ="BEFORE">
+	SELECT MAX(MEMBER_NUM) FROM MEMBER
+</selectKey>
+
+        INSERT INTO MEMBER_ACT_CNT (MEMBER_NUM) 
+            VALUES ( #{memberNum} )
+        
+    </insert> 
+
+<!-- 회원 프로필 이미지 테이블 데이터 삽입 -->
+<insert id="registAddP" parameterType="memberVo">
+
+<selectKey resultType ="int" keyProperty="memberNum" order ="BEFORE">
+	SELECT MAX(MEMBER_NUM) FROM MEMBER
+</selectKey>
+
+        INSERT INTO PROFILE_IMG (MEMBER_NUM) 
+            VALUES ( #{memberNum} )
+        
+    </insert> 
+
+
+
+
+<!-- 인터셉터 후 세션에 등록 -->
+    <select id="login" resultType="memberVo">
+    
+        SELECT * FROM MEMBER WHERE ID = #{id} 
+        <!--  AND PASSWORD = #{password}
+    -->
+    </select>
+
+<!-- 회원탈퇴 테이블 저장 여부 확인 -->
+	<select id = "resignchk" resultType ="resignVo">
+	SELECT * FROM DEL_MEMBER WHERE MEMBER_NUM = #{memberNum}
+	</select>
+
+
+<!-- 아이디 중복 확인  -->
+<select id="idchk" resultType="int">
+	SELECT COUNT(*) FROM MEMBER WHERE ID = #{id}
+</select>
+
+<!-- 닉네임 중복 확인  -->
+<select id="nickchk" resultType="int">
+	SELECT COUNT(*) FROM MEMBER WHERE NICKNAME = #{nickname}
+</select>
+
+<!-- 이메일 중복 확인 -->
+<select id ="emailchk" resultType = "int">
+	SELECT COUNT(*) FROM MEMBER WHERE EMAIL = #{email}
+</select>
+ 
+<!-- 회원정보 수정 -->
+<update id="InfoUpdate">
+        UPDATE MEMBER
+        SET
+            NICKNAME = #{nickname}  
+            , BIRTH_YEAR = #{birthyear}
+        	, BIRTH = #{birth}
+        WHERE ID = #{id}
+    </update>
+
+<!-- 비밀번호 수정 -->
+<update id="pwUpdate">
+	UPDATE MEMBER
+	SET
+		PASSWORD = #{password}
+		
+		WHERE ID = #{id}
+</update>
+
+
+<!-- 회원탈퇴 신청 -->
+<insert id="resign">
+        INSERT INTO DEL_MEMBER (MEMBER_NUM, MEMBER_ID) 
+            VALUES (
+            #{memberNum}, #{id}
+        )
+    </insert> 
+
+
+<!-- 회원탈퇴 철회 신청 -->
+<delete id ="resignCancel">
+
+DELETE FROM DEL_MEMBER
+WHERE MEMBER_NUM = #{memberNum} AND MEMBER_ID = #{id}
+
+
+</delete>
+
+<!-- 아이디찾기 -->
+<select id="findId" resultType="memberVo">
+
+
+	SELECT * FROM MEMBER WHERE EMAIL = #{email}
+	
+	</select>
+
+
+<!-- 비밀번호 찾기 -->
+<select id = "findPw" resultType="memberVo">
+	
+	SELECT * FROM MEMBER WHERE EMAIL = #{email} AND ID = #{id}
+
+</select>
+
+
+</mapper>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>	
+	<settings>
+		<setting name="cacheEnabled" value="false"/>
+		<setting name="useGeneratedKeys" value="false"/>
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+        <setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
+	
+	<typeAliases>
+		<!-- 태민파트 -->
+		<typeAlias alias="writeCmd" type="com.tripdiary.TMvo.WriteCmd"/>
+		<typeAlias alias="emblemCmd" type="com.tripdiary.TMvo.EmblemCmd"/>
+		<typeAlias alias="haveEmblemCmd" type="com.tripdiary.TMvo.HaveEmblemCmd"/>
+		<typeAlias alias="memberActCmd" type="com.tripdiary.TMvo.MemberActCmd"/>
+		<typeAlias alias="getEmblemCmd" type="com.tripdiary.TMvo.GetEmblemCmd"/>
+		<typeAlias alias="profileCmd" type="com.tripdiary.TMvo.ProfileCmd"/>
+		<typeAlias alias="tagCmd" type="com.tripdiary.TMvo.TagCmd"/>
+		<typeAlias alias="mapCmd" type="com.tripdiary.TMvo.MapCmd"/>
+		<typeAlias alias="pageCmd" type="com.tripdiary.TMvo.PageCmd"/>
+		<typeAlias alias="boardListVO" type="com.tripdiary.TMvo.BoardListVO"/>
+		
+		
+		<!-- 화석파트 -->
+		<typeAlias alias="mainBoardListVo" type="com.tripdiary.HSvo.MainBoardListVo"/>
+		<typeAlias alias="tagVo" type="com.tripdiary.HSvo.TagVo"/>
+		<typeAlias alias="pickVo" type="com.tripdiary.HSvo.PickVo"/>
+		<typeAlias alias="memberVo_hs" type="com.tripdiary.HSvo.MemberVo"/>
+		<typeAlias alias="profileImgVo" type="com.tripdiary.HSvo.ProfileImgVo"/>
+		<typeAlias alias="pageVo" type="com.tripdiary.HSvo.PageVo"/>
+		<typeAlias alias="reportCntVo" type="com.tripdiary.HSvo.ReportCntVo"/>
+		<typeAlias alias="delMemberVo" type="com.tripdiary.HSvo.DelMemberVo"/>
+		<typeAlias alias="reportBoardVo" type="com.tripdiary.HSvo.ReportBoardVo"/>
+		<typeAlias alias="reportReplyVo" type="com.tripdiary.HSvo.ReportReplyVo"/>
+		
+		<!-- 민혁파트 -->
+        <typeAlias type="org.project.regist.vo.MemberVo" alias="memberVo"/>
+        <typeAlias type="org.project.regist.vo.ResignVo" alias="resignVo"/>
+        
+	</typeAliases>
+ 	
+</configuration>
+

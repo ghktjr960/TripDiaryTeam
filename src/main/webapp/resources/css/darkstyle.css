@@ -1,0 +1,226 @@
+.header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: auto;
+	color: white;
+	background-color: white;
+	font-weight: bold;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 5px;
+	padding-left: 5%;
+	padding-right: 5%;
+}
+body{
+	background-color: #1f2022;
+	color: white;
+}
+.modal-content{
+	background-color: #1f2022;
+}
+.bg-light {
+	background-color: #26272a !important;
+}
+.page-link{
+	background-color: #1f2022;
+	color: white;
+}
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #464c54;
+    border-color: #464c54;
+}
+.navbar-light .navbar-nav .nav-link{
+	color: white
+}
+
+
+
+.header2 {
+	text-align: center;
+	margin: auto;
+	width: 1044px;
+}
+a { 
+	text-decoration:none;
+	color: #737373;
+}
+a:hover { 
+	color: #737373;
+}
+
+.logo {
+	margin-right: 2%;
+}
+
+.navbar-expand-lg .navbar-nav .nav-link {
+	padding-right: 1.5rem;
+	padding-left: 1.5rem;
+}
+
+#fixedbtn {
+	position: fixed;
+	right: 3%;
+	bottom: 0px;
+	z-index: 1000
+}
+
+#fixedbtn2 {
+	position: fixed;
+	right: 9%;
+	bottom: 0px;
+	z-index: 1000
+}
+
+#fixedbtn3 {
+	position: fixed;
+	right: 15%;
+	bottom: 0px;
+	z-index: 1000
+}
+
+#fixedicon {
+	background-color: black;
+}
+
+#fixedicon2 {
+	width: 70px;
+	position: fixed;
+	left: 5%;
+	bottom: 0px;
+	z-index: 1000
+}
+
+.icon {
+	transition: all 0.2s linear;
+}
+
+.icon:hover {
+	transform: scale(1.4);
+}
+
+.container {
+	text-align: center;
+	margin-top: 130px;
+}
+
+.form-select {
+	display: inline;
+	width: auto;
+}
+
+.writeForm {
+	margin: auto;
+	width: 55%;
+}
+
+.writeSelect {
+	border-bottom: 1px solid #ced4da;
+	text-align: left;
+}
+
+#writeContent {
+	height: 200px;
+}
+
+.writeButton {
+	margin: auto;
+	text-align: center;
+}
+
+.mainImg {
+	border: 1px solid #ced4da;
+	display: -webkit-inline-box;
+	width: 300px;
+	height: 300px;
+}
+
+.subImg {
+	border: 1px solid #ced4da;
+	display: -webkit-inline-box;
+	width: 300px;
+	height: 300px;
+}
+
+.imgBtn {
+	display: block;
+	margin: auto;
+}
+
+.imgBtn2 {
+	border: 1px solid #ced4da;
+	display: -webkit-inline-box;
+	width: 300px;
+	height: 300px;
+	display: -webkit-inline-box;
+	margin: auto;
+}
+
+.diary-top {
+	border-bottom: 1px solid #6c757d;
+}
+.image-profile{
+	width: 240px;
+	height: 240px; 
+	object-fit: cover;
+}
+.board-thumbnail{
+	width: 300px;
+	height: 300px; 
+	object-fit: cover;
+}
+.board-file{
+	width: 150px;
+	height: 150px; 
+	object-fit: cover;
+}
+
+
+/* 게시물 보여주는 css */
+.board-bottom{
+	text-align: left;	
+}
+.diary-board-container{
+		padding: 3%;
+}
+.image-thumbnail{
+	width: 338px;
+	height: 338px; 
+	object-fit: cover;
+}
+.icon2 {
+	transition: all 0.1s linear;
+}
+
+.icon2:hover {
+	transform: scale(1.05);
+}
+.pick-img{
+	margin-top: 4px;
+}
+/* 여기 까지 */
+
+
+.diaryCalendar{
+	width: 72%; 
+	margin: auto;
+}
+@media screen and (max-width: 1400px) {
+	.writeForm {
+		margin: auto;
+		width: 80%;
+	}
+	.diary-board-container{
+		padding: 5%;
+	}
+	.writeForm{
+		width: 100%;
+	}
+	.diaryCalendar{
+	width: 100%; 
+	}
+}

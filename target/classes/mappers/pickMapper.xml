@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pickMapper">
+ 	
+ 	<!-- 찜하기 눌렀을 때 테이블에 존재하는지 확인하는 쿼리 -->
+ 	<select id="pickCheck" resultType="pickVo">
+ 		select * from pick where pick_num = #{pickNum} and member_num = #{memberNum}
+ 	</select>
+ 	
+ 	<!-- 찜하기 눌렀을 때 테이블에 존재하지 않을 경우 insert -->
+ 	<insert id="pickInsert">
+ 		insert into pick values (pick_seq.nextval, #{memberNum}, #{boardNum}, sysdate)
+ 	</insert>
+ 	
+ 	<!-- 찜하기 눌렀을 때 테이블에 존재할 경우 delete -->
+ 	<delete id="pickDelete">
+ 		delete from pick where pick_num = #{pickNum} and member_num = #{memberNum} and board_num = #{boardNum}
+ 	</delete>
+ 	
+ 	<!-- pick눌렀을 때 member_act_cnt 업데이트-->
+ 	<update id="memberActCntPick">
+ 		update member_act_cnt set PICK_PRESS_CNT =
+ 		<choose>
+ 			<when test='updateType.equals("insert")'>
+		 		 PICK_PRESS_CNT+1 where member_num = #{memberNum}
+ 			</when>
+ 			<when test='updateType.equals("delete")'>
+		 		 PICK_PRESS_CNT-1 where member_num = #{memberNum}
+ 			</when>
+ 		</choose>
+ 	</update>
+ 	
+ 	<!-- 찜한 게시글 불러오기 -->
+ 	<select id="pickPageList" parameterType="pageVo" resultType="mainBoardListVo">
+ 		select 
+ 			B.RNUM,
+            B.board_num, 
+ 			B.member_num, 
+ 			B.place, 
+ 			B.content, 
+ 			B.regdate, 
+ 			B.tripdate, 
+ 			B.td_like_cnt, 
+ 			B.pick_num,
+ 			C.org_file_name as main_org_file_name, 
+ 			C.store_file_name as main_store_file_name,
+ 			C.file_type as main_file_type, 
+ 			D.nickname,
+ 			E.org_file_name as profile_org_file_name, 
+ 			E.store_file_name as profile_store_file_name,
+ 			E.file_type as profile_file_type
+		from 
+            (select 
+                ROWNUM as RNUM,
+                A.board_num, 
+                A.member_num, 
+                A.place, 
+                A.content, 
+                A.regdate, 
+                A.tripdate, 
+                A.td_like_cnt,
+                A.pick_num
+            from 
+                (select
+                    BOARD.board_num, 
+                    BOARD.member_num, 
+                    BOARD.place, 
+                    BOARD.content, 
+                    BOARD.regdate, 
+                    BOARD.tripdate, 
+                    BOARD.td_like_cnt,
+                    PICK.pick_num
+                from
+                    BOARD
+                    <if test='tag!=null and !tag.equals("")'>
+					,(select distinct board_num from tag where tag like '%'||#{tag}||'%') TAG
+					</if>
+                    ,(select 
+                        board_num as pick_board_num, 
+                        member_num as pick_member_num,
+                        pick_num
+                    from 
+                        pick 
+                    where 
+                        member_num = #{memberNum} 
+                    order by 
+                        board_num
+                    ) PICK
+                where
+                	<![CDATA[BOARD.board_num > 0]]>
+                	<if test='place!=null and !place.equals("")'>
+						and BOARD.place = #{place}
+					</if>
+					<if test='tag!=null and !tag.equals("")'>
+						and TAG.board_num = PICK.pick_board_num
+					</if>
+						and BOARD.board_num = PICK.pick_board_num
+                order by
+                    <choose>
+                        <when test='sort.equals("regdate")'>
+                            BOARD.regdate desc, BOARD.board_num desc
+                        </when>
+                        <when test='sort.equals("tripdate")'>
+                            BOARD.tripdate desc, BOARD.regdate desc, BOARD.board_num desc
+                        </when>
+                        <when test='sort.equals("like")'>
+                            BOARD.td_like_cnt desc, BOARD.regdate desc, BOARD.board_num desc
+                        </when>
+                    </choose>  
+                )A
+            where 
+                <![CDATA[ROWNUM <= #{endRnum}]]>
+			)B,
+            BOARD_IMG C, 
+			MEMBER D,
+			PROFILE_IMG E
+		where 
+			B.board_num = C.board_num 
+			and C.main_img = 1 
+			and B.member_num = D.member_num
+			and B.member_num = E.member_num
+            <![CDATA[and B.rnum >= #{startRnum}]]>
+        order by
+            <choose>
+                <when test='sort.equals("regdate")'>
+                    B.regdate desc, B.board_num desc
+                </when>
+                <when test='sort.equals("tripdate")'>
+                    B.tripdate desc, B.regdate desc, B.board_num desc
+                </when>
+                <when test='sort.equals("like")'>
+                    B.td_like_cnt desc, B.regdate desc, B.board_num desc
+                </when>
+            </choose>  
+ 	</select>
+ 	
+ 	<!-- 태그 가져오기 -->
+ 	<select id="pickPageTagList" resultType="tagVo">
+ 		select * from tag order by board_num desc
+ 	</select>
+ 	
+ 	<!-- 프로필정보 가져오기 -->
+ 	<select id="profileImg" parameterType="Integer" resultType="profileImgVo">
+ 		select * from profile_img where member_num = #{memberNum}
+ 	</select>
+ 	
+ 	<!-- 태그검색하는 정보가져오기 -->
+ 	<select id="tagSearch" parameterType="pageVo" resultType="tagVo">
+ 		select 
+ 			* 
+ 		from
+			tag A,
+			(select 
+				board_num 
+			 from 
+			 	tag 
+			 where 
+			 	tag LIKE '%'||#{tag}||'%'
+			 )B
+		where
+			A.board_num = B.board_num
+ 	</select>
+ 	
+ 	<!-- 게시글 전체 갯수 가져오기 -->
+	<select id="listCount" parameterType="pageVo" resultType="int">
+        select 
+            count(A.board_num)
+        from 
+            (select
+                BOARD.board_num, 
+                BOARD.member_num, 
+                BOARD.place, 
+                BOARD.content, 
+                BOARD.regdate, 
+                BOARD.tripdate, 
+                BOARD.td_like_cnt
+            from
+                BOARD
+                ,(select 
+                    board_num as pick_board_num, 
+                    member_num as pick_member_num
+                from 
+                    pick 
+                where 
+                    member_num = 1 
+                order by 
+                    board_num
+                )PICK
+                <if test='tag!=null and !tag.equals("")'>
+                ,(select 
+                    distinct board_num as tag_board_num
+                  from
+                    tag
+                  where
+                    tag like '%'||#{tag}||'%'
+                )TAG
+                </if>
+            where
+                BOARD.board_num > 0
+                and BOARD.board_num = PICK.pick_board_num     
+                <if test='place!=null and !place.equals("")'>
+	            and BOARD.place = #{place}
+		        </if>
+                <if test='tag!=null and !tag.equals("")'>
+                and BOARD.board_num = TAG.tag_board_num
+                </if>
+            )A
+        where 
+           A.board_num>0
+	</select>
+ 	
+ 	
+</mapper>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="signInOutMapper">
+	
+ 	<!-- 세션 확인용 쿼리 삭제해야됨 -->
+ 	<select id="memberloginTest" parameterType="String" resultType="memberVo">
+ 		select * from member where id = #{id}
+ 	</select>
+ 	
+</mapper>

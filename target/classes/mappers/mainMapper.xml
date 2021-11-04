@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mainMapper">
+	
+	<!-- 
+		정렬하는거 다시 확인하고 DB에서 가져올 때 이름 맞춰주는거 확인 두 가지 동작안되고 있음
+		1.정렬값을 MainBoardListVo에 넣어주고 돌려보기
+	 	2.이름 맞추기 VO = DB
+	 -->
+	
+	<!-- 게시글 가져오기 페이징 처리 안한 쿼리 봉인
+ 	<select id="mainBoardList" parameterType="pageVo" resultType="mainBoardListVo">
+	-->
+ 		<!-- order by a.regdate desc, a.board_num desc : 기본 정렬 => 작성일 순, 게시글 순 
+ 		select 
+ 			A.board_num, 
+ 			A.member_num, 
+ 			A.place, 
+ 			A.content, 
+ 			A.regdate, 
+ 			A.tripdate, 
+ 			A.td_like_cnt, 
+ 			B.org_file_name as main_org_file_name, 
+ 			B.store_file_name as main_store_file_name,
+ 			B.file_type as main_file_type, 
+ 			C.nickname,
+ 			D.org_file_name as profile_org_file_name, 
+ 			D.store_file_name as profile_store_file_name,
+ 			D.file_type as profile_file_type
+		from 
+			BOARD A, 
+			BOARD_IMG B, 
+			MEMBER C,
+			PROFILE_IMG D
+			<if test='tag!=null and !tag.equals("")'>
+				,(select distinct board_num from tag where tag like '%'||#{tag}||'%') E
+			</if>
+		where 
+			A.board_num = B.board_num 
+			and B.main_img = 1 
+			and A.member_num = C.member_num
+			and A.member_num = D.member_num
+			<if test='place!=null and !place.equals("")'>
+				and A.place = #{place}
+			</if>
+			<if test='tag!=null and !tag.equals("")'>
+				and A.board_num = E.board_num
+			</if>
+		order by
+		<choose>
+ 			<when test='sort.equals("regdate")'>
+ 				a.regdate desc, a.board_num desc
+ 			</when>
+ 			<when test='sort.equals("tripdate")'>
+	 			a.tripdate desc, a.regdate desc, a.board_num desc
+ 			</when>
+ 			<when test='sort.equals("like")'>
+ 				a.td_like_cnt desc, a.regdate desc, a.board_num desc
+ 			</when>
+ 			<otherwise></otherwise>
+ 		</choose>
+ 	</select>
+ 		-->
+ 	
+ 	<select id="mainBoardList" parameterType="pageVo" resultType="mainBoardListVo">
+ 		<!-- order by a.regdate desc, a.board_num desc : 기본 정렬 => 작성일 순, 게시글 순 -->
+ 		select 
+ 			B.RNUM,
+            B.board_num, 
+ 			B.member_num, 
+ 			B.place, 
+ 			B.content, 
+ 			B.regdate, 
+ 			B.tripdate, 
+ 			B.td_like_cnt, 
+ 			C.org_file_name as main_org_file_name, 
+ 			C.store_file_name as main_store_file_name,
+ 			C.file_type as main_file_type, 
+ 			D.nickname,
+ 			E.org_file_name as profile_org_file_name, 
+ 			E.store_file_name as profile_store_file_name,
+ 			E.file_type as profile_file_type
+		from 
+            (select 
+                ROWNUM as RNUM,
+                A.board_num, 
+                A.member_num, 
+                A.place, 
+                A.content, 
+                A.regdate, 
+                A.tripdate, 
+                A.td_like_cnt
+            from 
+                (select
+                    BOARD.board_num, 
+                    BOARD.member_num, 
+                    BOARD.place, 
+                    BOARD.content, 
+                    BOARD.regdate, 
+                    BOARD.tripdate, 
+                    BOARD.td_like_cnt
+                from
+                    BOARD
+                    <if test='tag!=null and !tag.equals("")'>
+					,(select distinct board_num from tag where tag like '%'||#{tag}||'%') TAG
+					</if>
+                where
+                	<![CDATA[BOARD.board_num > 0]]>
+                	<if test='place!=null and !place.equals("")'>
+					and BOARD.place = #{place}
+					</if>
+					<if test='tag!=null and !tag.equals("")'>
+					and BOARD.board_num = TAG.board_num
+					</if>
+                order by
+                    <choose>
+                        <when test='sort.equals("regdate")'>
+                            BOARD.regdate desc, BOARD.board_num desc
+                        </when>
+                        <when test='sort.equals("tripdate")'>
+                            BOARD.tripdate desc, BOARD.regdate desc, BOARD.board_num desc
+                        </when>
+                        <when test='sort.equals("like")'>
+                            BOARD.td_like_cnt desc, BOARD.regdate desc, BOARD.board_num desc
+                        </when>
+                    </choose>
+                )A
+            where 
+                <![CDATA[ROWNUM <= #{endRnum}]]>
+			)B,
+            BOARD_IMG C, 
+			MEMBER D,
+			PROFILE_IMG E
+		where 
+			B.board_num = C.board_num 
+			and C.main_img = 1 
+			and B.member_num = D.member_num
+			and B.member_num = E.member_num
+            <![CDATA[and B.rnum >= #{startRnum}]]>
+        order by
+			<choose>
+			    <when test='sort.equals("regdate")'>
+			        B.regdate desc, B.board_num desc
+			    </when>
+			    <when test='sort.equals("tripdate")'>
+			        B.tripdate desc, B.regdate desc, B.board_num desc
+			    </when>
+			    <when test='sort.equals("like")'>
+			        B.td_like_cnt desc, B.regdate desc, B.board_num desc
+			    </when>
+			</choose>
+ 	</select>
+ 	
+ 	<!-- 찜하기도 가져와야됨 -->
+ 	<select id="mainPickList" parameterType="Integer" resultType="pickVo">
+ 		select * from pick where member_num = #{memberNum}
+ 	</select>
+ 	
+ 	<!-- 태그 가져오기 -->
+ 	<select id="mainTagList" resultType="tagVo">
+ 		select * from tag order by board_num desc
+ 	</select>
+ 	
+ 	<!-- 프로필정보 가져오기 -->
+ 	<select id="profileImg" parameterType="Integer" resultType="profileImgVo">
+ 		select * from profile_img where member_num = #{memberNum}
+ 	</select>
+ 	
+ 	<!-- 태그검색하는 정보가져오기 -->
+ 	<select id="tagSearch" parameterType="pageVo" resultType="tagVo">
+ 		select 
+ 			* 
+ 		from
+			tag A,
+			(select 
+				board_num 
+			 from 
+			 	tag 
+			 where 
+			 	tag LIKE '%'||#{tag}||'%'
+			 )B
+		where
+			A.board_num = B.board_num
+ 	</select>
+ 	
+ 	<!-- 게시글 전체 갯수 가져오기 -->
+	<select id="listCount" parameterType="pageVo" resultType="int">
+		<!-- <![CDATA[select count(BOARD_NUM) from BOARD where BOARD_NUM > 0]]> -->
+		select 
+ 			count(A.board_num)
+		from 
+                (select
+                    BOARD.board_num, 
+                    BOARD.member_num, 
+                    BOARD.place, 
+                    BOARD.content, 
+                    BOARD.regdate, 
+                    BOARD.tripdate, 
+                    BOARD.td_like_cnt
+                from
+                    BOARD
+					<if test='tag!=null and !tag.equals("")'>
+					,(select distinct board_num from tag where tag like '%'||#{tag}||'%') TAG
+                    </if>
+                where
+                	<![CDATA[BOARD.board_num > 0]]>
+                    <if test='place!=null and !place.equals("")'>
+					and BOARD.place = #{place}
+					</if>
+					<if test='tag!=null and !tag.equals("")'>
+					and BOARD.board_num = TAG.board_num
+					</if>            
+                )A
+		where 
+			<![CDATA[A.board_num>0]]>
+	</select>
+ 	
+</mapper>

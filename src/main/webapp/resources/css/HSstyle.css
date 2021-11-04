@@ -1,0 +1,88 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  
+  height: auto;
+  color: white;
+  background-color:white;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  padding-left: 5%;
+  padding-right: 5%;
+
+}
+.header2{
+	text-align:center;
+	margin : auto;
+	width: 1044px;
+}
+.logo{
+	margin-right: 2%;
+}
+.bg-light {
+    background-color: white!important;
+}
+.navbar-expand-lg .navbar-nav .nav-link {
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
+}
+.container{
+	text-align: center;
+}
+#fixedbtn{
+	position:fixed;right:3%;bottom:0px;z-index:1000
+}
+#fixedbtn2{
+	position:fixed;right:9%;bottom:0px;z-index:1000
+}
+#fixedbtn3{
+	position:fixed;right:15%;bottom:0px;z-index:1000
+}
+#fixedicon{
+	background-color:black;
+}
+#fixedicon2{
+	width : 70px;
+	position:fixed;left:5%;bottom:0px;z-index:1000
+}
+.icon {
+  transition: all 0.2s linear;
+}
+.icon:hover{
+  transform: scale(1.4);
+}
+.darkmode{
+	width: 300px;
+	height: 300px;
+	background-color: black;
+}
+.container{
+	margin-top: 7%;
+}
+.board-bottom{
+   text-align: left;   
+}
+.diary-board-container{
+      padding: 3%;
+}
+.image-thumbnail{
+   width: 338px;
+   height: 338px; 
+   object-fit: cover;
+}
+.icon2 {
+   transition: all 0.1s linear;
+}
+
+.icon2:hover {
+   transform: scale(1.05);
+}
+
+a { 
+	text-decoration: none; 
+}
