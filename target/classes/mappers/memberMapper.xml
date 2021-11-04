@@ -12,9 +12,9 @@
 <!-- 회원가입 -->
  <insert id="regist">
         INSERT INTO MEMBER (
-            ID, PASSWORD, NICKNAME, EMAIL, BIRTH_YEAR, BIRTH, GENDER) 
+            member_num,ID, PASSWORD, NICKNAME, EMAIL, BIRTH_YEAR, BIRTH, GENDER) 
             VALUES (
-            #{id}, #{password}, #{nickname}, #{email}, #{birthyear}, #{birth}, #{gender}
+            member_seq.nextval, #{id}, #{password}, #{nickname}, #{email}, #{birthyear}, #{birth}, #{gender}
         )
         
         
@@ -28,8 +28,8 @@
 	SELECT MAX(MEMBER_NUM) FROM MEMBER
 </selectKey>
 
-        INSERT INTO MEMBER_ACT_CNT (MEMBER_NUM) 
-            VALUES ( #{memberNum} )
+        INSERT INTO MEMBER_ACT_CNT (member_act_cnt_num, MEMBER_NUM) 
+            VALUES (member_act_cnt_seq.nextval, #{memberNum} )
         
     </insert> 
 

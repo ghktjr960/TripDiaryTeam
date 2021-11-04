@@ -33,38 +33,34 @@ public class WriteController {
 	
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public String writeForm(HttpSession session, Model model) {
-		if(session.getAttribute("id") == null) {
-			model.addAttribute("msg", "�α��� �� �̿����ּ���.");
-			model.addAttribute("url", "/signIn");
-			return "/return/alert";
-		}
+
 		return "/write";
 	}
 	
     @RequestMapping(value="/write", method=RequestMethod.POST) 
     public String write(WriteCmd writeCmd,TagCmd tagCmd, MapCmd mapCmd, Model model, MultipartHttpServletRequest mpRequest) throws Exception {
-    	//��ǥ ������ ���ٸ� ���û
+    	//占쏙옙표 占쏙옙占쏙옙占쏙옙 占쏙옙占쌕몌옙 占쏙옙占시�
     	if(mpRequest.getFile("thumbnail").getOriginalFilename().equals("")) {
-    		model.addAttribute("msg", "��ǥ ������ ������ּ���.");
+    		model.addAttribute("msg", "占쏙옙표 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙玲占쏙옙占�.");
     		return "/return/historyback";
     	}
-    	// ���ε�� �̹��� ���ε� ���� �˻�
+    	// 占쏙옙占싸듸옙占� 占싱뱄옙占쏙옙 占쏙옙占싸듸옙 占쏙옙占쏙옙 占싯삼옙
     	if(!mpRequest.getFile("thumbnail").getOriginalFilename().equals("")) {
-        	// ����� Ȯ���� �� �뷮 �˻�
+        	// 占쏙옙占쏙옙占� 확占쏙옙占쏙옙 占쏙옙 占쎈량 占싯삼옙
         	if(thumbnailCheck.check(mpRequest) == false) {
-        		model.addAttribute("msg", "�̹������ϸ� ���ε� �����մϴ�. (�ִ� 5MB)");
+        		model.addAttribute("msg", "占싱뱄옙占쏙옙占쏙옙占싹몌옙 占쏙옙占싸듸옙 占쏙옙占쏙옙占쌌니댐옙. (占쌍댐옙 5MB)");
         		return "/return/historyback";
         	}
     	}
     	if(!mpRequest.getFiles("file").get(0).getOriginalFilename().equals("")){
-        	// �߰� �̹������� Ȯ���� �� �뷮�˻�
+        	// 占쌩곤옙 占싱뱄옙占쏙옙占쏙옙占쏙옙 확占쏙옙占쏙옙 占쏙옙 占쎈량占싯삼옙
            	if(fileCheck.check(mpRequest) == false) {
-        		model.addAttribute("msg", "�̹������ϸ� ���ε� �����մϴ�. (�ִ� 5MB)");
+        		model.addAttribute("msg", "占싱뱄옙占쏙옙占쏙옙占싹몌옙 占쏙옙占싸듸옙 占쏙옙占쏙옙占쌌니댐옙. (占쌍댐옙 5MB)");
         		return "/return/historyback";
         	}
     	}
     	writeService.write(writeCmd,tagCmd,mapCmd, mpRequest);
-    	model.addAttribute("msg", "���ο� �ϱ⸦ �ۼ��Ͽ����ϴ�.");
+    	model.addAttribute("msg", "占쏙옙占싸울옙 占싹기를 占쌜쇽옙占싹울옙占쏙옙占싹댐옙.");
 		model.addAttribute("url", "/diary?memberNum=");
 		return "/return/diaryAlert";
     }
@@ -73,12 +69,12 @@ public class WriteController {
 	@RequestMapping(value = "/writeUpdate", method = RequestMethod.GET)
 	public String writeUpdate(HttpSession session,Model model, int boardNum) {
 		WriteCmd board = writeService.getBoard(boardNum);
-		int memberNum = (int) session.getAttribute("memberNum");
-		//�ۼ������� �˻�
+/*		int memberNum = (int) session.getAttribute("loginMemberNum");
+		//占쌜쇽옙占쏙옙占쏙옙占쏙옙 占싯삼옙
     	if(memberNum != board.getMemberNum()) {
-    		model.addAttribute("msg", "�ۼ��ڸ� ������ �����մϴ�.");
+    		model.addAttribute("msg", "占쌜쇽옙占쌘몌옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쌌니댐옙.");
     		return "/return/historyback";
-    	}
+    	}*/
 		model.addAttribute("mainImg", writeService.getMainImg(boardNum));
 		model.addAttribute("subImg", writeService.getSubImg(boardNum));
 		model.addAttribute("boardNum", boardNum);
@@ -91,24 +87,24 @@ public class WriteController {
     @RequestMapping(value="/writeUpdate", method=RequestMethod.POST) 
     public String writeUpdate(MultipartHttpServletRequest mpRequest, WriteCmd writeCmd,TagCmd tagCmd, Model model) throws Exception {
     	
-    	// ���ε�� �̹��� ���ε� ���� �˻�
+    	// 占쏙옙占싸듸옙占� 占싱뱄옙占쏙옙 占쏙옙占싸듸옙 占쏙옙占쏙옙 占싯삼옙
     	if(!mpRequest.getFile("thumbnail").getOriginalFilename().equals("")) {
-        	// ����� Ȯ���� �� �뷮 �˻�
+        	// 占쏙옙占쏙옙占� 확占쏙옙占쏙옙 占쏙옙 占쎈량 占싯삼옙
         	if(thumbnailCheck.check(mpRequest) == false) {
-        		model.addAttribute("msg", "�̹������ϸ� ���ε� �����մϴ�. (�ִ� 5MB)");
+        		model.addAttribute("msg", "占싱뱄옙占쏙옙占쏙옙占싹몌옙 占쏙옙占싸듸옙 占쏙옙占쏙옙占쌌니댐옙. (占쌍댐옙 5MB)");
         		return "/return/historyback";
         	}
     	}
     	if(!mpRequest.getFiles("file").get(0).getOriginalFilename().equals("")){
-        	// �߰� �̹������� Ȯ���� �� �뷮�˻�
+        	// 占쌩곤옙 占싱뱄옙占쏙옙占쏙옙占쏙옙 확占쏙옙占쏙옙 占쏙옙 占쎈량占싯삼옙
            	if(fileCheck.check(mpRequest) == false) {
-        		model.addAttribute("msg", "�̹������ϸ� ���ε� �����մϴ�. (�ִ� 5MB)");
+        		model.addAttribute("msg", "占싱뱄옙占쏙옙占쏙옙占싹몌옙 占쏙옙占싸듸옙 占쏙옙占쏙옙占쌌니댐옙. (占쌍댐옙 5MB)");
         		return "/return/historyback";
         	}
     	}
     	
     	writeService.writeUpdate(writeCmd,tagCmd, mpRequest);
-    	model.addAttribute("msg", "�ϱ⸦ �����Ͽ����ϴ�.");
+    	model.addAttribute("msg", "占싹기를 占쏙옙占쏙옙占싹울옙占쏙옙占싹댐옙.");
 		model.addAttribute("url", "/diary?memberNum=");
 		return "/return/diaryAlert";
     }

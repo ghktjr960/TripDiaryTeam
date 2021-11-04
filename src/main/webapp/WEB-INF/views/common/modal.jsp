@@ -58,7 +58,7 @@
 	</div>
 </div>
 
-<c:if test="${sessionScope.memberNum eq profile.memberNum }">
+<c:if test="${authInfo.memberNum eq profile.memberNum }">
 	<!-- 프로필 수정 모달 -->
 	<div class="modal fade" id="profileUpdateModal" tabindex="-1"
 		role="dialog" aria-labelledby="modal" aria-hidden="true">
@@ -90,7 +90,7 @@
 								value="<c:out value="${profile.message}" />"
 								class="form-control" maxlength="30"> <input
 								type="hidden" name="memberNum"
-								value="${sessionScope.memberNum }" />
+								value="${loginMemberNum }" />
 						</div>
 						<br>
 						<div class="modal-footer">
