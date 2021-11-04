@@ -47,7 +47,7 @@ function fn_pwUpdate(){
 
 
 <body>
-	<jsp:include page="../${pageContext.request.contextPath}/common/header.jsp" flush="false" />
+	<jsp:include page="common/header.jsp" flush="false" />
 
 	
 	

@@ -61,18 +61,19 @@
 		class="org.project.regist.commons.AuthInterceptor" />
 	<beans:bean id="ResignInterceptor"
 		class="org.project.regist.commons.ResignInterceptor" />
+	
 
-	<interceptors>
+<!-- 	<interceptors>
 
 		<interceptor>
 
 
-			<!-- login 인증이 필요한 URI 들 -->
+			login 인증이 필요한 URI 들
 
 			<mapping path="/write" />
 			<mapping path="/member/**" />
 			<exclude-mapping path="/member/findId" />
-			<!--로그인이 필요한 곳을 인터셉터로 처리 -->
+			로그인이 필요한 곳을 인터셉터로 처리
 			<beans:ref bean="authInterceptor" />
 		</interceptor>
 
@@ -87,9 +88,10 @@
 			<exclude-mapping path="/login/**" />
 			<exclude-mapping path="/signIn" />
 
-			<!-- 회원탈퇴 진행중인지 판단 -->
+			회원탈퇴 진행중인지 판단
 			<beans:ref bean="ResignInterceptor" />
 		</interceptor>
-	</interceptors>
-
+	</interceptors> -->
+	
+		
 </beans:beans>
