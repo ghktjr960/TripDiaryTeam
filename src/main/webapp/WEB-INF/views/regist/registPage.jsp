@@ -8,9 +8,7 @@
 	 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	 	
 <style>
-.center{
-margin: 5px 25px; padding: 20px
-}
+
 
 .valid { color: green; }
 
@@ -457,10 +455,11 @@ $(document).ready(function(){
 <jsp:include page="../common/header.jsp" flush="false" />
 	
 	<div class="container">
-	<h2>회원 정보입력</h2>
-    <form class="center" action = "/regist/registPage" method="post">
-    <div class="registPageForm">
-    
+	
+    <form action = "/regist/registPage" method="post">
+
+    <div class="registPageForm shadow mb-5">
+    	<h2 class="mb-3" style="text-align: center;">회원 정보입력</h2>
         <div class="form-group">
             
             <input type="text" class="form-control" name="id" id = "id" placeholder="ID 작성해주세요.">
@@ -470,12 +469,12 @@ $(document).ready(function(){
         </div>
         <div class="form-group">
             
-            <input type="text" class="form-control" name="password" id = "password" placeholder="암호 입력 " onchange="check_pw()">
+            <input type="password" class="form-control" name="password" id = "password" placeholder="암호 입력 " onchange="check_pw()">
         	<div class="valid">비밀번호를 입력하세요.(최소 8글자에서 13글자 사이)</div>
         </div>
          <div class="form-group">
             
-            <input type="text" class="form-control" name="passwordchk" id ="passwordchk" placeholder="암호 재입력 " onchange="check_pw()">
+            <input type="password" class="form-control" name="passwordchk" id ="passwordchk" placeholder="암호 재입력 " onchange="check_pw()">
         	<div class="pwvalid" id ="pwvalid">비밀번호를 다시 한번 입력하세요. </div>
         	
         </div>
@@ -570,7 +569,7 @@ $(document).ready(function(){
             <!--  div class="birthvalid" id ="birthvalid" >월+일 포맷으로 출력하려고 </div-->    	
        
         </div>
-       		<button type="submit" id = "submit" class="btn btn-primary mt-5 mb-5" style="width: 100%;">등록</button>
+       		<button type="submit" id = "submit" class="btn btn-primary mt-5 mb-3" style="width: 100%;">등록</button>
        </div>	
 
     </form>
