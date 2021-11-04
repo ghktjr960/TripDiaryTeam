@@ -58,9 +58,8 @@ public class DiaryController {
 	
 	@RequestMapping(value = "/profileUpdate", method = RequestMethod.POST)
 	public String profileUpdate(MultipartHttpServletRequest mpRequest, Model model, int memberNum, String message) throws Exception {
-    	// ?��?��메세�??�?? 비어?��?���?? 반환
     	if(message.equals("")) {
-    		model.addAttribute("msg", "?��?��메세�??�?? ?��?��?��주세?��!");
+    		model.addAttribute("msg", "상태메세지를 입력해주세요!");
     		model.addAttribute("url", "/diary?memberNum=");
     		return "/return/diaryAlert";
     	}

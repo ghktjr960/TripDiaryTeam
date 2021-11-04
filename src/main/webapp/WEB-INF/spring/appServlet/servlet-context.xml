@@ -18,11 +18,11 @@
 		up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
 	<resources mapping="/profile/**"
-		location="file:///C:/mp/profile_img/" />
+		location="file:///C:/tripdiary/profile_img/" />
 	<resources mapping="/boardImg/**"
-		location="file:///C:/mp/board_img/" />
+		location="file:///C:/tripdiary/board_img/" />
 	<resources mapping="/thumbnail/**"
-		location="file:///C:/mp/board_thumbnail/" />
+		location="file:///C:/tripdiary/board_thumbnail/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->

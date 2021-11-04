@@ -41,26 +41,26 @@ public class WriteController {
     public String write(WriteCmd writeCmd,TagCmd tagCmd, MapCmd mapCmd, Model model, MultipartHttpServletRequest mpRequest) throws Exception {
     	//占쏙옙표 占쏙옙占쏙옙占쏙옙 占쏙옙占쌕몌옙 占쏙옙占시�
     	if(mpRequest.getFile("thumbnail").getOriginalFilename().equals("")) {
-    		model.addAttribute("msg", "占쏙옙표 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙玲占쏙옙占�.");
+    		model.addAttribute("msg", "대표 사진을 등록해주세요.");
     		return "/return/historyback";
     	}
     	// 占쏙옙占싸듸옙占� 占싱뱄옙占쏙옙 占쏙옙占싸듸옙 占쏙옙占쏙옙 占싯삼옙
     	if(!mpRequest.getFile("thumbnail").getOriginalFilename().equals("")) {
         	// 占쏙옙占쏙옙占� 확占쏙옙占쏙옙 占쏙옙 占쎈량 占싯삼옙
         	if(thumbnailCheck.check(mpRequest) == false) {
-        		model.addAttribute("msg", "占싱뱄옙占쏙옙占쏙옙占싹몌옙 占쏙옙占싸듸옙 占쏙옙占쏙옙占쌌니댐옙. (占쌍댐옙 5MB)");
+        		model.addAttribute("msg", "이미지파일만 업로드 가능합니다. (최대 5MB)");
         		return "/return/historyback";
         	}
     	}
     	if(!mpRequest.getFiles("file").get(0).getOriginalFilename().equals("")){
         	// 占쌩곤옙 占싱뱄옙占쏙옙占쏙옙占쏙옙 확占쏙옙占쏙옙 占쏙옙 占쎈량占싯삼옙
            	if(fileCheck.check(mpRequest) == false) {
-        		model.addAttribute("msg", "占싱뱄옙占쏙옙占쏙옙占싹몌옙 占쏙옙占싸듸옙 占쏙옙占쏙옙占쌌니댐옙. (占쌍댐옙 5MB)");
+        		model.addAttribute("msg", "이미지파일만 업로드 가능합니다. (최대 5MB)");
         		return "/return/historyback";
         	}
     	}
     	writeService.write(writeCmd,tagCmd,mapCmd, mpRequest);
-    	model.addAttribute("msg", "占쏙옙占싸울옙 占싹기를 占쌜쇽옙占싹울옙占쏙옙占싹댐옙.");
+    	model.addAttribute("msg", "새로운 일기를 작성했습니다!");
 		model.addAttribute("url", "/diary?memberNum=");
 		return "/return/diaryAlert";
     }
@@ -91,20 +91,20 @@ public class WriteController {
     	if(!mpRequest.getFile("thumbnail").getOriginalFilename().equals("")) {
         	// 占쏙옙占쏙옙占� 확占쏙옙占쏙옙 占쏙옙 占쎈량 占싯삼옙
         	if(thumbnailCheck.check(mpRequest) == false) {
-        		model.addAttribute("msg", "占싱뱄옙占쏙옙占쏙옙占싹몌옙 占쏙옙占싸듸옙 占쏙옙占쏙옙占쌌니댐옙. (占쌍댐옙 5MB)");
+        		model.addAttribute("msg", "이미지파일만 업로드 가능합니다. (최대 5MB)");
         		return "/return/historyback";
         	}
     	}
     	if(!mpRequest.getFiles("file").get(0).getOriginalFilename().equals("")){
         	// 占쌩곤옙 占싱뱄옙占쏙옙占쏙옙占쏙옙 확占쏙옙占쏙옙 占쏙옙 占쎈량占싯삼옙
            	if(fileCheck.check(mpRequest) == false) {
-        		model.addAttribute("msg", "占싱뱄옙占쏙옙占쏙옙占싹몌옙 占쏙옙占싸듸옙 占쏙옙占쏙옙占쌌니댐옙. (占쌍댐옙 5MB)");
+        		model.addAttribute("msg", "이미지파일만 업로드 가능합니다. (최대 5MB)");
         		return "/return/historyback";
         	}
     	}
     	
     	writeService.writeUpdate(writeCmd,tagCmd, mpRequest);
-    	model.addAttribute("msg", "占싹기를 占쏙옙占쏙옙占싹울옙占쏙옙占싹댐옙.");
+    	model.addAttribute("msg", "일기를 수정하였습니다!");
 		model.addAttribute("url", "/diary?memberNum=");
 		return "/return/diaryAlert";
     }

@@ -3,20 +3,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
-<head>
-		<!-- 합쳐지고 최소화된 최신 CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-		<!-- 부가적인 테마 -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-	 	
-
-	 	
+<head>	 	
 	 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	 	
 <style>
-.center{
-margin: 5px 25px; padding: 20px
-}
 
 .valid { color: green; }
 
@@ -33,9 +23,19 @@ margin: 5px 25px; padding: 20px
 
 </style>
 
-
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+<c:if test="${empty darkmode}">
+	<link rel="stylesheet" href="/resources/css/style.css" />
+</c:if>
+<c:if test="${not empty darkmode}">
+	<link rel="stylesheet" href="/resources/css/darkstyle.css" />
+</c:if>
 <!-- meta charset="UTF-8" -->
 <title>Trip Dairy</title>
 </head>
@@ -104,30 +104,27 @@ function check_newpw(){
 
 
 
- <form class="center" method="post" id = "pwupdate" name = "pwupdate" action = "/member/pwUpdate">
+ <form class="container" method="post" id = "pwupdate" name = "pwupdate" action = "/member/pwUpdate" style="width: 350px; text-align: left;">
         <h2>비밀번호 변경 </h2>
    <input type = "text" id = "id"  name = "id" value = ${authInfo.id } readonly hidden>
   
-  	 <div class="form-group">
+  	 <div class="form-group mt-3">
             <div class="form-group">
-            <label>기존 비밀번호</label>
-            <input type="text" class="form-control" name="oldpassword" id = "oldpassword" placeholder="암호 입력 " onchange="check_oldpw()">
-        	<div class="validOldPw" id = "validOldPw">비밀번호를 입력하세요. (영문 대/소문자, 숫자를 모두 포함)</div>
+            <input type="text" class="form-control" name="oldpassword" id = "oldpassword" placeholder="기존 암호 입력 " onchange="check_oldpw()">
+        	<div class="validOldPw" id = "validOldPw">(영문 대/소문자, 숫자를 모두 포함)</div><br>
         </div>
        
            
-            <label>변경할 비밀번호</label>
-            <input type="text" class="form-control" name="password" id = "password" placeholder="암호 입력 ">
-        	<div class="validNewPw">비밀번호를 입력하세요. (영문 대/소문자, 숫자를 모두 포함)</div>
+            <input type="text" class="form-control" name="password" id = "password" placeholder="새로운 암호 입력 ">
+        	<div class="validNewPw">(영문 대/소문자, 숫자를 모두 포함)</div><br>
         </div>
          <div class="form-group">
-            <label>변경할 비밀번호 확인</label>
-            <input type="text" class="form-control" name="passwordchk" id ="passwordchk" placeholder="암호 재입력 " onchange="check_newpw()">
+            <input type="text" class="form-control" name="passwordchk" id ="passwordchk" placeholder="새로운 암호 재입력 " onchange="check_newpw()">
         	<div class="validNewPw" id ="validNewPw">비밀번호를 다시 한번 입력하세요. </div>
         </div>
       
  
-    <input type="submit"  class="btn btn-outline-info">
+    <input type="submit"  class="btn btn-primary mt-5" style="width: 100%;">
  
 
     </form>

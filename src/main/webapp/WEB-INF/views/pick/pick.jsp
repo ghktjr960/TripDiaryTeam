@@ -14,7 +14,14 @@
 	crossorigin="anonymous" />
 <link href="${pageContext.request.contextPath}/resources/css/style.css" 
 	rel="stylesheet"/>
-	
+<c:if test="${empty darkmode}">
+	<link href="${pageContext.request.contextPath}/resources/css/style.css" 
+	rel="stylesheet"/>
+</c:if>
+<c:if test="${not empty darkmode}">
+	<link href="${pageContext.request.contextPath}/resources/css/darkstyle.css" 
+	rel="stylesheet"/>
+</c:if>
 <title>Trip Diary</title>
 
 </head>
@@ -103,7 +110,7 @@
 											style="width: 50px; height: 50px; object-fit: cover;">
 									</c:if>
 									<!-- 각 닉네임별 다이어리 페이지 이동 -->
-									<a href="#">
+									<a href="#" class="main-a">
 										${pickPageList.nickname}
 									</a>
 								</div>
@@ -113,14 +120,14 @@
 									<a href="/pickPageClick?pickNum=${pickPageList.pickNum}&memberNum=${memberLoginTest.memberNum}&boardNum=${pickPageList.boardNum}"
 										onclick="alert('찜하기가 취소되었습니다.')"> 
 										<img alt="" src="resources/img/pick_basic_dark.png" class=""
-										style="width: 40px; height: 40px; object-fit: cover;">
+										style="width: 40px; height: 40px; object-fit: cover; margin-top: 5px;">
 									</a>
 
 									<!-- 세션이 없는경우 로그인으로 유도 -->
 									<c:if test="${memberLoginTest eq null}">
 										<a href="/signIn" onclick="alert('로그인 후 사용가능합니다.')"> 
 											<img alt="" src="resources/img/pick_basic_white.png" class=""
-											style="width: 40px; height: 40px; object-fit: cover;">
+											style="width: 40px; height: 40px; object-fit: cover; margin-top: 5px;">
 										</a>
 									</c:if>
 								</div>
@@ -148,12 +155,12 @@
 										<c:if test="${pickPageTagList.boardNum eq pickPageList.boardNum }">
 											<c:choose>
 												<c:when test="${place eq null}">
-													<a href="/pick?tag=${pickPageTagList.tag}">
+													<a href="/pick?tag=${pickPageTagList.tag}" style="color: #2883f3; text-decoration:none;">
 														#${pickPageTagList.tag}
 													</a>
 												</c:when>
 												<c:otherwise>
-													<a href="/pick?place=${place}&tag=${pickPageTagList.tag}">
+													<a href="/pick?place=${place}&tag=${pickPageTagList.tag}" style="color: #2883f3; text-decoration:none;">
 														#${pickPageTagList.tag}
 													</a>
 												</c:otherwise>

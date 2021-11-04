@@ -3,20 +3,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
-<head>
-		<!-- 합쳐지고 최소화된 최신 CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-		<!-- 부가적인 테마 -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-	 	
-
-	 	
-	 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<head> 	
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	 	
 <style>
-.center{
-margin: 5px 25px; padding: 20px
-}
 
 .valid { color: green; }
 
@@ -33,16 +23,26 @@ margin: 5px 25px; padding: 20px
 
 </style>
 
-
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+<c:if test="${empty darkmode}">
+	<link rel="stylesheet" href="/resources/css/style.css" />
+</c:if>
+<c:if test="${not empty darkmode}">
+	<link rel="stylesheet" href="/resources/css/darkstyle.css" />
+</c:if>
 <!-- meta charset="UTF-8" -->
 <title>Trip Dairy</title>
 </head>
 </head>
 
 <body>
-<jsp:include page="../common/header.jsp" flush="false" />
+<jsp:include page="../${pageContext.request.contextPath}/common/header.jsp" flush="false" />
 
 
 <script type="text/javascript" charset="UTF-8">
@@ -139,9 +139,9 @@ margin: 5px 25px; padding: 20px
 
 
 
- <form class="center" method="post">
-        <h2>회원가입 페이지 </h2>
-        <div class="form-group">
+ <form class="container" method="post" style="width: 350px; text-align: left;">
+        <h2>회원정보 수정 </h2>
+        <div class=" form-group mt-3">
               <label>ID</label>
             <input type="text" class="form-control" name="id" id = "id" value = ${authInfo.id } readonly>
            </div>
@@ -149,14 +149,13 @@ margin: 5px 25px; padding: 20px
              <div class="form-group">
             <label>NICKNAME</label>
             <input class="form-control" name="nickname" id = "nickname" value= ${authInfo.nickname }>
-            <div class="nickvalid" id = "nickvalid" >닉네임을 입력하세요. (영문 소문자, 숫자만 입력 가능)</div>
-            <button class="nickChk" type="button" id="nickChk" onclick="fn_nickChk();" value="N">중복확인</button>
+            <div class="nickvalid" id = "nickvalid" >닉네임을 입력하세요.<br>(영문 소문자, 숫자만 입력 가능)</div>
+            <button class="nickChk btn btn-secondary" type="button" id="nickChk" onclick="fn_nickChk();" value="N">중복확인</button>
       	 </div>
         
       
   
          <div class="form-group">
-            <label>BIRTH</label>
             <div>
          	  <h5>기존 생년월일 : ${authInfo.birthyear }.${authInfo.birth/100}</h5>
             </div>
@@ -184,18 +183,12 @@ margin: 5px 25px; padding: 20px
         </div>
        
          <div class="form-group">
-            
   
              <input name="birth" id = "birth" placeholder="생일을 기재 ex) 0423 " value = "0" readonly hidden >
-   
         </div>
+          
        
-        
-        
-    
-       
-       
-    <button type="submit" id = "submit" class="btn btn-outline-info">등록</button>
+    <button type="submit" id = "submit" class="btn btn-primary mt-3" style="width: 100%">등록</button>
 
     </form>
 

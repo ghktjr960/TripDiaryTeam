@@ -25,10 +25,19 @@ margin: 5px 25px; padding: 20px
 
 
 </style>
-
-
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+<c:if test="${empty darkmode}">
+	<link rel="stylesheet" href="/resources/css/style.css" />
+</c:if>
+<c:if test="${not empty darkmode}">
+	<link rel="stylesheet" href="/resources/css/darkstyle.css" />
+</c:if>
 <!-- meta charset="UTF-8" -->
 <title>Trip Dairy</title>
 </head>
@@ -95,7 +104,7 @@ function check_pw(){
 	비밀번호 확인 : <input type = "text" name = "passwordchk" id = "passwordchk" onchange = "check_pw();">
 	<div class="pwchk" id = "pwchk">비밀번호를 입력하세요.</div>
 	</div>
-	<button type = "submit" class="btn btn-outline-info">회원탈퇴 신청</button>
+	<button type = "submit" class="btn btn-primary mt-5">회원탈퇴 신청</button>
 	</div>
 	</div>
 	</form>
