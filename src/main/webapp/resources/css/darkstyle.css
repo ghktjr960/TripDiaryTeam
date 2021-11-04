@@ -215,6 +215,11 @@ a:hover {
 	width: 72%; 
 	margin: auto;
 }
+.registPageForm{
+	width: 450px;
+	margin: auto;
+	text-align: left
+}
 @media screen and (max-width: 1400px) {
 	.writeForm {
 		margin: auto;

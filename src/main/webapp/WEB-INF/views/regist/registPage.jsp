@@ -457,6 +457,7 @@ $(document).ready(function(){
 <jsp:include page="../common/header.jsp" flush="false" />
 	
 	<div class="container">
+	<h2>회원 정보입력</h2>
     <form class="center" action = "/regist/registPage" method="post">
     <div class="registPageForm">
     
