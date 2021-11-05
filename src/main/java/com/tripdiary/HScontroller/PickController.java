@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.project.regist.vo.MemberVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.tripdiary.HSservice.PickService;
 import com.tripdiary.HSvo.MainBoardListVo;
-import com.tripdiary.HSvo.MemberVo;
 import com.tripdiary.HSvo.PageVo;
 import com.tripdiary.HSvo.PickVo;
 import com.tripdiary.HSvo.ProfileImgVo;
@@ -39,7 +39,7 @@ public class PickController {
 		System.out.println("pickVo : " + pickVo.toString());
 		
 		// 로그인 상태에서만 동작 : 세션검사
-		MemberVo memberVo = (MemberVo) session.getAttribute("memberLoginTest");		
+		MemberVo memberVo = (MemberVo) session.getAttribute("authInfo");		
 		if(memberVo != null && memberVo.getMemberNum() == pickVo.getMemberNum()) {
 			// 회원이 로그인된 상태이고 로그인한 회원과 찜하기를 누른 회원이 같은지 검사 후 같다면 동작
 			System.out.println(memberVo.toString());
@@ -84,7 +84,7 @@ public class PickController {
 		System.out.println("pickVo : " + pickVo.toString());
 		
 		// 로그인 상태에서만 동작 : 세션검사
-		MemberVo memberVo = (MemberVo) session.getAttribute("memberLoginTest");		
+		MemberVo memberVo = (MemberVo) session.getAttribute("authInfo");		
 		if(memberVo != null && memberVo.getMemberNum() == pickVo.getMemberNum()) {
 			// 회원이 로그인된 상태이고 로그인한 회원과 찜하기를 누른 회원이 같은지 검사 후 같다면 동작
 			System.out.println(memberVo.toString());
@@ -123,7 +123,7 @@ public class PickController {
 	@RequestMapping(value = "/pick", method = RequestMethod.GET)
 	public String pick(Model model, PageVo pageVo, HttpSession session) throws Exception {
 		session.removeAttribute("sort");
-		MemberVo memberVo = (MemberVo) session.getAttribute("memberLoginTest");
+		MemberVo memberVo = (MemberVo) session.getAttribute("authInfo");
 		
 		if(memberVo != null) {
 			// pageVo : 정렬(sort), 여행지검색(place), 태그(tag)를 가지고 있는 객체

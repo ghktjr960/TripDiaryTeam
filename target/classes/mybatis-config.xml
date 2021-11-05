@@ -28,7 +28,6 @@
 		<typeAlias alias="mainBoardListVo" type="com.tripdiary.HSvo.MainBoardListVo"/>
 		<typeAlias alias="tagVo" type="com.tripdiary.HSvo.TagVo"/>
 		<typeAlias alias="pickVo" type="com.tripdiary.HSvo.PickVo"/>
-		<typeAlias alias="memberVo_hs" type="com.tripdiary.HSvo.MemberVo"/>
 		<typeAlias alias="profileImgVo" type="com.tripdiary.HSvo.ProfileImgVo"/>
 		<typeAlias alias="pageVo" type="com.tripdiary.HSvo.PageVo"/>
 		<typeAlias alias="reportCntVo" type="com.tripdiary.HSvo.ReportCntVo"/>

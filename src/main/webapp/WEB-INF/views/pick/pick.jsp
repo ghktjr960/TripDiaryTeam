@@ -110,14 +110,14 @@
 
 								<!-- pick 이미지 -->
 								<div style="float: right; display: inline-block;" class="">
-									<a href="/pickPageClick?pickNum=${pickPageList.pickNum}&memberNum=${memberLoginTest.memberNum}&boardNum=${pickPageList.boardNum}"
+									<a href="/pickPageClick?pickNum=${pickPageList.pickNum}&memberNum=${authInfo.memberNum}&boardNum=${pickPageList.boardNum}"
 										onclick="alert('찜하기가 취소되었습니다.')"> 
 										<img alt="" src="resources/img/pick_basic_dark.png" class=""
 										style="width: 40px; height: 40px; object-fit: cover;">
 									</a>
 
 									<!-- 세션이 없는경우 로그인으로 유도 -->
-									<c:if test="${memberLoginTest eq null}">
+									<c:if test="${authInfo eq null}">
 										<a href="/signIn" onclick="alert('로그인 후 사용가능합니다.')"> 
 											<img alt="" src="resources/img/pick_basic_white.png" class=""
 											style="width: 40px; height: 40px; object-fit: cover;">
@@ -130,7 +130,7 @@
 							<div class="board-mid">
 								<a href="/board?boardNum=${pickPageList.boardNum}&memberNum=${pickPageList.memberNum}"> 
 									<img class="image-thumbnail border border-secondary mt-3"
-									src="<spring:url value='/main/${pickPageList.mainStoreFileName}.${pickPageList.mainFileType}'/>"
+									src="<spring:url value='/thumbnail/${pickPageList.mainStoreFileName}.${pickPageList.mainFileType}'/>"
 									style="width: 100%;">
 								</a>
 							</div>
@@ -171,6 +171,7 @@
 		
 		<div class="col-md-offset-3">
 			<ul class="container">
+			<c:if test="${paging ne null}">
 				<c:if test="${paging.startPage != 1}">
 					<a href="/pick?page=${paging.startPage - 1}">&lt;</a>
 				</c:if>
@@ -187,6 +188,7 @@
 				<c:if test="${paging.endPage != paging.lastPage}">
 					<a href="/pick?page=${paging.endPage + 1}">&gt;</a>
 				</c:if>
+			</c:if>
 			</ul>		
 		</div>
 		
