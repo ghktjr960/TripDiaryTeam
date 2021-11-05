@@ -51,11 +51,6 @@ public class LoginController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String loginGet( MemberVo memberVo, HttpServletRequest req,HttpServletResponse resp, HttpSession session) throws Exception {
 
-    	
-    	
-    
-    	
-    	
     	logger.info("로그인 페이지 출력합니다.");
     	return "/signIn";
     }

@@ -64,4 +64,3 @@
 	<script src="../${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 	<script src="../${pageContext.request.contextPath}/resources/js/popper.js"></script>
 	<script src="../${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>	
-

@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.project.api.EmailSend;
 import org.project.regist.vo.MemberVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,7 @@ public class AdminController {
 
 	@Inject
 	private AdminService adminService;
+	private EmailSend emailSend;
 	
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public String admin(HttpSession session) throws Exception  {
@@ -66,6 +68,8 @@ public class AdminController {
 					if(result > 0) {
 						System.out.println(memberNum[i] + "번 회원 삭제성공");
 						
+						emailSend.sendDelMember(loginMember);
+						
 						DelMemberVo delMemberVo = adminService.delMemberSelectOne(Integer.parseInt(memberNum[i]));
 						if(delMemberVo != null) {
 							adminService.delmemberUpdate(Integer.parseInt(memberNum[i]));
@@ -102,7 +106,8 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/admin/delmember", method = RequestMethod.POST)
-	public String delMemberPost(String memberNumList) {
+	public String delMemberPost(String memberNumList, HttpSession session) throws Exception {
+		MemberVo loginMember = (MemberVo) session.getAttribute("authInfo");
 		
 		if(memberNumList != null) {
 			// check 박스 여러러개 받을 경우
@@ -116,6 +121,8 @@ public class AdminController {
 				if(delMember.getTimeover() == 0) {
 					adminService.delmemberUpdate(delMember.getMemberNum());
 					adminService.memberManageDelte(delMember.getMemberNum());
+					
+					emailSend.sendDelMember(loginMember);
 				} else {
 					
 				}
