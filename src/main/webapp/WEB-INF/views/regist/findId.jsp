@@ -7,9 +7,6 @@
 		
 	 	
 <style>
-.center{
-margin: 5px 25px; padding: 20px
-}
 
 .valid { color: green; }
 
@@ -26,9 +23,19 @@ margin: 5px 25px; padding: 20px
 
 </style>
 
-
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+<c:if test="${empty darkmode}">
+	<link rel="stylesheet" href="/resources/css/style.css" />
+</c:if>
+<c:if test="${not empty darkmode}">
+	<link rel="stylesheet" href="/resources/css/darkstyle.css" />
+</c:if>
 <!-- meta charset="UTF-8" -->
 <title>Trip Dairy</title>
 </head>
@@ -132,50 +139,52 @@ function fn_pwChk(){
 	<jsp:include page="../common/header.jsp" flush="false" />
 	
 	
-	<div>
-	<form class="center"  method="post">
 	<div class="container">
-		<h2>아이디 찾기</h2>
+		<div class="row">
+		<div class="col-lg-1"></div>
+		<form method="post" class="col-lg-4 shadow mt-5 mb-5">
+		
+			<h2 class="mt-5">아이디 찾기</h2>
+			<div>
+			<br>
+			<div>
+			이메일
+			 <br>
+			 <input type = "text" name = "emailchk" id = "emailchk" onchange = "check_email();" class="form-control" style="width: 300px; margin: auto;">
+			<div class="emailchked" id = "emailchked">이메일을 입력하세요.</div>
+			</div>
+		<button type ="button" name ="chkid" id = "chkid" class="btn btn-primary" onclick = "fn_emailChk();" value = "N">아이디 찾기</button>
+		</div>
+		<div><br><h4>아이디 조회 결과</h4><br></div>
+		<div class="searchresult" id = "searchresult" name = "searchresult"></div>
+		
+		
+		</form>
+		<div class="col-lg-1"></div>
+		<div class="col-lg-1"></div>
+		
+		<form method="post" class="col-lg-4 shadow mt-5 mb-5">
+			<h2 class="mt-5">비밀번호 찾기</h2>
+			<div>
+			<br>
+	
 		<div>
-		<br>
-
-	<div>
-	이메일
-	 <br>
-	 <input type = "text" name = "emailchk" id = "emailchk" onchange = "check_email();">
-	<div class="emailchked" id = "emailchked">이메일을 입력하세요.</div>
-	</div>
-	<button type ="button" name ="chkid" id = "chkid" class="btn btn-outline-info" onclick = "fn_emailChk();" value = "N">아이디 찾기</button>
-	</div>
-	<div><br><h3>아이디 조회 결과</h3><br></div>
-	<div class="searchresult" id = "searchresult" name = "searchresult"></div>
-	</div>
-	
-	</form>
-	
-	
-	<form class="center"  method="post">
-	<div class="container">
-		<h2>비밀번호 찾기</h2>
-		<div>
-		<br>
-
-	<div>
-	아이디
-	 <br>
-	 <input type = "text" name = "idchk" id = "idchk">
-	<div class="idchked" id = "idchked">아이디를 입력하세요.</div>
-	</div>
-	 <input type = "text" name = "mailEchk" id = "mailEchk">
-	<div class="idchked" id = "idchked">이메일을 입력하세요.</div>
-	</div>
-	<button type ="button" name ="chkpw" id = "chkpw" class="btn btn-outline-info" onclick = "fn_pwChk();" value = "N">비밀번호 찾기</button>
-	</div>
-	<div><br><h3>비밀번호 찾기 결과</h3><br></div>
-	<div class="pwsearchresult" id = "pwsearchresult" name = "pwsearchresult"></div>
-	
-	
-	</form>
+		아이디
+		 <br>
+		 <input type = "text" name = "idchk" id = "idchk" class="form-control" style="width: 300px; margin: auto;">
+		<div class="idchked" id = "idchked">아이디를 입력하세요.</div>
+		</div>
+		 <input type = "text" name = "mailEchk" id = "mailEchk" class="form-control" style="width: 300px; margin: auto;">
+		<div class="idchked" id = "idchked">이메일을 입력하세요.</div>
+		</div>
+		<button type ="button" name ="chkpw" id = "chkpw" class="btn btn-primary" onclick = "fn_pwChk();" value = "N">비밀번호 찾기</button>
+		
+		<div><br><h4>비밀번호 찾기 결과</h4><br></div>
+		<div class="pwsearchresult" id = "pwsearchresult" name = "pwsearchresult"></div>
+		
+		</form>
+		<div class="col-lg-1"></div>
+		</div>
 	</div>
 	
 	

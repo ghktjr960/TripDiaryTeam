@@ -23,7 +23,10 @@
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
+			<param-value>
+				/WEB-INF/spring/appServlet/servlet-context.xml
+				/WEB-INF/spring/context-common.xml
+			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
@@ -55,7 +58,7 @@
 	</filter-mapping>
 	
 	<!-- version 3.0에서 error-page지원 -->
-	<error-page>
+<!-- 	<error-page>
 		<error-code>400</error-code>
 		<location>/pageError</location>
 	</error-page>
@@ -78,6 +81,6 @@
 	<error-page>
 		<error-code>503</error-code>
 		<location>/pageError</location>
-	</error-page>
+	</error-page> -->
 	
 </web-app>

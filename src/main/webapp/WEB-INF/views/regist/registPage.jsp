@@ -4,19 +4,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-		<!-- 합쳐지고 최소화된 최신 CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-		<!-- 부가적인 테마 -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-	 	
 
-	 	
 	 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	 	
 <style>
-.center{
-margin: 5px 25px; padding: 20px
-}
+
 
 .valid { color: green; }
 
@@ -34,8 +26,19 @@ margin: 5px 25px; padding: 20px
 </style>
 
 
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+<c:if test="${empty darkmode}">
+	<link rel="stylesheet" href="/resources/css/style.css" />
+</c:if>
+<c:if test="${not empty darkmode}">
+	<link rel="stylesheet" href="/resources/css/darkstyle.css" />
+</c:if>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- meta charset="UTF-8" -->
 <title>Trip Dairy</title>
 </head>
@@ -451,25 +454,27 @@ $(document).ready(function(){
 
 <jsp:include page="../common/header.jsp" flush="false" />
 	
-    <form class="center" action = "/regist/registPage" method="post">
-        <h2>회원가입 페이지 </h2>
-        
- 
+	<div class="container">
+	
+    <form action = "/regist/registPage" method="post">
+
+    <div class="registPageForm shadow mb-5">
+    	<h2 class="mb-3" style="text-align: center;">회원 정보입력</h2>
         <div class="form-group">
-              <label>ID</label>
+            
             <input type="text" class="form-control" name="id" id = "id" placeholder="ID 작성해주세요.">
             <div class="idvalid" id = "idvalid">아이디를 입력하세요. (영문 소문자, 숫자만 입력 가능)</div>
-            <button class="idChk" type="button" id="idChk" onclick="fn_idChk();" value="N">중복확인</button>
+            <button class="idChk btn btn-secondary mb-3" type="button" id="idChk" onclick="fn_idChk();" value="N">ID중복확인</button>
            
         </div>
         <div class="form-group">
-            <label>PASSWORD</label>
-            <input type="text" class="form-control" name="password" id = "password" placeholder="암호 입력 " onchange="check_pw()">
+            
+            <input type="password" class="form-control" name="password" id = "password" placeholder="암호 입력 " onchange="check_pw()">
         	<div class="valid">비밀번호를 입력하세요.(최소 8글자에서 13글자 사이)</div>
         </div>
          <div class="form-group">
-            <label>PASSWORD CONFIRM</label>
-            <input type="text" class="form-control" name="passwordchk" id ="passwordchk" placeholder="암호 재입력 " onchange="check_pw()">
+            
+            <input type="password" class="form-control" name="passwordchk" id ="passwordchk" placeholder="암호 재입력 " onchange="check_pw()">
         	<div class="pwvalid" id ="pwvalid">비밀번호를 다시 한번 입력하세요. </div>
         	
         </div>
@@ -477,21 +482,21 @@ $(document).ready(function(){
         
         <c:if test="${type == 'api'}">
          <div class="form-group">
-          <label>NICKNMAE</label>
+          
               <div>
                <input class="form-control" name="nickname" id = "nickname" value = "${nickname}" readonly>
-           		<button class="nickChk" type="button" id="nickChk" onclick="fn_nickChk();" value="N" disabled>중복확인</button>
                <div class="nickvalid" id = "nickvalid" >닉네임을 입력하세요. (영문 소문자, 숫자만 입력 가능)</div>
-         
+         	<button class="nickChk btn btn-secondary mb-3" type="button" id="nickChk" onclick="fn_nickChk();" value="N" disabled>닉네임 중복확인</button>
+               
              </div>
              </div>
              </c:if>
              <c:if test="${type == 'normal'}">
              <div class="form-group">
-            <label>NICKNAME</label>
+            
             <input class="form-control" name="nickname" id = "nickname" placeholder="닉네임 입력  ">
             <div class="nickvalid" id = "nickvalid" >닉네임을 입력하세요. (영문 소문자, 숫자만 입력 가능)</div>
-            <button class="nickChk" type="button" id="nickChk" onclick="fn_nickChk();" value="N">중복확인</button>
+            <button class="nickChk btn btn-secondary mb-3" type="button" id="nickChk" onclick="fn_nickChk();" value="N">닉네임 중복확인</button>
      
       	 </div>
         	</c:if>
@@ -499,42 +504,43 @@ $(document).ready(function(){
         	
          <c:if test="${type == 'api'}">
          <div class="form-group">
-          <label>EMAIL</label>
+        
           <input  type = "text" name="email" id = "email" value = "${email}" readonly>
-          <button class="emailChk" type="button" id="emailChk" onclick="fn_emailChk();" value="N" disabled>중복확인</button>
-               <div class="emailvalid" id = "emailvalid" >이메일을 입력하세요 (ex abc@abc.abc)</div>
+          <div class="emailvalid" id = "emailvalid" >이메일을 입력하세요 (ex abc@abc.abc)</div>
+          <button class="emailChk btn btn-secondary mb-3" type="button" id="emailChk" onclick="fn_emailChk();" value="N" disabled>이메일 중복확인</button>
+               
          
              </div>
               </c:if>
               
               <c:if test="${type == 'normal'}">
          <div class="form-group">
-            <label>EMAIL</label>
+           
             <input class="form-control" type = "email" name="email" id = "email" placeholder="이메일 입력  ">
-             <button class="emailChk" type="button" id="emailChk" onclick="fn_emailChk();" value="N">중복확인</button>
-           <div class="emailvalid" id = "emailvalid" >이메일을 입력하세요 (ex abc@abc.abc)</div>
+            <div class="emailvalid" id = "emailvalid" >이메일을 입력하세요 (ex abc@abc.abc)</div>
+             <button class="emailChk btn btn-secondary mb-3" type="button" id="emailChk" onclick="fn_emailChk();" value="N">이메일 중복확인</button>
+           
             </div>
             <div>
-            <button class = "emailsend" type="button" name="emailsend" onclick = "fn_emailSend();  chktimer();">이메일 인증받기</button>
+            <button class = "emailsend btn btn-secondary mb-3" type="button" name="emailsend" onclick = "fn_emailSend();  chktimer();">이메일 인증받기</button>
            <div>
            <p>남은시간 : <div id="countdown"></div></p>
            <input name="emailchk" id="emailchk" placeholder="  인증번호를 입력하세요. " >
-             <button class = "emailsendChk" type="button" name="emailsendChk" onclick = "fn_emailSendChk()" value="N">인증하기 </button>
+             <button class = "emailsendChk btn btn-secondary mb-3" type="button" name="emailsendChk" onclick = "fn_emailSendChk()" value="N">인증하기 </button>
         	</div>
         	<div id="ViewTimer"></div>
         </div>
         </c:if>
         
          <div class="form-group">
-            <label>GENDER</label>
+            <label>성별</label>
             <div>
             <label><input type="radio" name="gender" id ="gender" value="male" checked/>남</label>
 			<label><input type="radio" name="gender" id ="gender" value="female" />여</label>
-            </div>
+            </div><br>
             <!--  <input class="form-control" name="gender" id = "gender" placeholder="성별 기재 "> -->
         </div>
          <div class="form-group">
-            <label>BIRTH</label>
             <div class="yearvalid">출생년도를 입력하세요.</div>
              <c:set var="year" value="2021"/>
             <select name="birthyear" class="form-select" >
@@ -557,25 +563,17 @@ $(document).ready(function(){
             </select>
            
         </div>
-         <div class="form-group">
-            
-           
+         <div class="form-group">    
              
              <input name="birth" id = "birth" placeholder="생일을 기재 ex) 0423 " value = "0" readonly hidden>
-            <!--  div class="birthvalid" id ="birthvalid" >월+일 포맷으로 출력하려고 </div-->
-        	
+            <!--  div class="birthvalid" id ="birthvalid" >월+일 포맷으로 출력하려고 </div-->    	
        
         </div>
-       
-        
-        
-    
-       
-       
-    <button type="submit" id = "submit" class="btn btn-outline-info">등록</button>
+       		<button type="submit" id = "submit" class="btn btn-primary mt-5 mb-3" style="width: 100%;">등록</button>
+       </div>	
 
     </form>
-
+</div>
 
 
 </body>

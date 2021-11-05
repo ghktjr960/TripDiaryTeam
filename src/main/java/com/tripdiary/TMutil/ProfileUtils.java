@@ -15,15 +15,15 @@ import com.tripdiary.TMvo.WriteCmd;
 
 @Component
 public class ProfileUtils {
-	private static final String filePath = "C:\\mp\\profile_img\\"; // ������ ����� ��ġ
+	private static final String filePath = "C:\\tripdiary\\profile_img\\"; // 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占� 占쏙옙치
 
 	public Map<String, Object> parseInsertFileInfo(int memberNum, MultipartHttpServletRequest mpRequest)
 			throws Exception {
 
 		/*
-		 * Iterator�� �����͵��� ����ü? ���� �÷������κ��� ������ ���� �� �ִ� �������̽��Դϴ�. List�� �迭�� ���������� ��������
-		 * ������ ����������, Map���� Ŭ�������� ���������� ������ ���� �����ϴ�. Iterator�� �̿��Ͽ� Map�� �ִ� �����͵���
-		 * while���� �̿��Ͽ� ���������� �����մϴ�.
+		 * Iterator占쏙옙 占쏙옙占쏙옙占싶듸옙占쏙옙 占쏙옙占쏙옙체? 占쏙옙占쏙옙 占시뤄옙占쏙옙占쏙옙占싸븝옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙 占쌍댐옙 占쏙옙占쏙옙占쏙옙占싱쏙옙占쌉니댐옙. List占쏙옙 占썼열占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙
+		 * 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙, Map占쏙옙占쏙옙 클占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占싹댐옙. Iterator占쏙옙 占싱울옙占싹울옙 Map占쏙옙 占쌍댐옙 占쏙옙占쏙옙占싶듸옙占쏙옙
+		 * while占쏙옙占쏙옙 占싱울옙占싹울옙 占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쌌니댐옙.
 		 */
 		MultipartFile multipartFile = mpRequest.getFile("profile_img");
 		String originalFileName = null;
@@ -38,11 +38,11 @@ public class ProfileUtils {
 			file.mkdirs();
 		}
 
-		// ���� �̸�
+		// 占쏙옙占쏙옙 占싱몌옙
 		originalFileName = multipartFile.getOriginalFilename();
-		// ���� Ȯ����
+		// 占쏙옙占쏙옙 확占쏙옙占쏙옙
 		originalFileExtension = originalFileName.substring(originalFileName.lastIndexOf(".")+1);
-		// ����� ���� �̸�
+		// 占쏙옙占쏙옙占� 占쏙옙占쏙옙 占싱몌옙
 		storedFileName = getRandomString() + originalFileExtension;
 		file = new File(filePath + storedFileName);
 		multipartFile.transferTo(file);

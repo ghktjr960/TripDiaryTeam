@@ -153,7 +153,7 @@
 					onclick="history.go(-1)">돌아가기</button>
 				<button type="submit" class="btn btn-primary">작성하기</button>
 			</div>
-			<input type="hidden" name="memberNum" value="${memberNum}">
+			<input type="hidden" name="memberNum" value="${authInfo.memberNum}">
 		</form>
 	</div>
 

@@ -57,7 +57,7 @@ public class LoginController {
     	
     	
     	logger.info("로그인 페이지 출력합니다.");
-    	return "/MH/signIn";
+    	return "/signIn";
     }
 	
     
