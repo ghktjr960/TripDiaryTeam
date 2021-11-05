@@ -2,8 +2,9 @@ package com.tripdiary.HSdao;
 
 import java.util.List;
 
+import org.project.regist.vo.MemberVo;
+
 import com.tripdiary.HSvo.DelMemberVo;
-import com.tripdiary.HSvo.MemberVo;
 import com.tripdiary.HSvo.ReportBoardVo;
 import com.tripdiary.HSvo.ReportCntVo;
 import com.tripdiary.HSvo.ReportReplyVo;
