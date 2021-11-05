@@ -133,7 +133,7 @@
 						<div>좋아요 ${board.tdLikeCnt }개</div>
 						<div>
 							<c:forEach items="${board.tag }" var="tag" varStatus="loop">
-								<a href="#" style="color: #2883f3">#${tag }&nbsp;</a>
+								<a href="#" style="color: #2883f3; text-decoration:none;">#${tag }&nbsp;</a>
 							</c:forEach>
 						</div>
 					</div>

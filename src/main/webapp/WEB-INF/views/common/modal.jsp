@@ -201,7 +201,7 @@
 
 							<form action="/getEmblem" method="POST">
 								<input type="hidden" name="memberNum"
-									value="${sessionScope.memberNum }">
+									value="${authInfo.memberNum}">
 								<button type="button" class="btn btn-primary"
 									data-dismiss="modal">닫기</button>
 
