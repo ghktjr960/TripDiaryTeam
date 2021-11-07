@@ -1,13 +1,7 @@
 eclipse.preferences.version=1
-
-
-
-
 encoding//src/main/java/com/tripdiary/TMcontroller/DiaryController.java=UTF-8
 encoding//src/main/java/com/tripdiary/TMcontroller/WriteController.java=UTF-8
 encoding//src/main/java/com/tripdiary/TMutil/FileUtils.java=UTF-8
 encoding//src/main/java/com/tripdiary/TMutil/ProfileUtils.java=UTF-8
 encoding//src/main/java/com/tripdiary/TMutil/ThumbnailUtils.java=UTF-8
 encoding//src/main/java/org/project/regist/controller/MemberController.java=UTF-8
-
-encoding/<project>=UTF-8
