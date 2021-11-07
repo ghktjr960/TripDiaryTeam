@@ -15,8 +15,14 @@
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Neucha' rel='stylesheet' type='text/css'>
-<link href="${pageContext.request.contextPath}/resources/css/style.css" 
+<c:if test="${empty darkmode}">
+	<link href="${pageContext.request.contextPath}/resources/css/style.css" 
 	rel="stylesheet"/>
+</c:if>
+<c:if test="${not empty darkmode}">
+	<link href="${pageContext.request.contextPath}/resources/css/darkstyle.css" 
+	rel="stylesheet"/>
+</c:if>
 
 <!-- 보드 이미지 슬라이드 -->
 <!-- 제이쿼리 -->
@@ -73,10 +79,14 @@
 			<div id="wrapper">
 		      <div id="slider-wrap">
 		          <ul id="slider"  style="padding-left: 0;">
+		          	 <c:forEach items="${boardImgList }" var="boardImgList" varStatus="loop">
+		             	<li>
+		             		<img alt="" src="<spring:url value='/thumbnail/${boardImgList.storeFileName}'/>" style="object-fit : cover">
+		             	</li>
+					</c:forEach>
 		             <li>           
 						<img alt="" src="<spring:url value='/image/test1.png'/>" style="object-fit : cover">
 		             </li>
-		             
 		             <li>
 						<img alt="" src="<spring:url value='/image/test2.png'/>" style="object-fit : cover">
 				     </li>

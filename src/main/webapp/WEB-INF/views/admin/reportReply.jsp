@@ -8,7 +8,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" />
+<c:if test="${empty darkmode}">
+	<link href="${pageContext.request.contextPath}/resources/css/style.css" 
+	rel="stylesheet"/>
+</c:if>
+<c:if test="${not empty darkmode}">
+	<link href="${pageContext.request.contextPath}/resources/css/darkstyle.css" 
+	rel="stylesheet"/>
+</c:if>
 <title>Insert title here</title>
 </head>
 
@@ -17,13 +24,13 @@
 	<div class="container">
 		<h2>관리자 페이지</h2>
 		<br>
-		<button onclick='location.href="/admin/member"'>회원관리</button>
-		<button onclick='location.href="/admin/delmember"'>탈퇴회원관리</button>
-		<button onclick='location.href="/admin/board"'>게시글관리</button>
-		<button onclick='location.href="/admin/reply"'>댓글관리</button>
+		<button class="btn btn-outline-secondary" onclick='location.href="/admin/member"'>회원관리</button>
+		<button class="btn btn-outline-secondary" onclick='location.href="/admin/delmember"'>탈퇴회원관리</button>
+		<button class="btn btn-outline-secondary" onclick='location.href="/admin/board"'>게시글관리</button>
+		<button class="btn btn-secondary" onclick='location.href="/admin/reply"'>댓글관리</button>
 	</div>
 	
-	<div class="container">
+	<div class="container" style="margin-top: 30px;">
 		<c:choose>
 			<c:when test="${reportReplyList eq null}">
 				<div class="container">
@@ -37,7 +44,7 @@
 			</c:when>
 			<c:otherwise>
 				<form action="/admin/reply" method="post" name="reportBoard">
-					<table>
+					<table class="table mb-5">
 						<tr>
 							<th>확인</th>
 							<th>댓글 번호</th>
@@ -63,8 +70,8 @@
 						</tr>						
 						</c:forEach>
 					</table>
-					<button type="submit" name="prom" value="Y">댓글삭제</button>
-					<button type="submit" name="prom" value="N">문제없음</button>
+					<button class="btn btn-outline-danger mb-5" type="submit" name="prom" value="Y">댓글삭제</button>
+					<button class="btn btn-outline-success mb-5" type="submit" name="prom" value="N">문제없음</button>
 				</form>
 			</c:otherwise>
 		</c:choose>
