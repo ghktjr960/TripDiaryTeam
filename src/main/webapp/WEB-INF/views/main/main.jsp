@@ -102,7 +102,7 @@
 									<!-- 프로필 이미지와 닉네임 -->
 									<c:if test="${mainBoardList.profileStoreFileName ne null}">
 										<img alt=""
-											src="<spring:url value='/profile/${mainBoardList.profileStoreFileName}'/>"
+											src="<spring:url value='/profile/${mainBoardList.profileStoreFileName}.${mainBoardList.profileFileType}'/>"
 											class="border rounded-circle"
 											style="width: 50px; height: 50px; object-fit: cover;">
 									</c:if>
@@ -130,14 +130,14 @@
 											</c:if>
 										</c:forEach>
 										<c:if test="${count > 0 }">
-											<a href="/pickClick?pickNum=${pickNum}&memberNum=${memberNum}&boardNum=${boardNum}"
+											<a href="/pickMainClick?pickNum=${pickNum}&memberNum=${memberNum}&boardNum=${boardNum}"
 												onclick="alert('찜하기가 취소되었습니다.')"> 
 												<img alt="" src="resources/img/pick_basic_dark.png" class=""
 												style="width: 40px; height: 40px; object-fit: cover; margin-top: 5px;">
 											</a>
 										</c:if>
 										<c:if test="${count eq null}">
-											<a href="/pickClick?memberNum=${authInfo.memberNum}&boardNum=${mainBoardList.boardNum}"
+											<a href="/pickMainClick?memberNum=${authInfo.memberNum}&boardNum=${mainBoardList.boardNum}"
 												onclick="alert('찜하기가 추가되었습니다.')"> 
 												<img alt="" src="resources/img/pick_basic_white.png" class=""
 												style="width: 40px; height: 40px; object-fit: cover; margin-top: 5px;">
@@ -162,7 +162,7 @@
 
 							<!-- 썸네일 이미지 -->
 							<div class="board-mid">
-								<a href="/board?boardNum=${mainBoardList.boardNum}&memberNum=${mainBoardList.memberNum}"> 
+								<a href="/readView?boardNum=${mainBoardList.boardNum}&memberNum=${mainBoardList.memberNum}"> 
 									<img class="image-thumbnail border border-secondary mt-3"
 
 									src="<spring:url value='/thumbnail/${mainBoardList.mainStoreFileName}.${mainBoardList.mainFileType}'/>"

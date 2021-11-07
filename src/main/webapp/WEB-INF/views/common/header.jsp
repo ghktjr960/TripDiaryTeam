@@ -47,7 +47,12 @@
 					<div>
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle " id="dropdown" data-toggle="dropdown">
+							<c:if test="${profile.storeFileName ne null}">
 								<img alt="" src="<spring:url value='/profile/${profile.storeFileName }'/>" class="border rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
+							</c:if>
+							<c:if test="${profile.storeFileName eq null}">
+								<img alt="" src="resources/img/profile_48.png" class="" style="width: 40px; height: 40px; object-fit: cover; margin-top: 5px;">
+							</c:if>
 							</a>
 							<div class="dropdown-menu" aria-labelledby="dropdown">
 								<a class="dropdown-item" href="/member/myPage">MyPage</a>
