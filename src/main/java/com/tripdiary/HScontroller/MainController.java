@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.project.regist.vo.MemberVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.tripdiary.HSservice.MainService;
 import com.tripdiary.HSvo.MainBoardListVo;
-import com.tripdiary.HSvo.MemberVo;
 import com.tripdiary.HSvo.PageVo;
 import com.tripdiary.HSvo.PickVo;
 import com.tripdiary.HSvo.ProfileImgVo;
@@ -99,7 +99,7 @@ public class MainController {
 
 			// 로그인 테스트용 코드 삭제해야됨 : 시작 
 			// 세션에 저장되어 있는 로그인 세션을 검사하여 있다면 해당 세션에 저장된 회원번호를 통해 프로필 사진에 대한 정보를 가져온다.
-			MemberVo memberVo = (MemberVo) session.getAttribute("memberLoginTest");
+			MemberVo memberVo = (MemberVo) session.getAttribute("authInfo");
 			if(memberVo != null) {
 				System.out.println(memberVo.toString());
 				// 로그인 된 회원의 찜하기 여부 확인 => main에서 사용

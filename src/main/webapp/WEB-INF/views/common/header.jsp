@@ -3,10 +3,11 @@
 
 	<nav class="navbar navbar-expand-lg navbar-light bg-light header shadow">
 	<c:if test="${empty sessionScope.darkmode }">
-		<a class="logo" href="/main"><img alt="" src="<c:url value='../resources/img/icon/logo.png'/>"></a>
+
+		<a class="logo" href="/main"><img alt="" src="../${pageContext.request.contextPath}/resources/img/icon/logo.png"></a>
 	</c:if>
 	<c:if test="${not empty sessionScope.darkmode }">
-		<a class="logo" href="/main"><img alt="" src="../resources/img/icon/darklogo.png"></a>
+		<a class="logo" href="/main"><img alt="" src="../${pageContext.request.contextPath}/resources/img/icon/darklogo.png"></a>
 	</c:if>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
 			<span class="navbar-toggler-icon"></span>
@@ -59,7 +60,7 @@
 					
 		</div>	
 	</nav>
-	
-	<script src="../resources/js/jquery.min.js"></script>
-	<script src="../resources/js/popper.js"></script>
-	<script src="../resources/js/bootstrap.min.js"></script>	
+
+	<script src="../${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+	<script src="../${pageContext.request.contextPath}/resources/js/popper.js"></script>
+	<script src="../${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>	

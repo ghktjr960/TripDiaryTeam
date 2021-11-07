@@ -137,7 +137,7 @@
 											</a>
 										</c:if>
 										<c:if test="${count eq null}">
-											<a href="/pickClick?memberNum=${memberLoginTest.memberNum}&boardNum=${mainBoardList.boardNum}"
+											<a href="/pickClick?memberNum=${authInfo.memberNum}&boardNum=${mainBoardList.boardNum}"
 												onclick="alert('찜하기가 추가되었습니다.')"> 
 												<img alt="" src="resources/img/pick_basic_white.png" class=""
 												style="width: 40px; height: 40px; object-fit: cover; margin-top: 5px;">
@@ -151,7 +151,7 @@
 									</c:if>
 
 									<!-- 세션이 없는경우 로그인으로 유도 -->
-									<c:if test="${memberLoginTest eq null}">
+									<c:if test="${authInfo eq null}">
 										<a href="/signIn" onclick="alert('로그인 후 사용가능합니다.')"> 
 											<img alt="" src="resources/img/pick_basic_white.png" class=""
 											style="width: 40px; height: 40px; object-fit: cover; margin-top: 5px;">
@@ -164,7 +164,9 @@
 							<div class="board-mid">
 								<a href="/board?boardNum=${mainBoardList.boardNum}&memberNum=${mainBoardList.memberNum}"> 
 									<img class="image-thumbnail border border-secondary mt-3"
-									src="<spring:url value='/thumbnail/${mainBoardList.mainStoreFileName}'/>"
+
+									src="<spring:url value='/thumbnail/${mainBoardList.mainStoreFileName}.${mainBoardList.mainFileType}'/>"
+
 									style="width: 100%;">
 								</a>
 							</div>
