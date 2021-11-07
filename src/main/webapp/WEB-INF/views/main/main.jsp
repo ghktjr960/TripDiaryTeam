@@ -135,27 +135,45 @@
 											</c:if>
 										</c:forEach>
 										<c:if test="${count > 0 }">
-											<a href="/pickClick?pickNum=${pickNum}&memberNum=${memberNum}&boardNum=${boardNum}"
+											<a href="/pickMainClick?pickNum=${pickNum}&memberNum=${memberNum}&boardNum=${boardNum}"
 												onclick="alert('찜하기가 취소되었습니다.')"> 
+<<<<<<< HEAD
 												<c:if test="${empty darkmode}">
 													<img alt="" src="resources/img/pick_basic_dark.png" class=""
 													style="width: 40px; height: 40px; object-fit: cover; margin-top: 5px;">
 												</c:if>
 												<c:if test="${not empty darkmode}">
 													<img alt="" src="resources/img/icon/pick_gray_on.png" class=""
+=======
+												<c:if test="${empty darkmode }">
+													<img alt="" src="resources/img/pick_basic_dark.png" class=""
+													style="width: 40px; height: 40px; object-fit: cover; margin-top: 5px;">
+												</c:if>
+												<c:if test="${not empty darkmode }">
+													<img alt="" src="resources/img/pick_gray_on.png" class=""
+>>>>>>> develop
 													style="width: 40px; height: 40px; object-fit: cover; margin-top: 5px;">
 												</c:if>
 											</a>
 										</c:if>
 										<c:if test="${count eq null}">
-											<a href="/pickClick?memberNum=${authInfo.memberNum}&boardNum=${mainBoardList.boardNum}"
+											<a href="/pickMainClick?memberNum=${authInfo.memberNum}&boardNum=${mainBoardList.boardNum}"
 												onclick="alert('찜하기가 추가되었습니다.')"> 
+<<<<<<< HEAD
 												<c:if test="${empty darkmode}">
 													<img alt="" src="resources/img/pick_basic_white.png" class=""
 													style="width: 40px; height: 40px; object-fit: cover; margin-top: 5px;">
 												</c:if>
 												<c:if test="${not empty darkmode}">
 													<img alt="" src="resources/img/icon/pick_gray_off.png" class=""
+=======
+												<c:if test="${empty darkmode }">
+													<img alt="" src="resources/img/pick_basic_white.png" class=""
+													style="width: 40px; height: 40px; object-fit: cover; margin-top: 5px;">
+												</c:if>
+												<c:if test="${not empty darkmode }">
+													<img alt="" src="resources/img/pick_gray_off.png" class=""
+>>>>>>> develop
 													style="width: 40px; height: 40px; object-fit: cover; margin-top: 5px;">
 												</c:if>
 											</a>
@@ -170,12 +188,21 @@
 									<!-- 세션이 없는경우 로그인으로 유도 -->
 									<c:if test="${authInfo eq null}">
 										<a href="/signIn" onclick="alert('로그인 후 사용가능합니다.')"> 
+<<<<<<< HEAD
 											<c:if test="${empty darkmode}">
 												<img alt="" src="resources/img/pick_basic_white.png" class=""
 												style="width: 40px; height: 40px; object-fit: cover; margin-top: 5px;">
 											</c:if>
 											<c:if test="${not empty darkmode}">
 												<img alt="" src="resources/img/icon/pick_gray_off.png" class=""
+=======
+											<c:if test="${empty darkmode }">
+												<img alt="" src="resources/img/pick_basic_white.png" class=""
+												style="width: 40px; height: 40px; object-fit: cover; margin-top: 5px;">
+											</c:if>
+											<c:if test="${not empty darkmode }">
+												<img alt="" src="resources/img/pick_gray_off.png" class=""
+>>>>>>> develop
 												style="width: 40px; height: 40px; object-fit: cover; margin-top: 5px;">
 											</c:if>
 										</a>
@@ -185,7 +212,7 @@
 
 							<!-- 썸네일 이미지 -->
 							<div class="board-mid">
-								<a href="/board?boardNum=${mainBoardList.boardNum}&memberNum=${mainBoardList.memberNum}"> 
+								<a href="/readView?boardNum=${mainBoardList.boardNum}&memberNum=${mainBoardList.memberNum}"> 
 									<img class="image-thumbnail border border-secondary mt-3"
 
 									src="<spring:url value='/thumbnail/${mainBoardList.mainStoreFileName}'/>"

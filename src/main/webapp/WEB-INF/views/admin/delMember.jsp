@@ -8,7 +8,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" />
+<c:if test="${empty darkmode}">
+	<link href="${pageContext.request.contextPath}/resources/css/style.css" 
+	rel="stylesheet"/>
+</c:if>
+<c:if test="${not empty darkmode}">
+	<link href="${pageContext.request.contextPath}/resources/css/darkstyle.css" 
+	rel="stylesheet"/>
+</c:if>
 <title>Insert title here</title>
 </head>
 
@@ -18,17 +25,20 @@
 	<div class="container">
 		<h2>관리자 페이지</h2>
 		<br>
-		<button onclick='location.href="/admin/member"'>회원관리</button>
-		<button onclick='location.href="/admin/delmember"'>탈퇴회원관리</button>
-		<button onclick='location.href="/admin/board"'>게시글관리</button>
-		<button onclick='location.href="/admin/reply"'>댓글관리</button>
+		<button class="btn btn-outline-secondary" onclick='location.href="/admin/member"'>회원관리</button>
+		<button class="btn btn-secondary" onclick='location.href="/admin/delmember"'>탈퇴회원관리</button>
+		<button class="btn btn-outline-secondary" onclick='location.href="/admin/board"'>게시글관리</button>
+		<button class="btn btn-outline-secondary" onclick='location.href="/admin/reply"'>댓글관리</button>
 	</div>
 	
-	<div class="container">
-		<form name="search" method="get">
-			회원검색
-			<input type="text" name="memberId" id="memberId" placeholder="ID검색" value="${memberId}">
-			<input type="submit" value="검색" id="search">
+	<div class="container" style="margin-top: 30px;">
+		<form name="search" method="get" class="row" style="justify-content: end;">
+			<div class="col-auto">
+				<input class="form-control col-auto " type="text" name="memberId" id="memberId" placeholder="회원 ID검색" value="${memberId}">
+			</div>
+			<div class="col-auto">
+				<input class="btn btn-primary" type="submit" value="검색" id="search">
+			</div>
 		</form>
 		
 		<c:choose>
@@ -44,7 +54,7 @@
 			</c:when>
 			<c:otherwise>
 				<form action="/admin/delmember" method="post" name="delMember" onsubmit="return confirm('탈퇴 처리를 하시겠습니까?');">
-					<table>
+					<table class="table mb-5">
 						<tr>
 							<th>확인</th>
 							<th>회원 번호</th>
@@ -66,7 +76,7 @@
 						</tr>
 						</c:forEach>
 					</table>
-					<input type="submit" value="삭제하기">
+					<input class="btn btn-outline-danger mb-5" type="submit" value="삭제하기">
 				</form>
 			</c:otherwise>
 		</c:choose>

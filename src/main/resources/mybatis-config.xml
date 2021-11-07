@@ -39,6 +39,15 @@
         <typeAlias type="org.project.regist.vo.MemberVo" alias="memberVo"/>
         <typeAlias type="org.project.regist.vo.ResignVo" alias="resignVo"/>
         
+        
+        <!-- 정찬파트 -->
+		<typeAlias type="com.tripdiary.JCvo.BoardVo" alias="boardVo" />
+		<typeAlias type="com.tripdiary.JCvo.ReadVo" alias="readVo" />
+		<typeAlias type="com.tripdiary.JCvo.ReplyVo" alias="replyVo" />
+		<typeAlias type="com.tripdiary.JCvo.ReplyCommand" alias="replyCommand" />
+		<typeAlias type="com.tripdiary.JCvo.TdLikeVo" alias="tdlikeVo" />
+		<typeAlias type="com.tripdiary.JCvo.BoardImgVo" alias="boardImgVo" />
+	
 	</typeAliases>
  	
 </configuration>

@@ -31,7 +31,7 @@ public class PickController {
 	private PickService pickService;	
 	
 	// 찜하기 버튼을 눌렀을 때 작동되는 코드
-	@RequestMapping(value = "/pickClick", method = RequestMethod.GET)
+	@RequestMapping(value = "/pickMainClick", method = RequestMethod.GET)
 	public String pickClick(PickVo pickVo, HttpServletRequest request, 
 							HttpServletResponse response, HttpSession session) throws Exception {
 		
