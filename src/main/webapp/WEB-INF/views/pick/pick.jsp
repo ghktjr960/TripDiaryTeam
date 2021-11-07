@@ -30,12 +30,12 @@
 	<jsp:include page="../${pageContext.request.contextPath}/common/header.jsp" flush="false" />
 
 	<div class="container">
-		<h1>찜하기 페이지</h1>
+		<h1>Pick!</h1>
 		<br>
 		
 		<!-- 지역별 검색 기준, 태그검색을 위한 코드 -->
-		<form name="search" method="get">
-			<select id="place" name="place">
+		<form name="search" method="get" class="row" style="justify-content: center;">
+			<select id="place" name="place" class="form-select mb-3">
 				<option selected disabled hidden>지역선택</option>
 				<option value="seoul">서울특별시</option>
 				<option value="busan">부산광역시</option>
@@ -56,26 +56,30 @@
 				<option value="jeju">제주도특별자치도</option>
 				<option value="abroad">해외</option>
 			</select> 
-			<input type="text" name="tag" id="tag" placeholder="태그검색" value="${tag}"> 
-			<input type="submit" value="검색" id="search">
+			<div class="col-4">
+				<input type="text" name="tag" id="tag" placeholder="태그검색" value="${tag}" class="form-control"> 
+			</div >
+			<div class="col-auto" style="padding-left: 0px">
+				<input type="submit" value="검색하기" id="search" class="btn btn-primary" >
+			</div>
 		</form><br>
 		
 		<!-- 세션 저장된 값에 따라 글자를 다르게 표시 -->
 		<c:choose>
 			<c:when test="${sort eq 'regdate'}">
-				<button onclick='location.href="/pick?sort=regdate&place=${place}&tag=${tag}"'><b>작성일순</b>	</button>
-				<button onclick='location.href="/pick?sort=tripdate&place=${place}&tag=${tag}"'>여행일순</button>
-				<button onclick='location.href="/pick?sort=like&place=${place}&tag=${tag}"'>좋아요순</button>
+				<button class="btn btn-secondary" onclick='location.href="/pick?sort=regdate&place=${place}&tag=${tag}"'><b>작성일순</b>	</button>
+				<button class="btn btn-outline-secondary" onclick='location.href="/pick?sort=tripdate&place=${place}&tag=${tag}"'>여행일순</button>
+				<button class="btn btn-outline-secondary" onclick='location.href="/pick?sort=like&place=${place}&tag=${tag}"'>좋아요순</button>
 			</c:when>
 			<c:when test="${sort eq 'tripdate'}">
-				<button onclick='location.href="/pick?sort=regdate&place=${place}&tag=${tag}"'>작성일순</button>
-				<button onclick='location.href="/pick?sort=tripdate&place=${place}&tag=${tag}"'><b>여행일순</b></button>
-				<button	onclick='location.href="/pick?sort=like&place=${place}&tag=${tag}"'>좋아요순</button>
+				<button class="btn btn-outline-secondary" onclick='location.href="/pick?sort=regdate&place=${place}&tag=${tag}"'>작성일순</button>
+				<button class="btn btn-secondary" onclick='location.href="/pick?sort=tripdate&place=${place}&tag=${tag}"'><b>여행일순</b></button>
+				<button class="btn btn-outline-secondary"	onclick='location.href="/pick?sort=like&place=${place}&tag=${tag}"'>좋아요순</button>
 			</c:when>
 			<c:when test="${sort eq 'like'}">
-				<button onclick='location.href="/pick?sort=regdate&place=${place}&tag=${tag}"'>작성일순</button>
-				<button onclick='location.href="/pick?sort=tripdate&place=${place}&tag=${tag}"'>여행일순</button>
-				<button onclick='location.href="/pick?sort=like&place=${place}&tag=${tag}"'><b>좋아요순</b></button>
+				<button class="btn btn-outline-secondary" onclick='location.href="/pick?sort=regdate&place=${place}&tag=${tag}"'>작성일순</button>
+				<button class="btn btn-outline-secondary" onclick='location.href="/pick?sort=tripdate&place=${place}&tag=${tag}"'>여행일순</button>
+				<button class="btn btn-secondary" onclick='location.href="/pick?sort=like&place=${place}&tag=${tag}"'><b>좋아요순</b></button>
 			</c:when>
 		</c:choose>
 
@@ -84,7 +88,12 @@
 		<c:if test="${pickPageList eq null}">
 			<div class="container">
 				<div class="container">
-					<img alt="" src="${pageContext.request.contextPath}/resources/img/notexist.png" style="width: 30%;">
+					<c:if test="${empty darkmode}">
+						<img alt="" src="${pageContext.request.contextPath}/resources/img/notexist.png" style="width: 30%;">
+					</c:if>
+					<c:if test="${not empty darkmode}">
+						<img alt="" src="${pageContext.request.contextPath}/resources/img/darknotexist.png" style="width: 30%;">
+					</c:if>
 				</div>
 			</div>
 		</c:if>
@@ -93,14 +102,14 @@
 			<div class="diary-mid row mt-5 mb-5">
 				<c:forEach items="${pickPageList}" var="pickPageList">
 					<!-- 게시물 1개 부분 이 주석 밑부분 부터 반복문 실행-->
-					<div class="col-sm-4 diary-board-container">
+					<div class="col-lg-4 diary-board-container">
 						<div class="border border-secondary p-3 icon2">
 							<div class="board-top">
 								<div style="float: left;">
 									<!-- 프로필 이미지와 닉네임 -->
 									<c:if test="${pickPageList.profileStoreFileName ne null}">
 										<img alt=""
-											src="<spring:url value='/profile/${pickPageList.profileStoreFileName}.${pickPageList.profileFileType}'/>"
+											src="<spring:url value='/profile/${pickPageList.profileStoreFileName}'/>"
 											class="border rounded-circle"
 											style="width: 50px; height: 50px; object-fit: cover;">
 									</c:if>
@@ -119,15 +128,27 @@
 								<div style="float: right; display: inline-block;" class="">
 									<a href="/pickPageClick?pickNum=${pickPageList.pickNum}&memberNum=${authInfo.memberNum}&boardNum=${pickPageList.boardNum}"
 										onclick="alert('찜하기가 취소되었습니다.')"> 
-										<img alt="" src="resources/img/pick_basic_dark.png" class=""
-										style="width: 40px; height: 40px; object-fit: cover; margin-top: 5px;">
+										<c:if test="${empty darkmode}">
+											<img alt="" src="resources/img/pick_basic_white.png" class=""
+											style="width: 40px; height: 40px; object-fit: cover; margin-top: 5px;">
+										</c:if>
+										<c:if test="${not empty darkmode}">
+											<img alt="" src="resources/img/icon/pick_gray_on.png" class=""
+											style="width: 40px; height: 40px; object-fit: cover; margin-top: 5px;">
+										</c:if>
 									</a>
 
 									<!-- 세션이 없는경우 로그인으로 유도 -->
 									<c:if test="${authInfo eq null}">
 										<a href="/signIn" onclick="alert('로그인 후 사용가능합니다.')"> 
-											<img alt="" src="resources/img/pick_basic_white.png" class=""
-											style="width: 40px; height: 40px; object-fit: cover; margin-top: 5px;">
+											<c:if test="${empty darkmode}">
+												<img alt="" src="resources/img/pick_basic_white.png" class=""
+												style="width: 40px; height: 40px; object-fit: cover; margin-top: 5px;">
+											</c:if>
+											<c:if test="${not empty darkmode}">
+												<img alt="" src="resources/img/icon/pick_gray_on.png" class=""
+												style="width: 40px; height: 40px; object-fit: cover; margin-top: 5px;">
+											</c:if>
 										</a>
 									</c:if>
 								</div>
@@ -137,7 +158,7 @@
 							<div class="board-mid">
 								<a href="/board?boardNum=${pickPageList.boardNum}&memberNum=${pickPageList.memberNum}"> 
 									<img class="image-thumbnail border border-secondary mt-3"
-									src="<spring:url value='/thumbnail/${pickPageList.mainStoreFileName}.${pickPageList.mainFileType}'/>"
+									src="<spring:url value='/thumbnail/${pickPageList.mainStoreFileName}'/>"
 									style="width: 100%;">
 								</a>
 							</div>

@@ -110,7 +110,7 @@
 						<!-- pick 이미지 -->
 						<div style="float: right; display: inline-block;" class="">
 						<c:if test="${not empty darkmode}">
-							<img alt="" src="resources/img/icon/pick_cnt2.png"
+							<img alt="" src="resources/img/icon/pick_gray_off.png"
 								class="pick-img"
 								style="width: 40px; height: 40px; object-fit: cover;">
 						</c:if>
