@@ -135,7 +135,7 @@
 
 							<!-- 썸네일 이미지 -->
 							<div class="board-mid">
-								<a href="/board?boardNum=${pickPageList.boardNum}&memberNum=${pickPageList.memberNum}"> 
+								<a href="/readView?boardNum=${pickPageList.boardNum}&memberNum=${pickPageList.memberNum}"> 
 									<img class="image-thumbnail border border-secondary mt-3"
 									src="<spring:url value='/thumbnail/${pickPageList.mainStoreFileName}.${pickPageList.mainFileType}'/>"
 									style="width: 100%;">

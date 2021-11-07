@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="readMapper">
+
+	<!-- 로그인 -->
+	<select id="login" resultType="memberVo">
+		SELECT * from
+			MEMBER
+		WHERE
+			ID = #{id}
+	</select>
+
+	<!-- 게시글 목록 -->
+	<select id="list" resultType="readVo">
+		select
+			A.board_num,
+			B.member_num,
+			A.content,
+			A.regdate,
+			A.tripdate,
+			B.nickname,
+			C.org_file_name as profile_org_file_name,
+			C.store_file_name as profile_store_file_name,
+			C.file_type as profile_file_type
+		from
+			board A, member B, profile_img C
+		where
+			A.member_num = B.member_num
+			and A.member_num = C.member_num
+		ORDER BY A.BOARD_NUM DESC
+	</select>
+
+
+	<!-- 게시글 상세보기 -->
+	<select id="read" parameterType="int" resultType="readVo">
+		select
+			A.board_num,
+			B.member_num,
+			A.content,
+			A.regdate,
+			A.tripdate,
+			A.td_like_cnt,
+			B.nickname,
+			C.org_file_name as profile_org_file_name,
+			C.store_file_name as profile_store_file_name,
+			C.file_type as profile_file_type
+		from
+			BOARD A, MEMBER B, PROFILE_IMG C
+		where
+			A.member_num = B.member_num
+			and A.member_num = C.member_num
+			and A.board_num = #{boardNum}
+	</select>
+
+	<!-- 게시글 수정하기는 태민이꺼 게시글 작성 받아오기 -->
+
+	<!-- 게시글 삭제 마지막에 구현하기 -->
+
+	<!-- 댓글 목록 -->
+	<select id="replyList" parameterType="int" resultType="replyCommand">
+		select
+			A.reply_num,
+			A.board_num,
+			A.member_num,
+			B.nickname,
+			A.content,
+			A.regdate
+		from
+			reply A, member B
+		where
+			A.member_num = B.member_num
+			and A.board_num = #{boardNum}
+		order by A.reply_num DESC
+	</select>
+
+	<!-- 댓글 작성 -->
+	<insert id="replyWrite">
+		insert into
+			reply
+			( reply_num,
+			board_num,
+			member_num,
+			content,
+			REGDATE )
+		VALUES
+			( reply_seq.nextval,
+			#{boardNum},
+			#{memberNum},
+			#{content},
+			SYSDATE )
+	</insert>
+
+	<!-- 댓글 수정 -->
+	<update id="replyUpdate" parameterType="replyVo">
+		update
+			reply
+		set
+			content = #{content}
+		where
+			reply_num = #{replyNum}
+			and board_num = #{boardNum}
+			and member_num = #{memberNum}
+	</update>
+
+	<!-- 댓글 삭제 -->
+	<delete id="replyDelete" parameterType="replyVo">
+		delete from
+			reply
+		where
+			reply_num = #{replyNum}
+			and board_num = #{boardNum}
+			and member_num = #{memberNum}
+	</delete>
+
+	<!-- 선택된 댓글 조회 -->
+	<select id="selectReply" resultType="replyVo">
+		select
+			A.reply_num,
+			A.board_num,
+			A.member_num,
+			A.content,
+			A.regdate
+		from
+			reply A, board B, member C
+		where
+			A.board_num = B.board_num
+			and A.member_num = C.member_num
+			and A.reply_num = #{replyNum}
+	</select>
+
+	<!-- 보드 이미지 목록 -->
+	<select id="boardImgList" parameterType="int" resultType="boardImgVo">
+		select
+			A.board_img_num,
+			A.board_num,
+			A.org_file_name,
+			A.store_file_name,
+			A.file_size,
+			A.file_type,
+			A.main_img
+		from
+			board_img A, board B
+		where
+			A.board_num = B.board_num
+			and A.board_num = #{boardNum}
+	</select>
+	
+	<!-- 태그 -->
+	<select id="tagList" parameterType="int" resultType="tagVo" >
+		select * from
+			tag
+		where 
+			board_num = #{boardNum}
+	</select>
+
+	<!-- pick 테이블 memberNum, boardNum 유무 확인 -->
+	<select id="pickCheck" resultType="pickVo">
+		select * from
+			pick
+		where
+			member_num = #{memberNum}
+			and board_num = #{boardNum}
+	</select>
+
+
+	<!-- 찜하기 눌렀을 때 테이블에 존재하지 않을 경우 insert -->
+	<insert id="insertPick">
+		insert into
+			pick
+		values
+			( pick_seq.nextval,
+			#{memberNum},
+			#{boardNum},
+			SYSDATE )
+	</insert>
+
+	<!-- 찜하기 눌렀을 때 테이블에 존재할 경우 delete -->
+	<delete id="deletePick" parameterType="pickVo">
+		delete from
+			pick
+		where
+			pick_num = #{pickNum}
+			and member_num = #{memberNum}
+			and board_num = #{boardNum}
+	</delete>
+
+	<!-- 좋아요 -->
+
+	<!-- pick 테이블 memberNum, boardNum 유무 확인 -->
+	<select id="tdLikeCheck" resultType="tdlikeVo">
+		select * from
+			td_like
+		where
+			member_num = #{memberNum}
+			and board_num = #{boardNum}
+	</select>
+
+
+	<!-- 찜하기 눌렀을 때 테이블에 존재하지 않을 경우 insert -->
+	<insert id="insertTdlike">
+		insert into
+			td_like
+		values
+			( td_like_seq.nextval,
+			#{memberNum},
+			#{boardNum} )
+	</insert>
+
+	<!-- 찜하기 눌렀을 때 테이블에 존재할 경우 delete -->
+	<delete id="deleteTdlike" parameterType="tdlikeVo">
+		
+		delete from
+			td_like
+		where
+			td_like_num = #{tdLikeNum}
+			and member_num = #{memberNum}
+			and board_num = #{boardNum}
+	</delete>
+
+	<!-- 좋아요 눌렀을 때 해당 게시글 td_like_cnt 카운팅 업데이트-->
+ 	<update id="boardTotalLike" parameterType="com.tripdiary.JCcontroller.MemberActCntCmd">
+ 		update board set  
+ 		<choose>
+ 			<when test='memberAct.equals("like") and updateType.equals("insert")'>
+		 		 td_like_cnt = td_like_cnt +1 where board_num = #{boardNum}
+ 			</when>
+ 			<when test='memberAct.equals("like") and updateType.equals("delete")'>
+		 		 td_like_cnt = td_like_cnt -1 where board_num = #{boardNum}
+ 			</when>
+ 		</choose>
+ 	</update>
+
+	<!-- 찜/좋아요 누른거 활동 카운팅 -->
+	<update id = "memberActCntCmd" parameterType="com.tripdiary.JCcontroller.MemberActCntCmd">
+			update member_act_cnt set 
+		<choose>
+		<!-- 찜하기 누른 카운팅 -->
+			<when test='memberAct.equals("pick") and updateType.equals("insert")'>
+          		pick_press_cnt = pick_press_cnt +1 where member_num = #{loginMemberNum}
+			</when>
+			
+			<when test='memberAct.equals("pick") and updateType.equals("delete")'>
+          		pick_press_cnt = pick_press_cnt -1 where member_num = #{loginMemberNum}
+			</when>
+
+		<!-- 좋아요 누른 카운팅 -->
+			<when test='memberAct.equals("like") and updateType.equals("insert")'>
+				td_like_press_cnt = td_like_press_cnt +1 where member_num = #{loginMemberNum}
+			</when>
+			
+			<when test='memberAct.equals("like") and updateType.equals("delete")'>
+				td_like_press_cnt = td_like_press_cnt -1 where member_num = #{loginMemberNum}
+			</when>
+		</choose>
+     </update>
+
+	<!-- 로그인한 멤버가 댓글 단 횟수  -->
+	<update id = "replyActCnt" parameterType="com.tripdiary.JCcontroller.MemberActCntCmd">
+			update member_act_cnt set 
+		<choose>
+		<!-- 댓글 작성/삭제 카운팅 -->
+			<when test='memberAct.equals("reply") and updateType.equals("insert")'>
+           		reply_write_cnt = reply_write_cnt +1 where member_num = #{loginMemberNum}
+			</when>
+	
+			<when test='memberAct.equals("reply") and updateType.equals("delete")'>
+           		reply_write_cnt = reply_write_cnt -1 where member_num = #{loginMemberNum}
+			</when>
+		</choose>
+     </update>
+     
+     <!-- 게시글 작성 멤버가 좋아요 받은 총횟수 -->
+	<update id = "memberLikeReceiveCnt" parameterType="com.tripdiary.JCcontroller.MemberActCntCmd">
+			update member_act_cnt set
+		<choose> 
+		<!-- 좋아요 받은 후 카운팅 -->
+			<when test='memberAct.equals("like") and updateType.equals("insert")'>
+             	td_like_receive_cnt = td_like_receive_cnt +1 where member_num = #{boardMemberNum}
+			</when>
+			
+			<when test='memberAct.equals("like") and updateType.equals("delete")'>
+             	td_like_receive_cnt = td_like_receive_cnt -1 where member_num = #{boardMemberNum}
+			</when>
+		</choose>
+     </update>
+
+</mapper>

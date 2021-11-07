@@ -55,7 +55,13 @@
 
 	<context:component-scan
 		base-package="org.project.*" />
-
+	
+	<context:component-scan base-package="com.tripdiary.JCcontroller" />
+	<context:component-scan base-package="com.tripdiary.JCvo" />
+    <context:component-scan base-package="com.tripdiary.JCdao" />
+    <context:component-scan base-package="com.tripdiary.JCservice" />
+	
+	
 	<!-- 여기부터 -->
 	<beans:bean id="authInterceptor"
 		class="org.project.regist.commons.AuthInterceptor" />
