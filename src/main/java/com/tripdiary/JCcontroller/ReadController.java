@@ -107,7 +107,7 @@ public class ReadController {
 		model.addAttribute("read", read);
 
 		// 현재 로그인 멤버 확인 - 삭제해야함
-		MemberVo memberVo = (MemberVo) session.getAttribute("memberLoginTest");
+		MemberVo memberVo = (MemberVo) session.getAttribute("authInfo");
 		System.out.println("replyWrite(memberVo) : " + memberVo.toString());
 		model.addAttribute("memberVo", memberVo);
 
@@ -137,7 +137,7 @@ public class ReadController {
 		model.addAttribute("read", read);
 
 		// 현재 로그인 멤버 확인 - 삭제해야함
-		MemberVo memberVo = (MemberVo) session.getAttribute("memberLoginTest");
+		MemberVo memberVo = (MemberVo) session.getAttribute("authInfo");
 		System.out.println("replyUpdate(memberVo) : " + memberVo.toString());
 		model.addAttribute("memberVo", memberVo);
 
@@ -164,7 +164,7 @@ public class ReadController {
 		model.addAttribute("read", read);
 
 		// 현재 로그인 멤버 확인 - 삭제해야함
-		MemberVo memberVo = (MemberVo) session.getAttribute("memberLoginTest");
+		MemberVo memberVo = (MemberVo) session.getAttribute("authInfo");
 		System.out.println(memberVo.toString());
 		model.addAttribute("memberVo", memberVo);
 
@@ -188,7 +188,7 @@ public class ReadController {
 		model.addAttribute("read", read);
 
 		// 현재 로그인 멤버 확인 - 삭제해야함
-		MemberVo memberVo = (MemberVo) session.getAttribute("memberLoginTest");
+		MemberVo memberVo = (MemberVo) session.getAttribute("authInfo");
 		System.out.println(memberVo.toString());
 		model.addAttribute("memberVo", memberVo);
 
