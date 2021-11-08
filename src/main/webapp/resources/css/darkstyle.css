@@ -37,6 +37,15 @@ body{
 .navbar-light .navbar-nav .nav-link{
 	color: white
 }
+.main-a{
+	color: white;
+	text-decoration:none;
+}
+table tr{
+	color: white;
+}
+
+
 
 
 
@@ -208,6 +217,12 @@ a:hover {
 .diaryCalendar{
 	width: 72%; 
 	margin: auto;
+}
+.registPageForm{
+	width: 500px;
+	padding:4%;
+	margin: auto;
+	text-align: left
 }
 @media screen and (max-width: 1400px) {
 	.writeForm {

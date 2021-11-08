@@ -12,6 +12,11 @@ public class PickVo {
 
 	}
 	
+	public PickVo(int memberNum, int boardNum) {
+		this.memberNum = memberNum;
+		this.boardNum = boardNum;
+	}
+	
 	public int getPickNum() {
 		return pickNum;
 	}

@@ -14,17 +14,12 @@ import com.tripdiary.TMvo.WriteCmd;
 
 @Component
 public class FileUtils {
-	private static final String filePath = "C:\\mp\\board_img\\"; // ������ ����� ��ġ
+	private static final String filePath = "C:\\tripdiary\\board_img\\"; // 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占� 占쏙옙치
 	
 	public List<Map<String, Object>> parseInsertFileInfo(WriteCmd writeCmd, 
 			MultipartHttpServletRequest mpRequest) throws Exception{
 		
-		/*
-			Iterator�� �����͵��� ����ü? ���� �÷������κ��� ������ ���� �� �ִ� �������̽��Դϴ�.
-			List�� �迭�� ���������� �������� ������ ����������, Map���� Ŭ�������� ���������� ������ ���� �����ϴ�.
-			Iterator�� �̿��Ͽ� Map�� �ִ� �����͵��� while���� �̿��Ͽ� ���������� �����մϴ�.
-		*/
-		//Iterator<String> iterator = mpRequest.getFileNames();
+
 		List<MultipartFile> fileList = mpRequest.getFiles("file");
 		
 		MultipartFile multipartFile = null;
@@ -45,11 +40,11 @@ public class FileUtils {
 		if(fileList != null) {
 			for(int i=0; i<fileList.size(); i++) {
 				multipartFile = fileList.get(i);
-				// ���� �̸�
+				// 占쏙옙占쏙옙 占싱몌옙
 				originalFileName = multipartFile.getOriginalFilename();
-				// ���� Ȯ����
+				// 占쏙옙占쏙옙 확占쏙옙占쏙옙
 				originalFileExtension = originalFileName.substring(originalFileName.lastIndexOf(".")+1);
-				// ����� ���� �̸�
+				// 占쏙옙占쏙옙占� 占쏙옙占쏙옙 占싱몌옙
 				storedFileName = getRandomString() + originalFileExtension;
 				file = new File(filePath + storedFileName);
 				multipartFile.transferTo(file);
@@ -67,11 +62,11 @@ public class FileUtils {
 /*		while(iterator.hasNext()) {
 			multipartFile = mpRequest.getFile(iterator.next());
 			if(!multipartFile.isEmpty()) {
-				// ���� �̸�
+				// 占쏙옙占쏙옙 占싱몌옙
 				originalFileName = multipartFile.getOriginalFilename();
-				// ���� Ȯ����
+				// 占쏙옙占쏙옙 확占쏙옙占쏙옙
 				originalFileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
-				// ����� ���� �̸�
+				// 占쏙옙占쏙옙占� 占쏙옙占쏙옙 占싱몌옙
 				storedFileName = getRandomString() + originalFileExtension;
 				file = new File(filePath + storedFileName);
 				multipartFile.transferTo(file);

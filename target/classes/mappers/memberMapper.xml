@@ -12,38 +12,84 @@
 <!-- 회원가입 -->
  <insert id="regist">
         INSERT INTO MEMBER (
-            ID, PASSWORD, NICKNAME, EMAIL, BIRTH_YEAR, BIRTH, GENDER) 
+            member_num,ID, PASSWORD, NICKNAME, EMAIL, BIRTH_YEAR, BIRTH, GENDER) 
             VALUES (
-            #{id}, #{password}, #{nickname}, #{email}, #{birthyear}, #{birth}, #{gender}
+            member_seq.nextval, #{id}, #{password}, #{nickname}, #{email}, #{birthyear}, #{birth}, #{gender}
         )
         
         
     </insert> 
 
-
 <!-- 멤버활동 테이블 데이터 삽입 -->
-<insert id="registAdd" parameterType="memberVo">
+<insert id="registAddP" parameterType="memberVo"
+      useGeneratedKeys="true">
+       <!-- 멤버 시퀀스를 불러와서 삽입 -->
+ <selectKey keyProperty="memberNum" resultType="int" order="BEFORE">
+         select
+        member_seq from dual
+      </selectKey>
+      insert into "member_act_cnt"
+      (member_act_cnt, member_num, td_like_press_cnt, pick_press_cnt, board_write_cnt, reply_write_cnt, td_like_receive_cnt)
+      values
+      (member_act_cnt_seq.nextval #{memberNum}, 0, 0, 0, 0, 0)
+   </insert>
 
-<selectKey resultType ="int" keyProperty="memberNum" order ="BEFORE">
-	SELECT MAX(MEMBER_NUM) FROM MEMBER
-</selectKey>
 
-        INSERT INTO MEMBER_ACT_CNT (MEMBER_NUM) 
-            VALUES ( #{memberNum} )
-        
-    </insert> 
+
+<!-- 회원 프로필 테이블 데이터 삽입 -->
+<insert id="registAddPf" parameterType="memberVo"
+      useGeneratedKeys="true">
+      <!-- 멤버 시퀀스를 불러와서 삽입 -->
+ <selectKey keyProperty="memberNum" resultType="int" order="BEFORE">
+         select
+         member_seq from dual
+      </selectKey>
+      insert into PORFILE
+      (profile_num, member_num, message)
+      values
+      (profile_seq.nextval, #{memberNum}, "프로필 사진을 클릭하여 상태메시지를 수정할 수 있습니다.")
+   </insert>
+
 
 <!-- 회원 프로필 이미지 테이블 데이터 삽입 -->
-<insert id="registAddP" parameterType="memberVo">
+<insert id="registAdd" parameterType="memberVo"
+      useGeneratedKeys="true">
+      <!-- 멤버 시퀀스를 불러와서 삽입 -->
+ <selectKey keyProperty="memberNum" resultType="int" order="BEFORE">
+         select
+         member_seq from dual
+      </selectKey>
+      insert into PROFILE_IMG
+      (profile_img_num, member_num, org_file_name, store_file_name, file_size, file_type)
+      values
+      (profile_img_seq.nextval, #{memberNum}, "default", "default", 0, ".png")
+   </insert>
 
-<selectKey resultType ="int" keyProperty="memberNum" order ="BEFORE">
-	SELECT MAX(MEMBER_NUM) FROM MEMBER
-</selectKey>
 
-        INSERT INTO PROFILE_IMG (MEMBER_NUM) 
-            VALUES ( #{memberNum} )
-        
-    </insert> 
+
+ <select id="profile" resultType="String">
+        SELECT org_file_name FROM profile_img where member_num = #{memberNum}
+    </select>
+
+
+
+
+ <insert id="reportAdd" parameterType="memberVo"
+      useGeneratedKeys="true">
+      <!-- 멤버 시퀀스를 불러와서 삽입 -->
+ <selectKey keyProperty="memberNum" resultType="int" order="BEFORE">
+         select
+         member_seq from dual
+      </selectKey>
+      insert into report_cnt
+      (report_cnt_num, member_num, report_com_cnt, report_cnt, warning_cnt)
+      values
+      (0, #{memberNum}, 0, 0, 0)
+   </insert>
+
+
+
+
 
 
 

@@ -28,7 +28,6 @@
 		<typeAlias alias="mainBoardListVo" type="com.tripdiary.HSvo.MainBoardListVo"/>
 		<typeAlias alias="tagVo" type="com.tripdiary.HSvo.TagVo"/>
 		<typeAlias alias="pickVo" type="com.tripdiary.HSvo.PickVo"/>
-		<typeAlias alias="memberVo_hs" type="com.tripdiary.HSvo.MemberVo"/>
 		<typeAlias alias="profileImgVo" type="com.tripdiary.HSvo.ProfileImgVo"/>
 		<typeAlias alias="pageVo" type="com.tripdiary.HSvo.PageVo"/>
 		<typeAlias alias="reportCntVo" type="com.tripdiary.HSvo.ReportCntVo"/>
@@ -40,6 +39,15 @@
         <typeAlias type="org.project.regist.vo.MemberVo" alias="memberVo"/>
         <typeAlias type="org.project.regist.vo.ResignVo" alias="resignVo"/>
         
+        
+        <!-- 정찬파트 -->
+		<typeAlias type="com.tripdiary.JCvo.BoardVo" alias="boardVo" />
+		<typeAlias type="com.tripdiary.JCvo.ReadVo" alias="readVo" />
+		<typeAlias type="com.tripdiary.JCvo.ReplyVo" alias="replyVo" />
+		<typeAlias type="com.tripdiary.JCvo.ReplyCommand" alias="replyCommand" />
+		<typeAlias type="com.tripdiary.JCvo.TdLikeVo" alias="tdlikeVo" />
+		<typeAlias type="com.tripdiary.JCvo.BoardImgVo" alias="boardImgVo" />
+	
 	</typeAliases>
  	
 </configuration>

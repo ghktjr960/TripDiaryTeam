@@ -33,38 +33,38 @@ public class WriteController {
 	
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public String writeForm(HttpSession session, Model model) {
-		if(session.getAttribute("id") == null) {
-			model.addAttribute("msg", "�α��� �� �̿����ּ���.");
-			model.addAttribute("url", "/signIn");
-			return "/return/alert";
-		}
+		//로그인 검사
+    	if(session.getAttribute("authInfo") == null) {
+    		model.addAttribute("msg", "로그인 후 이용해주세요!");
+    		model.addAttribute("url", "/login/");
+    		return "/return/alert";
+    	}
 		return "/write";
 	}
 	
     @RequestMapping(value="/write", method=RequestMethod.POST) 
     public String write(WriteCmd writeCmd,TagCmd tagCmd, MapCmd mapCmd, Model model, MultipartHttpServletRequest mpRequest) throws Exception {
-    	//��ǥ ������ ���ٸ� ���û
+    	//대표사진 검사
     	if(mpRequest.getFile("thumbnail").getOriginalFilename().equals("")) {
-    		model.addAttribute("msg", "��ǥ ������ ������ּ���.");
+    		model.addAttribute("msg", "대표 사진을 등록해주세요.");
     		return "/return/historyback";
     	}
-    	// ���ε�� �̹��� ���ε� ���� �˻�
+    	// 대표사진이 들어있는지 검사 후 확장자 및 사이즈 검사
     	if(!mpRequest.getFile("thumbnail").getOriginalFilename().equals("")) {
-        	// ����� Ȯ���� �� �뷮 �˻�
         	if(thumbnailCheck.check(mpRequest) == false) {
-        		model.addAttribute("msg", "�̹������ϸ� ���ε� �����մϴ�. (�ִ� 5MB)");
+        		model.addAttribute("msg", "이미지파일만 업로드 가능합니다. (최대 5MB)");
         		return "/return/historyback";
         	}
     	}
+    	// 추가사진이 들어있는지 검사 후 확장자 및 사이즈 검사
     	if(!mpRequest.getFiles("file").get(0).getOriginalFilename().equals("")){
-        	// �߰� �̹������� Ȯ���� �� �뷮�˻�
            	if(fileCheck.check(mpRequest) == false) {
-        		model.addAttribute("msg", "�̹������ϸ� ���ε� �����մϴ�. (�ִ� 5MB)");
+        		model.addAttribute("msg", "이미지파일만 업로드 가능합니다. (최대 5MB)");
         		return "/return/historyback";
         	}
     	}
     	writeService.write(writeCmd,tagCmd,mapCmd, mpRequest);
-    	model.addAttribute("msg", "���ο� �ϱ⸦ �ۼ��Ͽ����ϴ�.");
+    	model.addAttribute("msg", "새로운 일기를 작성했습니다!");
 		model.addAttribute("url", "/diary?memberNum=");
 		return "/return/diaryAlert";
     }
@@ -73,11 +73,11 @@ public class WriteController {
 	@RequestMapping(value = "/writeUpdate", method = RequestMethod.GET)
 	public String writeUpdate(HttpSession session,Model model, int boardNum) {
 		WriteCmd board = writeService.getBoard(boardNum);
-		int memberNum = (int) session.getAttribute("memberNum");
-		//�ۼ������� �˻�
-    	if(memberNum != board.getMemberNum()) {
-    		model.addAttribute("msg", "�ۼ��ڸ� ������ �����մϴ�.");
-    		return "/return/historyback";
+		//로그인 검사
+    	if(session.getAttribute("authInfo") == null) {
+    		model.addAttribute("msg", "로그인 후 이용해주세요!");
+    		model.addAttribute("url", "/login/");
+    		return "/return/alert";
     	}
 		model.addAttribute("mainImg", writeService.getMainImg(boardNum));
 		model.addAttribute("subImg", writeService.getSubImg(boardNum));
@@ -91,24 +91,23 @@ public class WriteController {
     @RequestMapping(value="/writeUpdate", method=RequestMethod.POST) 
     public String writeUpdate(MultipartHttpServletRequest mpRequest, WriteCmd writeCmd,TagCmd tagCmd, Model model) throws Exception {
     	
-    	// ���ε�� �̹��� ���ε� ���� �˻�
+    	// 대표사진이 들어있는지 검사 후 확장자 및 사이즈 검사
     	if(!mpRequest.getFile("thumbnail").getOriginalFilename().equals("")) {
-        	// ����� Ȯ���� �� �뷮 �˻�
         	if(thumbnailCheck.check(mpRequest) == false) {
-        		model.addAttribute("msg", "�̹������ϸ� ���ε� �����մϴ�. (�ִ� 5MB)");
+        		model.addAttribute("msg", "이미지파일만 업로드 가능합니다. (최대 5MB)");
         		return "/return/historyback";
         	}
     	}
+    	// 추가사진이 들어있는지 검사 후 확장자 및 사이즈 검사
     	if(!mpRequest.getFiles("file").get(0).getOriginalFilename().equals("")){
-        	// �߰� �̹������� Ȯ���� �� �뷮�˻�
            	if(fileCheck.check(mpRequest) == false) {
-        		model.addAttribute("msg", "�̹������ϸ� ���ε� �����մϴ�. (�ִ� 5MB)");
+        		model.addAttribute("msg", "이미지파일만 업로드 가능합니다. (최대 5MB)");
         		return "/return/historyback";
         	}
     	}
     	
     	writeService.writeUpdate(writeCmd,tagCmd, mpRequest);
-    	model.addAttribute("msg", "�ϱ⸦ �����Ͽ����ϴ�.");
+    	model.addAttribute("msg", "일기를 수정하였습니다!");
 		model.addAttribute("url", "/diary?memberNum=");
 		return "/return/diaryAlert";
     }

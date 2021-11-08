@@ -6,6 +6,8 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.project.api.EmailSend;
+import org.project.regist.vo.MemberVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -15,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.tripdiary.HSservice.AdminService;
 import com.tripdiary.HSvo.DelMemberVo;
-import com.tripdiary.HSvo.MemberVo;
 import com.tripdiary.HSvo.ReportBoardVo;
 import com.tripdiary.HSvo.ReportCntVo;
 import com.tripdiary.HSvo.ReportReplyVo;
@@ -27,10 +28,11 @@ public class AdminController {
 
 	@Inject
 	private AdminService adminService;
+	private EmailSend emailSend;
 	
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public String admin(HttpSession session) throws Exception  {
-		MemberVo memberVo = (MemberVo) session.getAttribute("memberLoginTest");
+		MemberVo memberVo = (MemberVo) session.getAttribute("authInfo");
 		if(memberVo != null && memberVo.isAdmin() == true) {
 			return "redirect:/admin/member";
 		} else {
@@ -40,7 +42,7 @@ public class AdminController {
 	}
 	@RequestMapping(value = "/admin/member", method = RequestMethod.GET)
 	public String memberManageGet(Model model, ReportCntVo reportCntVo, HttpSession session) throws Exception  {
-		MemberVo memberVo = (MemberVo) session.getAttribute("memberLoginTest");
+		MemberVo memberVo = (MemberVo) session.getAttribute("authInfo");
 		if(memberVo != null && memberVo.isAdmin() == true) {
 			
 			List<ReportCntVo> reportCnt = adminService.reportCntVo(reportCntVo);
@@ -54,7 +56,7 @@ public class AdminController {
 	
 	@RequestMapping(value = "/admin/member", method = RequestMethod.POST)
 	public String memberManagePost(Model model, String memberNumList, HttpSession session) throws Exception  {
-		MemberVo loginMember = (MemberVo) session.getAttribute("memberLoginTest");
+		MemberVo loginMember = (MemberVo) session.getAttribute("authInfo");
 		if(loginMember != null && loginMember.isAdmin() == true) {
 			
 			if(memberNumList != null) {
@@ -65,6 +67,8 @@ public class AdminController {
 					int result = adminService.memberManageDelte(Integer.parseInt(memberNum[i]));
 					if(result > 0) {
 						System.out.println(memberNum[i] + "번 회원 삭제성공");
+						
+						emailSend.sendDelMember(loginMember);
 						
 						DelMemberVo delMemberVo = adminService.delMemberSelectOne(Integer.parseInt(memberNum[i]));
 						if(delMemberVo != null) {
@@ -85,7 +89,7 @@ public class AdminController {
 	
 	@RequestMapping(value="/admin/delmember", method = RequestMethod.GET)
 	public String delMemberGet(Model model, DelMemberVo delMemberVo, HttpSession session) {
-		MemberVo memberVo = (MemberVo) session.getAttribute("memberLoginTest");
+		MemberVo memberVo = (MemberVo) session.getAttribute("authInfo");
 		if(memberVo != null && memberVo.isAdmin() == true) {
 			
 			List<DelMemberVo> delMember = adminService.delMemberSelectList();
@@ -102,7 +106,8 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/admin/delmember", method = RequestMethod.POST)
-	public String delMemberPost(String memberNumList) {
+	public String delMemberPost(String memberNumList, HttpSession session) throws Exception {
+		MemberVo loginMember = (MemberVo) session.getAttribute("authInfo");
 		
 		if(memberNumList != null) {
 			// check 박스 여러러개 받을 경우
@@ -116,6 +121,8 @@ public class AdminController {
 				if(delMember.getTimeover() == 0) {
 					adminService.delmemberUpdate(delMember.getMemberNum());
 					adminService.memberManageDelte(delMember.getMemberNum());
+					
+					emailSend.sendDelMember(loginMember);
 				} else {
 					
 				}
@@ -126,7 +133,7 @@ public class AdminController {
 	
 	@RequestMapping(value="/admin/board", method = RequestMethod.GET)
 	public String reportBoardGet(Model model, HttpSession session) {
-		MemberVo memberVo = (MemberVo) session.getAttribute("memberLoginTest");
+		MemberVo memberVo = (MemberVo) session.getAttribute("authInfo");
 			if(memberVo != null && memberVo.isAdmin() == true) {
 				
 			List<ReportBoardVo> reportBoardList = adminService.reportBoardList();
@@ -178,7 +185,7 @@ public class AdminController {
 	
 	@RequestMapping(value="/admin/reply", method = RequestMethod.GET)
 	public String reportReplyGet(Model model, HttpSession session) {
-		MemberVo memberVo = (MemberVo) session.getAttribute("memberLoginTest");
+		MemberVo memberVo = (MemberVo) session.getAttribute("authInfo");
 			if(memberVo != null && memberVo.isAdmin() == true) {
 			List<ReportReplyVo> reportReplyList = adminService.reportReplyList();
 			

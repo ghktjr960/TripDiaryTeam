@@ -40,32 +40,32 @@ public class MemberController {
 	BCryptPasswordEncoder pwEncoder;
 	
 	
-	//마이 페이지
+	//留덉씠 �럹�씠吏�
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String loginGet( MemberVo memberVo) throws Exception {
    
 
-    	logger.info("get 마이 페이지 출력합니다.");
+    	logger.info("get 留덉씠 �럹�씠吏� 異쒕젰�빀�땲�떎.");
     	return "/MH/myPage";
     }
 	
-  //마이 페이지
+  //留덉씠 �럹�씠吏�
     @RequestMapping(value = "/myPage", method = RequestMethod.GET)
     public String myPage( MemberVo memberVo) throws Exception {
    
 
-    	logger.info("get 마이 페이지 출력합니다.");
-    	return "/MH/myPage";
+    	logger.info("get 留덉씠 �럹�씠吏� 異쒕젰�빀�땲�떎.");
+    	return "/myPage";
     }
 	
-    //회원정보 수정 페이지 
+    //�쉶�썝�젙蹂� �닔�젙 �럹�씠吏� 
     @RequestMapping(value = "/infoUpdate", method = RequestMethod.GET)
     public String infoUpdateGET() throws Exception{
     	
     	return "/regist/infoUpdate";
     }
     
-    //회원정보 수정 요청
+    //�쉶�썝�젙蹂� �닔�젙 �슂泥�
     @RequestMapping(value = "/infoUpdate", method = RequestMethod.POST)
     public String infoUpdatePOST(MemberVo memberVo, HttpSession session) throws Exception{
     	
@@ -77,38 +77,38 @@ public class MemberController {
     	return "redirect:/";
     }
     
-    //비밀번호 변경 페이지 
+    //鍮꾨�踰덊샇 蹂�寃� �럹�씠吏� 
     @RequestMapping(value = "/pwUpdate", method = RequestMethod.GET)
     public String pwUpdateGET() throws Exception{
     	
     	return "/regist/pwUpdate";
     }
     
-    //비밀번호 수정 요청
+    //鍮꾨�踰덊샇 �닔�젙 �슂泥�
     @RequestMapping(value = "/pwUpdate", method = RequestMethod.POST)
     public String pwUpdatePOST(MemberVo memberVo,HttpServletRequest req, HttpSession session, RedirectAttributes rttr) throws Exception{
     	
     	session = req.getSession();
     	
     	String loginMemberPw = (String) session.getAttribute("loginMemberPw");
-    	String oldpw = req.getParameter("oldpassword"); //기존 비밀번호 확인값
-    	String newpw = req.getParameter("password"); //변경하려는 비밀번호
-    	String newpwchk = req.getParameter("passwordchk"); //변경하려는 비밀번호 확인값
+    	String oldpw = req.getParameter("oldpassword"); //湲곗〈 鍮꾨�踰덊샇 �솗�씤媛�
+    	String newpw = req.getParameter("password"); //蹂�寃쏀븯�젮�뒗 鍮꾨�踰덊샇
+    	String newpwchk = req.getParameter("passwordchk"); //蹂�寃쏀븯�젮�뒗 鍮꾨�踰덊샇 �솗�씤媛�
     	
     	
     	
-    	//암호화된 비밀번호와 입력 비밀번호를 확인하는 작업(입력된 비밀번호, DB비밀번호)
+    	//�븫�샇�솕�맂 鍮꾨�踰덊샇�� �엯�젰 鍮꾨�踰덊샇瑜� �솗�씤�븯�뒗 �옉�뾽(�엯�젰�맂 鍮꾨�踰덊샇, DB鍮꾨�踰덊샇)
     	boolean pwMatch = pwEncoder.matches(oldpw, loginMemberPw);
     	
     	if(pwMatch == true) {
-    	//입력한 새 비밀번호가 확인 비밀번호와 일치하는지 확인작업;
+    	//�엯�젰�븳 �깉 鍮꾨�踰덊샇媛� �솗�씤 鍮꾨�踰덊샇�� �씪移섑븯�뒗吏� �솗�씤�옉�뾽;
     	if(newpw.equals(newpwchk)) {
     		
     	
-    		logger.info("서로 일치합니다.");
+    		logger.info("�꽌濡� �씪移섑빀�땲�떎.");
     		
     		
-    		//암호화 하는 과정
+    		//�븫�샇�솕 �븯�뒗 怨쇱젙
 			String encodePw = pwEncoder.encode(newpw);
 			memberVo.setPassword(encodePw);
    	
@@ -124,7 +124,7 @@ public class MemberController {
     	
     		
     	
-    	logger.info("비밀번호가 다른데?");
+    	logger.info("鍮꾨�踰덊샇媛� �떎瑜몃뜲?");
 		rttr.addFlashAttribute("msg", false);
 		return "redirect:/";
     	
@@ -133,7 +133,7 @@ public class MemberController {
     	
     	}else {
     		
-    		logger.info("비밀번호가 다른데?");
+    		logger.info("鍮꾨�踰덊샇媛� �떎瑜몃뜲?");
     		rttr.addFlashAttribute("msg", false);
     		return "redirect:/";
     		
@@ -144,7 +144,7 @@ public class MemberController {
     	
     }
     
-    //회원탈퇴 요청 페이지
+    //�쉶�썝�깉�눜 �슂泥� �럹�씠吏�
     @RequestMapping(value = "/resign", method = RequestMethod.GET)
     public String resignGET() throws Exception{
     	
@@ -152,29 +152,29 @@ public class MemberController {
     }
     
     
-  //회원탈퇴 요청 처리
+  //�쉶�썝�깉�눜 �슂泥� 泥섎━
     @RequestMapping(value = "/resign", method = RequestMethod.POST)
     public String resignPOST(MemberVo memberVo,HttpServletRequest req, HttpSession session, RedirectAttributes rttr) throws Exception{
     	
     	session = req.getSession(); 	
     	
-    	//로그인 당시 저장해둔 세션값(loginMemberPw)을 가져와서 비교한다. 
+    	//濡쒓렇�씤 �떦�떆 ���옣�빐�몦 �꽭�뀡媛�(loginMemberPw)�쓣 媛��졇���꽌 鍮꾧탳�븳�떎. 
     	String pw = (String) session.getAttribute("loginMemberPw");
     	String pwchk = req.getParameter("passwordchk");
     	String chk = req.getParameter("resignchk");
     	
     	
-    	//암호화된 비밀번호와 입력 비밀번호를 확인하는 작업(입력된 비밀번호, DB비밀번호)
+    	//�븫�샇�솕�맂 鍮꾨�踰덊샇�� �엯�젰 鍮꾨�踰덊샇瑜� �솗�씤�븯�뒗 �옉�뾽(�엯�젰�맂 鍮꾨�踰덊샇, DB鍮꾨�踰덊샇)
     	boolean pwMatch = pwEncoder.matches(pwchk, pw);
     	
     	
-    	//비밀번호가 일치하고, null값이 아닐때 
+    	//鍮꾨�踰덊샇媛� �씪移섑븯怨�, null媛믪씠 �븘�땺�븣 
     	if(pwMatch == true &&  chk != null) {
     		
-    		logger.info("회원세션값 호출 : " + session.getAttribute("authInfo"));
-    		logger.info("비밀번호 일치");
+    		logger.info("�쉶�썝�꽭�뀡媛� �샇異� : " + session.getAttribute("authInfo"));
+    		logger.info("鍮꾨�踰덊샇 �씪移�");
     		
-    		//암호가 일치하므로, 회원탈퇴를 진행
+    		//�븫�샇媛� �씪移섑븯誘�濡�, �쉶�썝�깉�눜瑜� 吏꾪뻾
 			memberService.resign((MemberVo)session.getAttribute("authInfo"));
 			
     		return "redirect:/login/logout";
@@ -188,7 +188,7 @@ public class MemberController {
     	
     }
     
-  //회원탈퇴 철회 페이지
+  //�쉶�썝�깉�눜 泥좏쉶 �럹�씠吏�
     @RequestMapping(value = "/resigncancel", method = RequestMethod.GET)
     public String resignCancelGET() throws Exception{
     	
@@ -196,27 +196,27 @@ public class MemberController {
     }
     
 
-  //회원탈퇴 철회 요청
+  //�쉶�썝�깉�눜 泥좏쉶 �슂泥�
     @RequestMapping(value = "/resigncancel", method = RequestMethod.POST)
     public String resignCancelPOST(MemberVo memberVo,HttpServletRequest req, HttpSession session, RedirectAttributes rttr) throws Exception{
     	
     	session = req.getSession(); 	
     	
-    	//로그인 당시 저장된 암호 세션값을 호출하여 대조
+    	//濡쒓렇�씤 �떦�떆 ���옣�맂 �븫�샇 �꽭�뀡媛믪쓣 �샇異쒗븯�뿬 ��議�
     	String pw = (String) session.getAttribute("loginMemberPw");
     	String pwchk = req.getParameter("passwordchk");
   
     	
-    	//암호화된 비밀번호와 입력 비밀번호를 확인하는 작업(입력된 비밀번호, DB비밀번호)
+    	//�븫�샇�솕�맂 鍮꾨�踰덊샇�� �엯�젰 鍮꾨�踰덊샇瑜� �솗�씤�븯�뒗 �옉�뾽(�엯�젰�맂 鍮꾨�踰덊샇, DB鍮꾨�踰덊샇)
     	boolean pwMatch = pwEncoder.matches(pwchk, pw);
     	
   
     	
-    	//암호가 일치할 경우
+    	//�븫�샇媛� �씪移섑븷 寃쎌슦
     	if(pwMatch == true) {
     		
-    		logger.info("로그인 회원 정보 : " + session.getAttribute("authInfo"));
-    		logger.info("비밀번호 일치");
+    		logger.info("濡쒓렇�씤 �쉶�썝 �젙蹂� : " + session.getAttribute("authInfo"));
+    		logger.info("鍮꾨�踰덊샇 �씪移�");
     		
 			memberService.resignCancel((MemberVo)session.getAttribute("authInfo"));
 			
@@ -236,7 +236,7 @@ public class MemberController {
     }
     
     
-  //아이디 찾기
+  //�븘�씠�뵒 李얘린
     @RequestMapping(value = "/findId", method = RequestMethod.GET)
     public String findIdGET() throws Exception{
     	
@@ -245,16 +245,16 @@ public class MemberController {
     
     
     
-    //아이디 찾기
+    //�븘�씠�뵒 李얘린
     @ResponseBody
     @RequestMapping(value="/findId", method = RequestMethod.POST)
     public String findId(MemberVo memberVo, Model model, HttpServletResponse resp) throws Exception{
     	
    
-    	// 입력한 이메일과 일치하는 memberVo 값을 가져와서 findId에 저장;
+    	// �엯�젰�븳 �씠硫붿씪怨� �씪移섑븯�뒗 memberVo 媛믪쓣 媛��졇���꽌 findId�뿉 ���옣;
     	MemberVo findId = memberService.findId(memberVo);
-    	//위에서 저장한 findId에서 ID값만 추출해오기;
-    	//* 참고사항 : ID min = 2 / max = 20임 
+    	//�쐞�뿉�꽌 ���옣�븳 findId�뿉�꽌 ID媛믩쭔 異붿텧�빐�삤湲�;
+    	//* 李멸퀬�궗�빆 : ID min = 2 / max = 20�엫 
     	String findmyId = "";
     	
     	if(findId == null) {
@@ -268,16 +268,16 @@ public class MemberController {
     	
     	
     	{
-        	//가입 닉네임이 5글자 미만일때
+        	//媛��엯 �땳�꽕�엫�씠 5湲��옄 誘몃쭔�씪�븣
         	if(findmyId.length() < 5) {
         	
-        	//2번째부터 해당 닉네임 끝까지 * 마스킹	
+        	//2踰덉㎏遺��꽣 �빐�떦 �땳�꽕�엫 �걹源뚯� * 留덉뒪�궧	
         	findmyId = findmyId.replaceAll("(?<=.{2})." , "*");
         		
-        		//가입 닉네임이 10글자 이상일때
+        		//媛��엯 �땳�꽕�엫�씠 10湲��옄 �씠�긽�씪�븣
         	}else{
         		
-        		//4번째부터 해당 닉네임 끝까지 * 마스킹
+        		//4踰덉㎏遺��꽣 �빐�떦 �땳�꽕�엫 �걹源뚯� * 留덉뒪�궧
         		findmyId = findmyId.replaceAll("(?<=.{4})." , "*");
         		
         	}
@@ -287,19 +287,19 @@ public class MemberController {
     	
     	}
     	
-    	//memberVo에서 받은 값;
+    	//memberVo�뿉�꽌 諛쏆� 媛�;
     	System.out.println(findId);
     	
-    	//memberVo에서 id값만 추출한것;
+    	//memberVo�뿉�꽌 id媛믩쭔 異붿텧�븳寃�;
     	System.out.println(findmyId);
     	
     	if(findmyId != null) {
     	
-    	System.out.println("닉네임중복확인 " + findmyId);
+    	System.out.println("�땳�꽕�엫以묐났�솗�씤 " + findmyId);
     	System.out.println(memberService.findId(memberVo));
     	}else {
     		
-    		System.out.println("일치항목 없음 " + findmyId);
+    		System.out.println("�씪移섑빆紐� �뾾�쓬 " + findmyId);
     		
     	}
     	

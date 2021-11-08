@@ -110,7 +110,7 @@
 						<!-- pick 이미지 -->
 						<div style="float: right; display: inline-block;" class="">
 						<c:if test="${not empty darkmode}">
-							<img alt="" src="resources/img/icon/pick_cnt2.png"
+							<img alt="" src="resources/img/pick_gray_off.png"
 								class="pick-img"
 								style="width: 40px; height: 40px; object-fit: cover;">
 						</c:if>
@@ -123,8 +123,10 @@
 					</div>
 					<!-- 썸네일 이미지 -->
 					<div class="board-mid">
-						<img class="image-thumbnail border border-secondary mt-3"
-							src="<spring:url value='/thumbnail/${board.boardFileName}'/>" style="width: 100%;">
+						<a href="/readView?boardNum=${board.boardNum}&memberNum=${profile.memberNum}"> 
+							<img class="image-thumbnail border border-secondary mt-3"
+								src="<spring:url value='/thumbnail/${board.boardFileName}'/>" style="width: 100%;">
+						</a>
 					</div>
 
 					<!-- 하단 정보부분 -->
@@ -133,7 +135,7 @@
 						<div>좋아요 ${board.tdLikeCnt }개</div>
 						<div>
 							<c:forEach items="${board.tag }" var="tag" varStatus="loop">
-								<a href="#" style="color: #2883f3">#${tag }&nbsp;</a>
+								<a href="#" style="color: #2883f3; text-decoration:none;">#${tag }&nbsp;</a>
 							</c:forEach>
 						</div>
 					</div>
