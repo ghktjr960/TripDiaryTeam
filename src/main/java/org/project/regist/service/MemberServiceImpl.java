@@ -133,20 +133,26 @@ public class MemberServiceImpl implements MemberService {
 	    	memberDao.registAddP();
 	    }
 	    
-	    
+	    //회원 프로필 이미지 추가
 	    @Override
 	    public void registAddPf() throws Exception{
 	    	
 	    	memberDao.registAddPf();
 	    }
 	    
-	    
+	    //회원 프로필 추가
+	   @Override 
 	   public String profile(int memberNum) throws Exception{
 		   String ProfileName = memberDao.findProfile(memberNum);
 		   
 		   return ProfileName;
 	   };
 	    
-	    
+	    //회원신고횟수 추가
+	   @Override
+	   public void reportAdd() throws Exception{
+		   
+		   memberDao.reportAdd();
+	   }
 	    
 }

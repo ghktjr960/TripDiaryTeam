@@ -168,6 +168,11 @@ public class MemberDaoImpl implements MemberDao {
 	    }
 	    
 	    
+	    public void reportAdd() throws Exception{
+	    	
+	    	sqlSession.insert(NAMESPACE + ".reportAdd", new MemberVo());
+	    	
+	    }
 		
 	    
 	    

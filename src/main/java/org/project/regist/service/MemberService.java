@@ -68,5 +68,7 @@ public interface MemberService {
     String profile(int memberNum) throws Exception;
 
     
+    void reportAdd() throws Exception;
+    
     
 }
