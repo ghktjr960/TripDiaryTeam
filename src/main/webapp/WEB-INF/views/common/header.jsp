@@ -27,9 +27,6 @@
 						<a class="nav-link" href="/pick">Pick!</a>
 					</li>
 				</c:if>
-				<li class="nav-item active">
-					<a class="nav-link" href="/about">About</a>
-				</li>
 				<c:if test="${not empty authInfo.admin }">
 					<li class="nav-item active">
 						<a class="nav-link" href="/admin">Adimin</a>

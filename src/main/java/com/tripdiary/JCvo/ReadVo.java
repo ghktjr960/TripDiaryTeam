@@ -5,6 +5,7 @@ import java.util.Date;
 
 public class ReadVo {
 	private int boardNum;
+	private int boardMemberNum;
 	private int memberNum;
 	private String id;
 	private String nickname;
@@ -21,11 +22,12 @@ public class ReadVo {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ReadVo(int boardNum, int memberNum, String id, String nickname, String content, String place,
-			Timestamp regdate, Date tripdate, int tdLikeCnt, String profileOrgFileName, String profileStoreFileName,
-			String profileFileType) {
+	public ReadVo(int boardNum, int boardMemberNum, int memberNum, String id, String nickname, String content,
+			String place, Timestamp regdate, Date tripdate, int tdLikeCnt, String profileOrgFileName,
+			String profileStoreFileName, String profileFileType) {
 		super();
 		this.boardNum = boardNum;
+		this.boardMemberNum = boardMemberNum;
 		this.memberNum = memberNum;
 		this.id = id;
 		this.nickname = nickname;
@@ -45,6 +47,14 @@ public class ReadVo {
 
 	public void setBoardNum(int boardNum) {
 		this.boardNum = boardNum;
+	}
+
+	public int getBoardMemberNum() {
+		return boardMemberNum;
+	}
+
+	public void setBoardMemberNum(int boardMemberNum) {
+		this.boardMemberNum = boardMemberNum;
 	}
 
 	public int getMemberNum() {
@@ -137,10 +147,13 @@ public class ReadVo {
 
 	@Override
 	public String toString() {
-		return "ReadVo [boardNum=" + boardNum + ", memberNum=" + memberNum + ", id=" + id + ", nickname=" + nickname
-				+ ", content=" + content + ", place=" + place + ", regdate=" + regdate + ", tripdate=" + tripdate
-				+ ", tdLikeCnt=" + tdLikeCnt + ", profileOrgFileName=" + profileOrgFileName + ", profileStoreFileName="
-				+ profileStoreFileName + ", profileFileType=" + profileFileType + "]";
+		return "ReadVo [boardNum=" + boardNum + ", boardMemberNum=" + boardMemberNum + ", memberNum=" + memberNum
+				+ ", id=" + id + ", nickname=" + nickname + ", content=" + content + ", place=" + place + ", regdate="
+				+ regdate + ", tripdate=" + tripdate + ", tdLikeCnt=" + tdLikeCnt + ", profileOrgFileName="
+				+ profileOrgFileName + ", profileStoreFileName=" + profileStoreFileName + ", profileFileType="
+				+ profileFileType + "]";
 	}
+
+	
 
 }

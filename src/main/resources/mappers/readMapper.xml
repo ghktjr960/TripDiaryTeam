@@ -37,7 +37,8 @@
 	<select id="read" parameterType="int" resultType="readVo">
 		select
 			A.board_num,
-			B.member_num,
+			A.member_num as board_member_num,
+			B.member_num as member_num,
 			B.id,
 			A.content,
 			A.place,
@@ -59,7 +60,14 @@
 	<!-- 게시글 수정하기는 태민이꺼 게시글 작성 받아오기 -->
 
 	<!-- 게시글 삭제 마지막에 구현하기 -->
-
+   <delete id="delete" parameterType="int">
+      delete from
+         board
+      where
+         board_num = #{boardNum}
+   </delete>
+	
+	
 	<!-- 댓글 목록 -->
 	<select id="replyList" parameterType="int" resultType="replyCommand">
 		select
@@ -67,6 +75,7 @@
 			A.board_num,
 			A.member_num,
 			B.nickname,
+			B.id,
 			A.content,
 			A.regdate
 		from
@@ -300,7 +309,7 @@
      			#{reportReceive},
      			#{reportType},
      			#{reportContent},
-     			#{reportDate},
+     			sysdate,
      			#{memberNumSend},
      			#{memberNumReceive}
      		)
@@ -309,7 +318,7 @@
      <!-- 게시글 신고 : 신고 횟수 업데이트 -->
      <update id="boardReportUpdate" parameterType="reportBoardVo">
      	update
-     		report_board
+     		report_cnt
      	set
      		report_cnt = report_cnt + 1
      	where
@@ -327,18 +336,18 @@
      			#{replyContent},
      			#{reportSend},
      			#{reportReceive},
-     			#{reportType},
      			#{reportContent},
-     			#{reportDate},
+     			#{reportType},
+     			sysdate,
      			#{memberNumSend},
      			#{memberNumReceive}
      		)
      </insert>
      
      <!-- 게시글 신고 : 신고 횟수 업데이트 -->
-     <update id="boardReplyUpdate" parameterType="reportReplyVo">
+     <update id="replyReportUpdate" parameterType="reportReplyVo">
      	update
-     		report_reply
+     		report_cnt
      	set
      		report_cnt = report_cnt + 1
      	where

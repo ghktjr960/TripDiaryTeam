@@ -136,7 +136,7 @@
                   <c:if test="${tdLikeCheck eq null}">
                      <!--  pickNum=${selectPick.pickNum }&-->
                      <a
-                        href="/likeClick?boardNum=${read.boardNum }&memberNum=${memberVo.memberNum }">
+                        href="/likeClick?boardNum=${read.boardNum }&memberNum=${memberVo.memberNum }&boardMemberNum=${read.boardMemberNum}">
                         <img alt="" src="resources/img/heart_empty.png" class=""
                         style="width: 40px; height: 40px; object-fit: cover;">
                      </a>
@@ -145,7 +145,7 @@
                   <!-- 있음, tdLikeCheck 검사해서 해당 보드넘버와 멤버넘버가 있으면 눌렀을 때 정보 받아서 delete -->
                   <c:if test="${tdLikeCheck ne null}">
                      <a
-                        href="/likeClick?tdLikeNum=${tdLikeCheck.tdLikeNum }&boardNum=${read.boardNum }&memberNum=${memberVo.memberNum }">
+                        href="/likeClick?tdLikeNum=${tdLikeCheck.tdLikeNum }&boardNum=${read.boardNum }&memberNum=${memberVo.memberNum }&boardMemberNum=${read.boardMemberNum}">
                         <img alt="" src="resources/img/heart.png" class=""
                         style="width: 40px; height: 40px; object-fit: cover;">
                      </a>
@@ -184,9 +184,6 @@
                            <a href="/replyDelete?replyNum=${replyList.replyNum}&boardNum=${read.boardNum }&memberNum=${memberVo.memberNum }" onclick="alert('삭제 완료')">
                            		삭제
                            </a>
-                           <a href="#" onclick="alert('삭제 완료')">
-                           		신고
-                           </a>
                            <br>
                         </c:when>
                         <c:otherwise>
@@ -194,7 +191,10 @@
                            <br>
                         </c:otherwise>
                      </c:choose>
-					
+					<a href="/report/reply?boardNum=${read.boardNum }&replyNum=${replyList.replyNum}&replyContent=${replyList.content}&reportReceive=${replyList.id}&memberNumReceive=${replyList.memberNum}">
+						신고
+					</a>
+                           
                      <p>작성 내용 : ${replyList.content}</p>
                   </c:forEach>
                </ol>

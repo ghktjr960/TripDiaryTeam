@@ -27,7 +27,7 @@ public class ReportController {
 	public String reportBoardPost(ReportBoardVo reportBoardVo) throws Exception{
 		service.boardBoartInsert(reportBoardVo);
 		service.boardBoartUpdate(reportBoardVo);
-		return "redirect:/readView?boardNum="+reportBoardVo.getBoardNum()+"memberNum="+reportBoardVo.getMemberNumReceive();
+		return "redirect:/readView?boardNum="+reportBoardVo.getBoardNum()+"&memberNum="+reportBoardVo.getMemberNumReceive();
 	}
 	
 	@RequestMapping(value = "/report/reply", method = RequestMethod.GET)
@@ -40,7 +40,7 @@ public class ReportController {
 	public String reportReplyPost(ReportReplyVo reportReplyVo) throws Exception{
 		service.replyReportInsert(reportReplyVo);
 		service.replyReportUpdate(reportReplyVo);
-		return "redirect:/readView?boardNum="+reportReplyVo.getBoardNum()+"memberNum="+reportReplyVo.getMemberNumReceive();
+		return "redirect:/readView?boardNum="+reportReplyVo.getBoardNum()+"&memberNum="+reportReplyVo.getMemberNumReceive();
 	}
 	
 }

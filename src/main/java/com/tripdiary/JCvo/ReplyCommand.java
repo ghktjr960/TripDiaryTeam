@@ -9,13 +9,14 @@ public class ReplyCommand {
 	private String content;
 	private Timestamp regdate;
 	private String nickname;
+	private String id;
 
 	public ReplyCommand() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public ReplyCommand(Integer replyNum, int boardNum, int memberNum, String content, Timestamp regdate,
-			String nickname) {
+			String nickname, String id) {
 		super();
 		this.replyNum = replyNum;
 		this.boardNum = boardNum;
@@ -23,6 +24,7 @@ public class ReplyCommand {
 		this.content = content;
 		this.regdate = regdate;
 		this.nickname = nickname;
+		this.id = id;
 	}
 
 	public Integer getReplyNum() {
@@ -73,10 +75,20 @@ public class ReplyCommand {
 		this.nickname = nickname;
 	}
 
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	@Override
 	public String toString() {
 		return "ReplyCommand [replyNum=" + replyNum + ", boardNum=" + boardNum + ", memberNum=" + memberNum
-				+ ", content=" + content + ", regdate=" + regdate + ", nickname=" + nickname + "]";
+				+ ", content=" + content + ", regdate=" + regdate + ", nickname=" + nickname + ", id=" + id + "]";
 	}
+
+	
 
 }

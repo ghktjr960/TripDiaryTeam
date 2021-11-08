@@ -3,195 +3,201 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="org.project.regist.mappers.member.memberMapper">
+<mapper
+	namespace="org.project.regist.mappers.member.memberMapper">
 
- <select id="select" resultType="memberVo">
-        SELECT ID, PASSWORD ,NICKNAME, EMAIL,GENDER, ADMIN FROM MEMBER
-    </select>
+	<select id="select" resultType="memberVo">
+		SELECT ID, PASSWORD ,NICKNAME, EMAIL,GENDER, ADMIN FROM MEMBER
+	</select>
 
-<!-- 회원가입 -->
- <insert id="regist">
-        INSERT INTO MEMBER (
-            member_num,ID, PASSWORD, NICKNAME, EMAIL, BIRTH_YEAR, BIRTH, GENDER) 
-            VALUES (
-            member_seq.nextval, #{id}, #{password}, #{nickname}, #{email}, #{birthyear}, #{birth}, #{gender}
-        )
-        
-        
-    </insert> 
-    
-    
-    <!-- 회원 프로필 이미지 테이블 데이터 삽입 -->
-<insert id="registAdd" parameterType="memberVo"
-      useGeneratedKeys="true">
-      <!-- 멤버 시퀀스를 불러와서 삽입 -->
-      
- <selectKey keyProperty="memberNum" resultType="int" order="BEFORE">
-         select
-         member_seq.nextval from dual
-      </selectKey>
-      
-      insert into PROFILE_IMG
-      (profile_img_num, member_num, org_file_name, store_file_name, file_size, file_type)
-      values
-      (profile_img_seq.nextval,  member_seq.currval - 1, 'default', 'default', 0, '.png')
-   </insert>
-    
-    
-    
-    
-
-<!-- 멤버활동 테이블 데이터 삽입 -->
-<insert id="registAddP" parameterType="memberVo"
-      useGeneratedKeys="true">
-       <!-- 멤버 시퀀스를 불러와서 삽입 -->
-       
- <selectKey keyProperty="memberNum" resultType="int" order="BEFORE">
-         select
-        member_seq.nextval from dual
-      </selectKey>
-      
-      insert into member_act_cnt
-      (member_act_cnt, member_num, td_like_press_cnt, pick_press_cnt, board_write_cnt, reply_write_cnt, td_like_receive_cnt)
-      values
-      (member_act_cnt_seq.nextval, member_seq.currval - 2, 0, 0, 0, 0, 0)
-   </insert>
+	<!-- 회원가입 -->
+	<insert id="regist">
+		INSERT INTO MEMBER (
+		member_num,ID, PASSWORD, NICKNAME, EMAIL, BIRTH_YEAR, BIRTH, GENDER)
+		VALUES (
+		member_seq.nextval, #{id}, #{password}, #{nickname}, #{email}, #{birthyear}, #{birth},
+		#{gender}
+		)
 
 
+	</insert>
 
-<!-- 회원 프로필 테이블 데이터 삽입 -->
-<insert id="registAddPf" parameterType="memberVo"
-      useGeneratedKeys="true">
-      <!-- 멤버 시퀀스를 불러와서 삽입 -->
-       
- <selectKey keyProperty="memberNum" resultType="int" order="BEFORE">
-         select
-         member_seq.nextval from dual
-      </selectKey>
-      
-      insert into PROFILE
-      (profile_num, member_num, message)
-      values
-      (profile_seq.nextval,  member_seq.currval - 3, '프로필 사진을 클릭하여 상태메시지를 수정할 수 있습니다.')
-   </insert>
+
+	<!-- 회원 프로필 이미지 테이블 데이터 삽입 -->
+	<insert id="registAdd" parameterType="memberVo"
+		useGeneratedKeys="true">
+		<!-- 멤버 시퀀스를 불러와서 삽입 -->
+
+		<selectKey keyProperty="memberNum" resultType="int"
+			order="BEFORE">
+			select
+			member_seq.nextval from dual
+		</selectKey>
+
+		insert into PROFILE_IMG
+		(profile_img_num, member_num, org_file_name, store_file_name, file_size, file_type)
+		values
+		(profile_img_seq.nextval, member_seq.currval - 1, 'default', 'default', 0, '.png')
+	</insert>
 
 
 
 
 
+	<!-- 멤버활동 테이블 데이터 삽입 -->
+	<insert id="registAddP" parameterType="memberVo"
+		useGeneratedKeys="true">
+		<!-- 멤버 시퀀스를 불러와서 삽입 -->
 
- <select id="profile" resultType="String">
-        SELECT org_file_name FROM profile_img where member_num = #{memberNum}
-    </select>
+		<selectKey keyProperty="memberNum" resultType="int"
+			order="BEFORE">
+			select
+			member_seq.nextval from dual
+		</selectKey>
+
+		insert into member_act_cnt
+		(member_act_cnt, member_num, td_like_press_cnt, pick_press_cnt, board_write_cnt,
+		reply_write_cnt, td_like_receive_cnt)
+		values
+		(member_act_cnt_seq.nextval, member_seq.currval - 2, 0, 0, 0, 0, 0)
+	</insert>
 
 
 
+	<!-- 회원 프로필 테이블 데이터 삽입 -->
+	<insert id="registAddPf" parameterType="memberVo"
+		useGeneratedKeys="true">
+		<!-- 멤버 시퀀스를 불러와서 삽입 -->
 
- <insert id="reportAdd" parameterType="memberVo"
-      useGeneratedKeys="true">
- 
-      <!-- 멤버 시퀀스를 불러와서 삽입 -->
-       
- <selectKey keyProperty="memberNum" resultType="int" order="BEFORE">
-         select
-         member_seq.nextval from dual
-      </selectKey>
-      
-      insert into report_cnt
-      (report_cnt_num, member_num, report_com_cnt, report_cnt, warning_cnt)
-      values
-      (0,  member_seq.currval - 4, 0, 0, 0)
-   </insert>
+		<selectKey keyProperty="memberNum" resultType="int"
+			order="BEFORE">
+			select
+			member_seq.nextval from dual
+		</selectKey>
+
+		insert into PROFILE
+		(profile_num, member_num, message)
+		values
+		(profile_seq.nextval, member_seq.currval - 3, '프로필 사진을 클릭하여 상태메시지를 수정할 수 있습니다.')
+	</insert>
 
 
 
 
 
 
+	<select id="profile" resultType="String">
+		SELECT org_file_name FROM profile_img where member_num = #{memberNum}
+	</select>
 
 
-<!-- 인터셉터 후 세션에 등록 -->
-    <select id="login" resultType="memberVo">
-    
-        SELECT * FROM MEMBER WHERE ID = #{id} 
-        <!--  AND PASSWORD = #{password}
-    -->
-    </select>
-
-<!-- 회원탈퇴 테이블 저장 여부 확인 -->
-   <select id = "resignchk" resultType ="resignVo">
-   SELECT * FROM DEL_MEMBER WHERE MEMBER_NUM = #{memberNum}
-   </select>
 
 
-<!-- 아이디 중복 확인  -->
-<select id="idchk" resultType="int">
-   SELECT COUNT(*) FROM MEMBER WHERE ID = #{id}
-</select>
+	<insert id="reportAdd" parameterType="memberVo"
+		useGeneratedKeys="true">
 
-<!-- 닉네임 중복 확인  -->
-<select id="nickchk" resultType="int">
-   SELECT COUNT(*) FROM MEMBER WHERE NICKNAME = #{nickname}
-</select>
+		<!-- 멤버 시퀀스를 불러와서 삽입 -->
 
-<!-- 이메일 중복 확인 -->
-<select id ="emailchk" resultType = "int">
-   SELECT COUNT(*) FROM MEMBER WHERE EMAIL = #{email}
-</select>
- 
-<!-- 회원정보 수정 -->
-<update id="InfoUpdate">
-        UPDATE MEMBER
-        SET
-            NICKNAME = #{nickname}  
-            , BIRTH_YEAR = #{birthyear}
-           , BIRTH = #{birth}
-        WHERE ID = #{id}
-    </update>
+		<selectKey keyProperty="memberNum" resultType="int"
+			order="BEFORE">
+			select
+			member_seq.nextval from dual
+		</selectKey>
 
-<!-- 비밀번호 수정 -->
-<update id="pwUpdate">
-   UPDATE MEMBER
-   SET
-      PASSWORD = #{password}
-      
-      WHERE ID = #{id}
-</update>
+		insert into report_cnt
+		(report_cnt_num, member_num, report_com_cnt, report_cnt, warning_cnt)
+		values
+		(0, member_seq.currval - 4, 0, 0, 0)
+	</insert>
 
 
-<!-- 회원탈퇴 신청 -->
-<insert id="resign">
-        INSERT INTO DEL_MEMBER (MEMBER_NUM, MEMBER_ID) 
-            VALUES (
-            #{memberNum}, #{id}
-        )
-    </insert> 
 
 
-<!-- 회원탈퇴 철회 신청 -->
-<delete id ="resignCancel">
-
-DELETE FROM DEL_MEMBER
-WHERE MEMBER_NUM = #{memberNum} AND MEMBER_ID = #{id}
 
 
-</delete>
-
-<!-- 아이디찾기 -->
-<select id="findId" resultType="memberVo">
 
 
-   SELECT * FROM MEMBER WHERE EMAIL = #{email}
-   
-   </select>
+	<!-- 인터셉터 후 세션에 등록 -->
+	<select id="login" resultType="memberVo">
+
+		SELECT * FROM MEMBER WHERE ID = #{id}
+		<!-- AND PASSWORD = #{password} -->
+	</select>
+
+	<!-- 회원탈퇴 테이블 저장 여부 확인 -->
+	<select id="resignchk" resultType="resignVo">
+		SELECT * FROM DEL_MEMBER WHERE MEMBER_NUM = #{memberNum}
+	</select>
 
 
-<!-- 비밀번호 찾기 -->
-<select id = "findPw" resultType="memberVo">
-   
-   SELECT * FROM MEMBER WHERE EMAIL = #{email} AND ID = #{id}
+	<!-- 아이디 중복 확인 -->
+	<select id="idchk" resultType="int">
+		SELECT COUNT(*) FROM MEMBER WHERE ID = #{id}
+	</select>
 
-</select>
+	<!-- 닉네임 중복 확인 -->
+	<select id="nickchk" resultType="int">
+		SELECT COUNT(*) FROM MEMBER WHERE NICKNAME = #{nickname}
+	</select>
+
+	<!-- 이메일 중복 확인 -->
+	<select id="emailchk" resultType="int">
+		SELECT COUNT(*) FROM MEMBER WHERE EMAIL = #{email}
+	</select>
+
+	<!-- 회원정보 수정 -->
+	<update id="InfoUpdate">
+		UPDATE MEMBER
+		SET
+		NICKNAME = #{nickname}
+		, BIRTH_YEAR = #{birthyear}
+		, BIRTH = #{birth}
+		WHERE ID = #{id}
+	</update>
+
+	<!-- 비밀번호 수정 -->
+	<update id="pwUpdate">
+		UPDATE MEMBER
+		SET
+		PASSWORD = #{password}
+
+		WHERE ID = #{id}
+	</update>
+
+
+	<!-- 회원탈퇴 신청 -->
+	<insert id="resign">
+		INSERT INTO DEL_MEMBER (MEMBER_NUM, MEMBER_ID)
+		VALUES (
+		#{memberNum}, #{id}
+		)
+	</insert>
+
+
+	<!-- 회원탈퇴 철회 신청 -->
+	<delete id="resignCancel">
+
+		DELETE FROM DEL_MEMBER
+		WHERE MEMBER_NUM = #{memberNum} AND MEMBER_ID = #{id}
+
+
+	</delete>
+
+	<!-- 아이디찾기 -->
+	<select id="findId" resultType="memberVo">
+
+
+		SELECT * FROM MEMBER WHERE EMAIL = #{email}
+
+	</select>
+
+
+	<!-- 비밀번호 찾기 -->
+	<select id="findPw" resultType="memberVo">
+
+		SELECT * FROM MEMBER WHERE EMAIL = #{email} AND ID = #{id}
+
+	</select>
 
 
 </mapper>
