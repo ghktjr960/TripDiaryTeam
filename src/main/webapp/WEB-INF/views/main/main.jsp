@@ -229,26 +229,32 @@
 
 		
 		<div class="col-md-offset-3">
-			<ul class="container">
+		<nav aria-label="Page navigation example">
+			<ul class="pagination pagination-lg mb-5" style="justify-content: center;">
 				<c:if test="${paging.startPage != 1}">
-					<a href="/main?page=${paging.startPage - 1}">&lt;</a>
+					<li class="page-item">
+						<a class="page-link" href="/main?page=${paging.startPage - 1}" aria-label="Previous">
+							<span aria-hidden="true">&laquo;</span>
+						</a>
+					</li>
 				</c:if>
 				<c:forEach var="i" begin="${paging.startPage}" end="${paging.endPage}">
-					<c:choose>
-						<c:when test="${i == paging.page}">
-							<b>[${i}]</b>
-						</c:when>
-						<c:when test="${i != paging.page}">
-							<a href="/main?page=${i}">${i}</a>
-						</c:when>
-					</c:choose>
+					<li class="page-item <c:if test="${ paging.page eq i}">active</c:if> ">
+						<a class="page-link" href="/main?page=${i}">
+							${i}
+						</a>
+					</li>
 				</c:forEach>
 				<c:if test="${paging.endPage != paging.lastPage}">
-					<a href="/main?page=${paging.endPage + 1}">&gt;</a>
+					<li class="page-item">
+						<a class="page-link" href="/main?page=${paging.endPage + 1}" aria-label="Next">
+							<span aria-hidden="true">&raquo;</span>
+						</a>
+					</li>
 				</c:if>
-			</ul>		
+			</ul>	
+			</nav>	
 		</div>
-		
 	</div>
 	
 	<jsp:include page="../${pageContext.request.contextPath}/common/sidebar.jsp" flush="false" />
