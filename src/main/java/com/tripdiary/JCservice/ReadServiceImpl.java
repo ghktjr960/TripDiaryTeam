@@ -8,6 +8,8 @@ import org.project.regist.vo.MemberVo;
 import org.springframework.stereotype.Repository;
 
 import com.tripdiary.HSvo.PickVo;
+import com.tripdiary.HSvo.ReportBoardVo;
+import com.tripdiary.HSvo.ReportReplyVo;
 import com.tripdiary.HSvo.TagVo;
 import com.tripdiary.JCcontroller.MemberActCntCmd;
 import com.tripdiary.JCdao.ReadDao;
@@ -154,4 +156,28 @@ public class ReadServiceImpl implements ReadService {
 	public void deleteReceiveCnt(MemberActCntCmd memberActCntCmd) throws Exception {
 		dao.deleteReceiveCnt(memberActCntCmd);
 	}
+	
+	// 게시글 신고 : 신고 테이블에 추가
+	@Override
+	public void boardBoartInsert(ReportBoardVo reportBoardVo) throws Exception {
+		dao.boardReportInsert(reportBoardVo);
+	}
+	
+	// 게시글 신고 : 신고 횟수 업데이트
+	@Override
+	public void boardBoartUpdate(ReportBoardVo reportBoardVo) throws Exception {
+		dao.boardReportUpdate(reportBoardVo);
+	}
+		
+	// 댓글 신고 : 신고 테이블에 추가
+	@Override
+	public void replyReportInsert(ReportReplyVo reportReplyVo) throws Exception {
+		dao.replyReportInsert(reportReplyVo);
+	}
+	
+	// 댓글 신고 : 신고 횟수 업데이트
+	@Override
+	public void replyReportUpdate(ReportReplyVo reportReplyVo) throws Exception {
+		dao.replyReportUpdate(reportReplyVo);
+	}	
 }

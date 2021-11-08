@@ -9,6 +9,8 @@ import org.project.regist.vo.MemberVo;
 import org.springframework.stereotype.Repository;
 
 import com.tripdiary.HSvo.PickVo;
+import com.tripdiary.HSvo.ReportBoardVo;
+import com.tripdiary.HSvo.ReportReplyVo;
 import com.tripdiary.HSvo.TagVo;
 import com.tripdiary.JCcontroller.MemberActCntCmd;
 import com.tripdiary.JCvo.BoardImgVo;
@@ -189,4 +191,28 @@ public class ReadDaoImpl implements ReadDao {
 		sqlSession.update("readMapper.deleteReceiveCnt", memberActCntCmd);
 
 	}
+	
+	// 게시글 신고 : 신고 테이블에 추가
+	@Override
+	public void boardReportInsert(ReportBoardVo reportBoardVo) throws Exception {
+		sqlSession.insert("readMapper.boardReportInsert", reportBoardVo);
+	}
+	
+	// 게시글 신고 : 신고 횟수 업데이트
+	@Override
+	public void boardReportUpdate(ReportBoardVo reportBoardVo) throws Exception {
+		sqlSession.update("readMapper.boardReportUpdate", reportBoardVo);
+	}
+		
+	// 댓글 신고 : 신고 테이블에 추가
+	@Override
+	public void replyReportInsert(ReportReplyVo reportReplyVo) throws Exception {
+		sqlSession.insert("readMapper.replyReportInsert", reportReplyVo);
+	}
+	
+	// 댓글 신고 : 신고 횟수 업데이트
+	@Override
+	public void replyReportUpdate(ReportReplyVo reportReplyVo) throws Exception {
+		sqlSession.update("readMapper.replyReportUpdate", reportReplyVo);
+	}	
 }

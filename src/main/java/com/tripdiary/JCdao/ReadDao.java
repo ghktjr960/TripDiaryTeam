@@ -5,6 +5,8 @@ import java.util.List;
 import org.project.regist.vo.MemberVo;
 
 import com.tripdiary.HSvo.PickVo;
+import com.tripdiary.HSvo.ReportBoardVo;
+import com.tripdiary.HSvo.ReportReplyVo;
 import com.tripdiary.HSvo.TagVo;
 import com.tripdiary.JCcontroller.MemberActCntCmd;
 import com.tripdiary.JCvo.BoardImgVo;
@@ -80,5 +82,18 @@ public interface ReadDao {
 	
 	// 게시글 삭제 후 해당 게시글이 받은 좋아요 횟수 차감
 	public void deleteReceiveCnt(MemberActCntCmd memberActCntCmd) throws Exception;
+	
+	// 게시글 신고 : 신고 테이블에 추가
+	public void boardReportInsert(ReportBoardVo reportBoardVo) throws Exception;
+	
+	// 게시글 신고 : 신고 횟수 업데이트
+	public void boardReportUpdate(ReportBoardVo reportBoardVo) throws Exception;
+	
+	// 댓글 신고 : 신고 테이블에 추가
+	public void replyReportInsert(ReportReplyVo reportReplyVo) throws Exception;
+	
+	// 댓글 신고 : 신고 횟수 업데이트
+	public void replyReportUpdate(ReportReplyVo reportReplyVo) throws Exception;
+	
 
 }

@@ -38,7 +38,9 @@
 		select
 			A.board_num,
 			B.member_num,
+			B.id,
 			A.content,
+			A.place,
 			A.regdate,
 			A.tripdate,
 			A.td_like_cnt,
@@ -286,4 +288,75 @@
 		</choose>
      </update>
 
+     <!-- 게시글 신고 : 신고 테이블에 추가-->
+     <insert id="boardReportInsert" parameterType="reportBoardVo">
+     	insert into
+     		report_board
+     	values
+     		(
+     			report_board_seq.nextval, 
+     			#{boardNum},
+     			#{reportSend},
+     			#{reportReceive},
+     			#{reportType},
+     			#{reportContent},
+     			#{reportDate},
+     			#{memberNumSend},
+     			#{memberNumReceive}
+     		)
+     </insert>
+     
+     <!-- 게시글 신고 : 신고 횟수 업데이트 -->
+     <update id="boardReportUpdate" parameterType="reportBoardVo">
+     	update
+     		report_board
+     	set
+     		report_cnt = report_cnt + 1
+     	where
+     		member_num = #{memberNumSend}
+     </update>
+    
+     <!-- 댓글 신고 : 신고 테이블에 추가-->
+     <insert id="replyReportInsert" parameterType="reportReplyVo">
+     	insert into
+     		report_reply
+     	values
+     		(
+     			report_reply_seq.nextval, 
+     			#{replyNum},
+     			#{replyContent},
+     			#{reportSend},
+     			#{reportReceive},
+     			#{reportType},
+     			#{reportContent},
+     			#{reportDate},
+     			#{memberNumSend},
+     			#{memberNumReceive}
+     		)
+     </insert>
+     
+     <!-- 게시글 신고 : 신고 횟수 업데이트 -->
+     <update id="boardReplyUpdate" parameterType="reportReplyVo">
+     	update
+     		report_reply
+     	set
+     		report_cnt = report_cnt + 1
+     	where
+     		member_num = #{memberNumSend}
+     </update>
+	
+    <!-- 게시글 삭제 후 해당 좋아요 횟수 차감 -->
+	<update id = "deleteReceiveCnt" parameterType="com.tripdiary.JCcontroller.MemberActCntCmd">
+			update member_act_cnt set
+			
+		<choose> 
+			<when test='memberAct.equals("deleteBoard") and updateType.equals("delete")'>
+             	 	td_like_receive_cnt = td_like_receive_cnt - #{tdLikeCnt} 
+             	 where 
+             	 	member_num = #{boardMemberNum}
+			</when>
+		</choose>
+     </update> 
+	
+	
 </mapper>

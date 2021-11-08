@@ -13,24 +13,27 @@ public class ReportReplyVo {
 	private Timestamp reportDate;
 	private int memberNumSend;
 	private int memberNumReceive;
+	private int boardNum;
 	
 	public ReportReplyVo() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public ReportReplyVo(int reportReplyNum, int replyNum, String replyContent, String reportSend, String reportReceive,
-			String reportType, String reportContent, Timestamp reportDate, int memberNumSend, int memberNumReceive) {
+			String reportContent, String reportType, Timestamp reportDate, int memberNumSend, int memberNumReceive,
+			int boardNum) {
 		super();
 		this.reportReplyNum = reportReplyNum;
 		this.replyNum = replyNum;
 		this.replyContent = replyContent;
 		this.reportSend = reportSend;
 		this.reportReceive = reportReceive;
-		this.reportType = reportType;
 		this.reportContent = reportContent;
+		this.reportType = reportType;
 		this.reportDate = reportDate;
 		this.memberNumSend = memberNumSend;
 		this.memberNumReceive = memberNumReceive;
+		this.boardNum = boardNum;
 	}
 
 	public int getReportReplyNum() {
@@ -73,20 +76,20 @@ public class ReportReplyVo {
 		this.reportReceive = reportReceive;
 	}
 
-	public String getReportType() {
-		return reportType;
-	}
-
-	public void setReportType(String reportType) {
-		this.reportType = reportType;
-	}
-
 	public String getReportContent() {
 		return reportContent;
 	}
 
 	public void setReportContent(String reportContent) {
 		this.reportContent = reportContent;
+	}
+
+	public String getReportType() {
+		return reportType;
+	}
+
+	public void setReportType(String reportType) {
+		this.reportType = reportType;
 	}
 
 	public Timestamp getReportDate() {
@@ -113,12 +116,22 @@ public class ReportReplyVo {
 		this.memberNumReceive = memberNumReceive;
 	}
 
+	public int getBoardNum() {
+		return boardNum;
+	}
+
+	public void setBoardNum(int boardNum) {
+		this.boardNum = boardNum;
+	}
+
 	@Override
 	public String toString() {
 		return "ReportReplyVo [reportReplyNum=" + reportReplyNum + ", replyNum=" + replyNum + ", replyContent="
-				+ replyContent + ", reportSend=" + reportSend + ", reportReceive=" + reportReceive + ", reportType="
-				+ reportType + ", reportContent=" + reportContent + ", reportDate=" + reportDate + ", memberNumSend="
-				+ memberNumSend + ", memberNumReceive=" + memberNumReceive + "]";
+				+ replyContent + ", reportSend=" + reportSend + ", reportReceive=" + reportReceive + ", reportContent="
+				+ reportContent + ", reportType=" + reportType + ", reportDate=" + reportDate + ", memberNumSend="
+				+ memberNumSend + ", memberNumReceive=" + memberNumReceive + ", boardNum=" + boardNum + "]";
 	}
+
+	
 
 }
