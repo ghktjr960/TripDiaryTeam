@@ -24,9 +24,6 @@ public interface ReadService {
 	// 게시물 상세 보기 - 맡은 주 기능
 	public ReadVo read(int boardNum) throws Exception;
 
-	// 게시물 수정
-	public void update(ReadVo readVo) throws Exception;
-
 	// 게시물 삭제
 	public void delete(int boardNum) throws Exception;
 
@@ -80,4 +77,7 @@ public interface ReadService {
 
 	// 멤버가 좋아요 받은 총 개수
 	public void memberLikeReceiveCnt(MemberActCntCmd memberActCntCmd) throws Exception;
+	
+	// 게시글 삭제 후 해당 게시글이 받은 좋아요 횟수 차감
+	public void deleteReceiveCnt(MemberActCntCmd memberActCntCmd) throws Exception;
 }

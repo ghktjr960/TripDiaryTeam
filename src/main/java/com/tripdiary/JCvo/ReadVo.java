@@ -6,8 +6,10 @@ import java.util.Date;
 public class ReadVo {
 	private int boardNum;
 	private int memberNum;
+	private String id;
 	private String nickname;
 	private String content;
+	private String place;
 	private Timestamp regdate;
 	private Date tripdate;
 	private int tdLikeCnt;
@@ -19,13 +21,16 @@ public class ReadVo {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ReadVo(int boardNum, int memberNum, String nickname, String content, Timestamp regdate, Date tripdate,
-			int tdLikeCnt, String profileOrgFileName, String profileStoreFileName, String profileFileType) {
+	public ReadVo(int boardNum, int memberNum, String id, String nickname, String content, String place,
+			Timestamp regdate, Date tripdate, int tdLikeCnt, String profileOrgFileName, String profileStoreFileName,
+			String profileFileType) {
 		super();
 		this.boardNum = boardNum;
 		this.memberNum = memberNum;
+		this.id = id;
 		this.nickname = nickname;
 		this.content = content;
+		this.place = place;
 		this.regdate = regdate;
 		this.tripdate = tripdate;
 		this.tdLikeCnt = tdLikeCnt;
@@ -50,6 +55,14 @@ public class ReadVo {
 		this.memberNum = memberNum;
 	}
 
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public String getNickname() {
 		return nickname;
 	}
@@ -64,6 +77,14 @@ public class ReadVo {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public String getPlace() {
+		return place;
+	}
+
+	public void setPlace(String place) {
+		this.place = place;
 	}
 
 	public Timestamp getRegdate() {
@@ -116,10 +137,10 @@ public class ReadVo {
 
 	@Override
 	public String toString() {
-		return "ReadVo [boardNum=" + boardNum + ", memberNum=" + memberNum + ", nickname=" + nickname + ", content="
-				+ content + ", regdate=" + regdate + ", tripdate=" + tripdate + ", tdLikeCnt=" + tdLikeCnt
-				+ ", profileOrgFileName=" + profileOrgFileName + ", profileStoreFileName=" + profileStoreFileName
-				+ ", profileFileType=" + profileFileType + "]";
+		return "ReadVo [boardNum=" + boardNum + ", memberNum=" + memberNum + ", id=" + id + ", nickname=" + nickname
+				+ ", content=" + content + ", place=" + place + ", regdate=" + regdate + ", tripdate=" + tripdate
+				+ ", tdLikeCnt=" + tdLikeCnt + ", profileOrgFileName=" + profileOrgFileName + ", profileStoreFileName="
+				+ profileStoreFileName + ", profileFileType=" + profileFileType + "]";
 	}
 
 }

@@ -41,12 +41,6 @@ public class ReadServiceImpl implements ReadService {
 		return dao.read(boardNum);
 	}
 
-	// 게시물 수정
-	@Override
-	public void update(ReadVo readVo) throws Exception {
-		dao.update(readVo);
-	}
-
 	// 게시물 삭제
 	@Override
 	public void delete(int boardNum) throws Exception {
@@ -153,5 +147,11 @@ public class ReadServiceImpl implements ReadService {
 	@Override
 	public void memberLikeReceiveCnt(MemberActCntCmd memberActCntCmd) throws Exception {
 		dao.memberLikeReceiveCnt(memberActCntCmd);
+	}
+	
+	// 게시글 삭제 후 해당 게시글이 받은 좋아요 횟수 차감
+	@Override
+	public void deleteReceiveCnt(MemberActCntCmd memberActCntCmd) throws Exception {
+		dao.deleteReceiveCnt(memberActCntCmd);
 	}
 }

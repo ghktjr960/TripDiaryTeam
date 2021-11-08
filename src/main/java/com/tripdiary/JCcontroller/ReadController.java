@@ -96,7 +96,38 @@ public class ReadController {
 
 		return "readView";
 	}
+	
+	// 게시글 삭제
+		@RequestMapping(value = "/delete", method = RequestMethod.GET)
+		public String delete(ReadVo readVo, ReadViewCmd readCmd, Model model, HttpSession session) throws Exception {
 
+			logger.info("delete");
+
+			// hidden에 들어가는거 - 삭제해야하나??
+			ReadVo read = service.read(readCmd.getBoardNum());
+			System.out.println(read.toString());
+			model.addAttribute("tdLikeCnt 활용할 read", read);
+
+			// 현재 로그인 된 회원인지 아닌지 파악 후 본인글이면 삭제진행, 아니면 본인 게시글이 아니라는 안내멘트
+			MemberVo memberVo = (MemberVo) session.getAttribute("memberLoginTest");
+
+			MemberActCntCmd memberActCntCmd = new MemberActCntCmd(readCmd.getBoardNum(), memberVo.getMemberNum(),
+					memberVo.getMemberNum(), "deleteBoard");
+
+			if (memberVo != null) {
+				System.out.println("delete(memberVo) : " + memberVo.toString());
+				model.addAttribute("memberVo", memberVo);
+				
+				service.delete(readCmd.getBoardNum());
+				
+				memberActCntCmd.setTdLikeCnt(read.getTdLikeCnt());
+				memberActCntCmd.setUpdateType("delete");
+				service.deleteReceiveCnt(memberActCntCmd);
+				System.out.println("deleteReceiveCnt :memberActCntCmd.delete : " + memberActCntCmd.toString());
+			}
+			return "redirect:/list";
+		}
+	
 	// 댓글 작성
 	@RequestMapping(value = "/replyWrite", method = RequestMethod.POST)
 	public String replyWrite(ReplyVo replyVo, ReadViewCmd readCmd, Model model, HttpSession session) throws Exception {

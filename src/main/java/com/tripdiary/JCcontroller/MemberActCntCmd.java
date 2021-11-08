@@ -6,6 +6,7 @@ public class MemberActCntCmd {
 	private int loginMemberNum; // 로그인 한 회원
 	private String memberAct; // 해당 활동 EX)pick, like, reply 등
 	private String updateType; // insert delete
+	private int tdLikeCnt;
 
 	public MemberActCntCmd() {
 		// TODO Auto-generated constructor stub
@@ -57,6 +58,14 @@ public class MemberActCntCmd {
 
 	protected void setUpdateType(String updateType) {
 		this.updateType = updateType;
+	}
+
+	public int getTdLikeCnt() {
+		return tdLikeCnt;
+	}
+
+	public void setTdLikeCnt(int tdLikeCnt) {
+		this.tdLikeCnt = tdLikeCnt;
 	}
 
 	@Override
