@@ -67,4 +67,6 @@ public interface MemberService {
     //프로필 조회
     String profile(int memberNum) throws Exception;
 
+    void reportAdd() throws Exception;
+    
 }

@@ -74,6 +74,26 @@
 
 
 
+ <insert id="reportAdd" parameterType="memberVo"
+      useGeneratedKeys="true">
+      <!-- 멤버 시퀀스를 불러와서 삽입 -->
+ <selectKey keyProperty="memberNum" resultType="int" order="BEFORE">
+         select
+         member_seq from dual
+      </selectKey>
+      insert into report_cnt
+      (report_cnt_num, member_num, report_com_cnt, report_cnt, warning_cnt)
+      values
+      (0, #{memberNum}, 0, 0, 0)
+   </insert>
+
+
+
+
+
+
+
+
 <!-- 인터셉터 후 세션에 등록 -->
     <select id="login" resultType="memberVo">
     

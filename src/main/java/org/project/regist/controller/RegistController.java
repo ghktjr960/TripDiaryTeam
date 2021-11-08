@@ -193,6 +193,8 @@ public class RegistController {
     			
     			memberService.registAdd();
     			memberService.registAddP();
+    			memberService.registAddPf();
+    			memberService.reportAdd();
     			
     			session.removeAttribute("registInfo");
     			

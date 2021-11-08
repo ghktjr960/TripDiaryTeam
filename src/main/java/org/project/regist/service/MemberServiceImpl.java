@@ -147,4 +147,13 @@ public class MemberServiceImpl implements MemberService {
 		   return ProfileName;
 	   };
 	    
+	   
+	    //회원신고횟수 추가
+		   @Override
+		   public void reportAdd() throws Exception{
+			   
+			   memberDao.reportAdd();
+		   }
+		    
+	   
 }
