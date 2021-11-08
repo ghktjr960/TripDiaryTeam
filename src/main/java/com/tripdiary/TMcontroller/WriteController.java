@@ -33,27 +33,31 @@ public class WriteController {
 	
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public String writeForm(HttpSession session, Model model) {
-
+		//로그인 검사
+    	if(session.getAttribute("authInfo") == null) {
+    		model.addAttribute("msg", "로그인 후 이용해주세요!");
+    		model.addAttribute("url", "/login/");
+    		return "/return/alert";
+    	}
 		return "/write";
 	}
 	
     @RequestMapping(value="/write", method=RequestMethod.POST) 
     public String write(WriteCmd writeCmd,TagCmd tagCmd, MapCmd mapCmd, Model model, MultipartHttpServletRequest mpRequest) throws Exception {
-    	//占쏙옙표 占쏙옙占쏙옙占쏙옙 占쏙옙占쌕몌옙 占쏙옙占시�
+    	//대표사진 검사
     	if(mpRequest.getFile("thumbnail").getOriginalFilename().equals("")) {
     		model.addAttribute("msg", "대표 사진을 등록해주세요.");
     		return "/return/historyback";
     	}
-    	// 占쏙옙占싸듸옙占� 占싱뱄옙占쏙옙 占쏙옙占싸듸옙 占쏙옙占쏙옙 占싯삼옙
+    	// 대표사진이 들어있는지 검사 후 확장자 및 사이즈 검사
     	if(!mpRequest.getFile("thumbnail").getOriginalFilename().equals("")) {
-        	// 占쏙옙占쏙옙占� 확占쏙옙占쏙옙 占쏙옙 占쎈량 占싯삼옙
         	if(thumbnailCheck.check(mpRequest) == false) {
         		model.addAttribute("msg", "이미지파일만 업로드 가능합니다. (최대 5MB)");
         		return "/return/historyback";
         	}
     	}
+    	// 추가사진이 들어있는지 검사 후 확장자 및 사이즈 검사
     	if(!mpRequest.getFiles("file").get(0).getOriginalFilename().equals("")){
-        	// 占쌩곤옙 占싱뱄옙占쏙옙占쏙옙占쏙옙 확占쏙옙占쏙옙 占쏙옙 占쎈량占싯삼옙
            	if(fileCheck.check(mpRequest) == false) {
         		model.addAttribute("msg", "이미지파일만 업로드 가능합니다. (최대 5MB)");
         		return "/return/historyback";
@@ -69,12 +73,12 @@ public class WriteController {
 	@RequestMapping(value = "/writeUpdate", method = RequestMethod.GET)
 	public String writeUpdate(HttpSession session,Model model, int boardNum) {
 		WriteCmd board = writeService.getBoard(boardNum);
-/*		int memberNum = (int) session.getAttribute("loginMemberNum");
-		//占쌜쇽옙占쏙옙占쏙옙占쏙옙 占싯삼옙
-    	if(memberNum != board.getMemberNum()) {
-    		model.addAttribute("msg", "占쌜쇽옙占쌘몌옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쌌니댐옙.");
-    		return "/return/historyback";
-    	}*/
+		//로그인 검사
+    	if(session.getAttribute("authInfo") == null) {
+    		model.addAttribute("msg", "로그인 후 이용해주세요!");
+    		model.addAttribute("url", "/login/");
+    		return "/return/alert";
+    	}
 		model.addAttribute("mainImg", writeService.getMainImg(boardNum));
 		model.addAttribute("subImg", writeService.getSubImg(boardNum));
 		model.addAttribute("boardNum", boardNum);
@@ -87,16 +91,15 @@ public class WriteController {
     @RequestMapping(value="/writeUpdate", method=RequestMethod.POST) 
     public String writeUpdate(MultipartHttpServletRequest mpRequest, WriteCmd writeCmd,TagCmd tagCmd, Model model) throws Exception {
     	
-    	// 占쏙옙占싸듸옙占� 占싱뱄옙占쏙옙 占쏙옙占싸듸옙 占쏙옙占쏙옙 占싯삼옙
+    	// 대표사진이 들어있는지 검사 후 확장자 및 사이즈 검사
     	if(!mpRequest.getFile("thumbnail").getOriginalFilename().equals("")) {
-        	// 占쏙옙占쏙옙占� 확占쏙옙占쏙옙 占쏙옙 占쎈량 占싯삼옙
         	if(thumbnailCheck.check(mpRequest) == false) {
         		model.addAttribute("msg", "이미지파일만 업로드 가능합니다. (최대 5MB)");
         		return "/return/historyback";
         	}
     	}
+    	// 추가사진이 들어있는지 검사 후 확장자 및 사이즈 검사
     	if(!mpRequest.getFiles("file").get(0).getOriginalFilename().equals("")){
-        	// 占쌩곤옙 占싱뱄옙占쏙옙占쏙옙占쏙옙 확占쏙옙占쏙옙 占쏙옙 占쎈량占싯삼옙
            	if(fileCheck.check(mpRequest) == false) {
         		model.addAttribute("msg", "이미지파일만 업로드 가능합니다. (최대 5MB)");
         		return "/return/historyback";
