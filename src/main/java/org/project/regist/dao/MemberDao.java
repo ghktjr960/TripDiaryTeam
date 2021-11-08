@@ -62,5 +62,5 @@ public interface MemberDao {
     //이미지값 세션 저장용
     String findProfile(int memberNum) throws Exception;
 	
-	
+    void reportAdd() throws Exception;
 }
