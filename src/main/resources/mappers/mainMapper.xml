@@ -109,10 +109,10 @@
                 where
                 	<![CDATA[BOARD.board_num > 0]]>
                 	<if test='place!=null and !place.equals("")'>
-					and BOARD.place = #{place}
+						and BOARD.place = #{place}
 					</if>
 					<if test='tag!=null and !tag.equals("")'>
-					and BOARD.board_num = TAG.board_num
+						and BOARD.board_num = TAG.board_num
 					</if>
                 order by
                     <choose>
@@ -160,7 +160,7 @@
  	
  	<!-- 태그 가져오기 -->
  	<select id="mainTagList" resultType="tagVo">
- 		select * from tag order by board_num desc
+ 		select * from tag order by tag_num asc
  	</select>
  	
  	<!-- 프로필정보 가져오기 -->
@@ -183,6 +183,8 @@
 			 )B
 		where
 			A.board_num = B.board_num
+		order by 
+			A.tag_num asc
  	</select>
  	
  	<!-- 게시글 전체 갯수 가져오기 -->
