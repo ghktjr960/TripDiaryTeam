@@ -110,7 +110,11 @@
 						<!-- pick 이미지 -->
 						<div style="float: right; display: inline-block;" class="">
 						<c:if test="${not empty darkmode}">
-							<img alt="" src="resources/img/icon/pick_cnt2.png"
+<<<<<<< HEAD
+							<img alt="" src="resources/img/icon/pick_gray_off.png"
+=======
+							<img alt="" src="resources/img/pick_gray_off.png"
+>>>>>>> develop
 								class="pick-img"
 								style="width: 40px; height: 40px; object-fit: cover;">
 						</c:if>
@@ -123,8 +127,10 @@
 					</div>
 					<!-- 썸네일 이미지 -->
 					<div class="board-mid">
-						<img class="image-thumbnail border border-secondary mt-3"
-							src="<spring:url value='/thumbnail/${board.boardFileName}'/>" style="width: 100%;">
+						<a href="/readView?boardNum=${board.boardNum}&memberNum=${profile.memberNum}"> 
+							<img class="image-thumbnail border border-secondary mt-3"
+								src="<spring:url value='/thumbnail/${board.boardFileName}'/>" style="width: 100%;">
+						</a>
 					</div>
 
 					<!-- 하단 정보부분 -->
