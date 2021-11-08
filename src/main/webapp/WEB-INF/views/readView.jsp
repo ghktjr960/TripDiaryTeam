@@ -173,17 +173,20 @@
                   <c:forEach items="${replyList}" var="replyList" varStatus="loop">
             
             ${replyList.nickname}  
-            <fmt:formatDate value="${replyList.regdate}"
-                        pattern="yyyy-MM-dd HH:mm" />
-                     <a
-                        href="/replyUpdate?replyNum=${replyList.replyNum}&boardNum=${read.boardNum }&memberNum=${memberVo.memberNum }">수정</a>
+            <fmt:formatDate value="${replyList.regdate}" pattern="yyyy-MM-dd HH:mm" />
 
                      <!-- c:choose 예시 esle if 너낌? -->
                      <c:choose>
                         <c:when test="${memberVo.memberNum eq replyList.memberNum }">
-                           <a
-                              href="/replyDelete?replyNum=${replyList.replyNum}&boardNum=${read.boardNum }&memberNum=${memberVo.memberNum }"
-                              onclick="alert('삭제 완료')">삭제</a>
+		                   <a href="/replyUpdate?replyNum=${replyList.replyNum}&boardNum=${read.boardNum }&memberNum=${memberVo.memberNum }">
+		                     	수정
+		                   </a>
+                           <a href="/replyDelete?replyNum=${replyList.replyNum}&boardNum=${read.boardNum }&memberNum=${memberVo.memberNum }" onclick="alert('삭제 완료')">
+                           		삭제
+                           </a>
+                           <a href="#" onclick="alert('삭제 완료')">
+                           		신고
+                           </a>
                            <br>
                         </c:when>
                         <c:otherwise>
@@ -191,7 +194,7 @@
                            <br>
                         </c:otherwise>
                      </c:choose>
-
+					
                      <p>작성 내용 : ${replyList.content}</p>
                   </c:forEach>
                </ol>
@@ -217,7 +220,7 @@
             <div><button class="btn btn-outline-secondary" onclick="history.go(-1)">돌아가기</button></div>
             <div><button class="btn btn-outline-secondary mt-3" onclick="location.href='/writeUpdate?boardNum=${read.boardNum}'">수정하기</button></div>
             <div><button class="btn btn-outline-secondary mt-3" onclick="location.href='/delete?boardNum=${read.boardNum}'">삭제하기</button></div>
-            <div><button class="btn btn-outline-secondary mt-3" onclick="location.href='/report/board?boardNum=${read.boardNum}&memberNumReceive=${read.memberNum } &reportReceive=${read.id }'">신고하기</button></div>
+            <div><button class="btn btn-outline-secondary mt-3" onclick="location.href='/report/board?boardNum=${read.boardNum}&memberNumReceive=${read.memberNum }&reportReceive=${read.id }'">신고하기</button></div>
          </div>
       </div>
    </div>
