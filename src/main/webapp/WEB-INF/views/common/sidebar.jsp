@@ -24,25 +24,16 @@
 
 
 	<div id="fixedicon2" class="mb-5">
-<<<<<<< Updated upstream
 		<a href="/write"><img class="icon" alt="" src="../${pageContext.request.contextPath}/resources/img/icon/write.png" style="width: 70px; margin-bottom: 12%;"></a>
-=======
-		<a href="/writeUpdate?boardNum=213"><img class="icon" alt="" src="../${pageContext.request.contextPath}/resources/img/icon/write.png" style="width: 70px; margin-bottom: 12%;"></a>
->>>>>>> Stashed changes
 		<c:if test="${not empty sessionScope.darkmode}">
 			<a href="/darkmode"><img class="icon" alt="" src="../${pageContext.request.contextPath}/resources/img/icon/darkmode.png" style="width: 70px; margin-bottom: 12%;"></a>
 		</c:if>
 		<c:if test="${empty sessionScope.darkmode}">
 			<a href="/darkmode"><img class="icon" alt="" src="../${pageContext.request.contextPath}/resources/img/icon/darkmode2.png" style="width: 70px; margin-bottom: 12%;"></a>
 		</c:if>
-<<<<<<< Updated upstream
-		<img class="icon" alt="" src="../${pageContext.request.contextPath}/resources/img/icon/chat.png" style="width: 70px;">
-=======
-		<a href="/write"><img class="icon" alt="" src="../${pageContext.request.contextPath}/resources/img/icon/write.png" style="width: 70px; margin-bottom: 12%;"></a>
 		<a href="javascript:void kakaoChatStart()" hidden-md hidden-sm hidden-xs">
 		<img class="icon" alt="" src="../${pageContext.request.contextPath}/resources/img/icon/chat.png" style="width: 70px;">
 		</a>
->>>>>>> Stashed changes
 	</div>
 	
 	<button id="fixedbtn" type="button" onclick="window.scrollTo(0,0);" class="btn btn-dark mb-5">▲ TOP</button>
