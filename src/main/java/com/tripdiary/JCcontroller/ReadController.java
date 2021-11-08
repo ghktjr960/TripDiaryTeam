@@ -40,7 +40,9 @@ public class ReadController {
 
 		// 현재 로그인 멤버 확인
 		MemberVo memberVo = (MemberVo) session.getAttribute("authInfo");
-		System.out.println("readView(memberVo) : " + memberVo.toString());
+		if(memberVo != null) {
+			System.out.println("readView(memberVo) : " + memberVo.toString());
+		}
 		model.addAttribute("memberVo", memberVo);
 
 		// 게시글 목록 - boardNum, memberNum, nickname, profileVo
@@ -64,32 +66,33 @@ public class ReadController {
 		model.addAttribute("tagList", tagList);
 
 		// 찜 회원 확인
-		PickVo pickVo = new PickVo(memberVo.getMemberNum(), readCmd.getBoardNum());
-		System.out.println("pickVo : " + pickVo.toString());
+		if(memberVo != null) {
+			PickVo pickVo = new PickVo(memberVo.getMemberNum(), readCmd.getBoardNum());
+			System.out.println("pickVo : " + pickVo.toString());
+			PickVo pickCheck = service.pickCheck(pickVo);
 
-		PickVo pickCheck = service.pickCheck(pickVo);
+			if (pickCheck == null) {
+				System.out.println("pickCheck 없음");
+			} else {
+				System.out.println("pickCheck : " + pickCheck.toString());
+			}
+	
+			model.addAttribute("pickCheck", pickCheck);
 
-		if (pickCheck == null) {
-			System.out.println("pickCheck 없음");
-		} else {
-			System.out.println("pickCheck : " + pickCheck.toString());
+			// 좋아요 회원 확인
+			TdLikeVo tdLikeVo = new TdLikeVo(memberVo.getMemberNum(), readCmd.getBoardNum());
+			System.out.println("tdLikeVo : " + tdLikeVo.toString());
+	
+			TdLikeVo tdLikeCheck = service.tdLikeCheck(tdLikeVo);
+	
+			if (tdLikeCheck == null) {
+				System.out.println("tdLikeCheck 없음");
+			} else {
+				System.out.println("tdLikeCheck : " + tdLikeCheck.toString());
+			}
+	
+			model.addAttribute("tdLikeCheck", tdLikeCheck);
 		}
-
-		model.addAttribute("pickCheck", pickCheck);
-
-		// 좋아요 회원 확인
-		TdLikeVo tdLikeVo = new TdLikeVo(memberVo.getMemberNum(), readCmd.getBoardNum());
-		System.out.println("tdLikeVo : " + tdLikeVo.toString());
-
-		TdLikeVo tdLikeCheck = service.tdLikeCheck(tdLikeVo);
-
-		if (tdLikeCheck == null) {
-			System.out.println("tdLikeCheck 없음");
-		} else {
-			System.out.println("tdLikeCheck : " + tdLikeCheck.toString());
-		}
-
-		model.addAttribute("tdLikeCheck", tdLikeCheck);
 
 		return "readView";
 	}
