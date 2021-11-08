@@ -56,7 +56,11 @@ public interface MemberDao {
     //회원 프로필 이미지 테이블 추가
     void registAddP() throws Exception;
     
-    
+    //회원 프로필 추가
+    void registAddPf() throws Exception;
+
+    //이미지값 세션 저장용
+    String findProfile(int memberNum) throws Exception;
 	
 	
 }

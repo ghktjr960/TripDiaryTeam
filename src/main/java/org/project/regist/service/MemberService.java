@@ -62,6 +62,9 @@ public interface MemberService {
     
     void registAddP() throws Exception;
     
-    
+    void registAddPf() throws Exception;
+
+    //프로필 조회
+    String profile(int memberNum) throws Exception;
 
 }

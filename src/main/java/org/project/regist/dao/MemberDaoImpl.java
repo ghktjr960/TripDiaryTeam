@@ -151,7 +151,21 @@ public class MemberDaoImpl implements MemberDao {
 	    }
 
 	    
-	
+	    @Override
+	    public void registAddPf() throws Exception{
+
+	    	sqlSession.insert(NAMESPACE + ".registAddPf", new MemberVo());
+	    }
+
+
+	    //이미지값 세션 저장용
+	    @Override
+	    public String findProfile(int memberNum) throws Exception{
+
+	    	String profileName =  sqlSession.selectOne(NAMESPACE + ".profile", memberNum);
+
+	    	return profileName;
+	    }
 	
 	
 }

@@ -65,7 +65,10 @@ public class LoginController {
 
 		// member Table 내부에서 아이디와 일치하는 Vo를 가져옴;
 		MemberVo authInfo = memberService.login(memberVo);
-
+		
+		String profileImg = memberService.profile(authInfo.getMemberNum());
+		session.setAttribute("profileImg", profileImg);
+		
 		// 아이디기억 체크박스값
 		String idRemember = (String) req.getParameter("idRemember");
 

@@ -92,18 +92,22 @@
 
 	}
 
-	var stDate = new Date().getTime();
-	var edDate = new Date('2021-11-06 24:00:00').getTime(); // 종료날짜
-	var RemainDate = edDate - stDate;
-
+	var test = new Date("${resignTime }");
+	var stDate = new Date().getTime();// 시작날짜 (현재일자)
+	var edDate = new Date(test).getTime(); // 종료날짜
+	var RemainDate =  edDate - stDate ; //시간차
+	var day = Math.ceil(gap / (1000 * 60 * 60 * 24));
+	var hour = Math.ceil((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	var min = Math.ceil((gap % (1000 * 60 * 60)) / (1000 * 60));
+	var sec = Math.ceil((gap % (1000 * 60)) / 1000);
+	
 	function msg_time() {
-		var hours = Math.floor((RemainDate % (1000 * 60 * 60 * 24))
-				/ (1000 * 60 * 60));
-		var miniutes = Math
-				.floor((RemainDate % (1000 * 60 * 60)) / (1000 * 60));
-		var seconds = Math.floor((RemainDate % (1000 * 60)) / 1000);
-
-		m = hours + ":" + miniutes + ":" + seconds; // 남은 시간 text형태로 변경
+		var day = Math.ceil(RemainDate / (1000 * 60 * 60 * 24));
+		var hour = Math.ceil((RemainDate % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		var min = Math.ceil((RemainDate % (1000 * 60 * 60)) / (1000 * 60));
+		var sec = Math.ceil((RemainDate % (1000 * 60)) / 1000);
+		
+		m = day + "일" + hour + "시" +  min + "분" + sec + "초"; // 남은 시간 text형태로 변경
 
 		document.all.timer.innerHTML = m; // div 영역에 보여줌 
 		document.all.timer.style.color = 'red';
