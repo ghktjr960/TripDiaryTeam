@@ -19,19 +19,42 @@
         
         
     </insert> 
+    
+    
+    <!-- 회원 프로필 이미지 테이블 데이터 삽입 -->
+<insert id="registAdd" parameterType="memberVo"
+      useGeneratedKeys="true">
+      <!-- 멤버 시퀀스를 불러와서 삽입 -->
+      
+ <selectKey keyProperty="memberNum" resultType="int" order="BEFORE">
+         select
+         member_seq.nextval from dual
+      </selectKey>
+      
+      insert into PROFILE_IMG
+      (profile_img_num, member_num, org_file_name, store_file_name, file_size, file_type)
+      values
+      (profile_img_seq.nextval,  member_seq.currval - 1, 'default', 'default', 0, '.png')
+   </insert>
+    
+    
+    
+    
 
 <!-- 멤버활동 테이블 데이터 삽입 -->
 <insert id="registAddP" parameterType="memberVo"
       useGeneratedKeys="true">
        <!-- 멤버 시퀀스를 불러와서 삽입 -->
+       
  <selectKey keyProperty="memberNum" resultType="int" order="BEFORE">
          select
-        member_seq from dual
+        member_seq.nextval from dual
       </selectKey>
-      insert into "member_act_cnt"
+      
+      insert into member_act_cnt
       (member_act_cnt, member_num, td_like_press_cnt, pick_press_cnt, board_write_cnt, reply_write_cnt, td_like_receive_cnt)
       values
-      (member_act_cnt_seq.nextval #{memberNum}, 0, 0, 0, 0, 0)
+      (member_act_cnt_seq.nextval, member_seq.currval - 2, 0, 0, 0, 0, 0)
    </insert>
 
 
@@ -40,30 +63,20 @@
 <insert id="registAddPf" parameterType="memberVo"
       useGeneratedKeys="true">
       <!-- 멤버 시퀀스를 불러와서 삽입 -->
+       
  <selectKey keyProperty="memberNum" resultType="int" order="BEFORE">
          select
-         member_seq from dual
+         member_seq.nextval from dual
       </selectKey>
-      insert into PORFILE
+      
+      insert into PROFILE
       (profile_num, member_num, message)
       values
-      (profile_seq.nextval, #{memberNum}, "프로필 사진을 클릭하여 상태메시지를 수정할 수 있습니다.")
+      (profile_seq.nextval,  member_seq.currval - 3, '프로필 사진을 클릭하여 상태메시지를 수정할 수 있습니다.')
    </insert>
 
 
-<!-- 회원 프로필 이미지 테이블 데이터 삽입 -->
-<insert id="registAdd" parameterType="memberVo"
-      useGeneratedKeys="true">
-      <!-- 멤버 시퀀스를 불러와서 삽입 -->
- <selectKey keyProperty="memberNum" resultType="int" order="BEFORE">
-         select
-         member_seq from dual
-      </selectKey>
-      insert into PROFILE_IMG
-      (profile_img_num, member_num, org_file_name, store_file_name, file_size, file_type)
-      values
-      (profile_img_seq.nextval, #{memberNum}, "default", "default", 0, ".png")
-   </insert>
+
 
 
 
@@ -76,15 +89,18 @@
 
  <insert id="reportAdd" parameterType="memberVo"
       useGeneratedKeys="true">
+ 
       <!-- 멤버 시퀀스를 불러와서 삽입 -->
+       
  <selectKey keyProperty="memberNum" resultType="int" order="BEFORE">
          select
-         member_seq from dual
+         member_seq.currval from dual
       </selectKey>
+      
       insert into report_cnt
       (report_cnt_num, member_num, report_com_cnt, report_cnt, warning_cnt)
       values
-      (0, #{memberNum}, 0, 0, 0)
+      (0,  member_seq.currval, 0, 0, 0)
    </insert>
 
 
@@ -103,24 +119,24 @@
     </select>
 
 <!-- 회원탈퇴 테이블 저장 여부 확인 -->
-	<select id = "resignchk" resultType ="resignVo">
-	SELECT * FROM DEL_MEMBER WHERE MEMBER_NUM = #{memberNum}
-	</select>
+   <select id = "resignchk" resultType ="resignVo">
+   SELECT * FROM DEL_MEMBER WHERE MEMBER_NUM = #{memberNum}
+   </select>
 
 
 <!-- 아이디 중복 확인  -->
 <select id="idchk" resultType="int">
-	SELECT COUNT(*) FROM MEMBER WHERE ID = #{id}
+   SELECT COUNT(*) FROM MEMBER WHERE ID = #{id}
 </select>
 
 <!-- 닉네임 중복 확인  -->
 <select id="nickchk" resultType="int">
-	SELECT COUNT(*) FROM MEMBER WHERE NICKNAME = #{nickname}
+   SELECT COUNT(*) FROM MEMBER WHERE NICKNAME = #{nickname}
 </select>
 
 <!-- 이메일 중복 확인 -->
 <select id ="emailchk" resultType = "int">
-	SELECT COUNT(*) FROM MEMBER WHERE EMAIL = #{email}
+   SELECT COUNT(*) FROM MEMBER WHERE EMAIL = #{email}
 </select>
  
 <!-- 회원정보 수정 -->
@@ -129,17 +145,17 @@
         SET
             NICKNAME = #{nickname}  
             , BIRTH_YEAR = #{birthyear}
-        	, BIRTH = #{birth}
+           , BIRTH = #{birth}
         WHERE ID = #{id}
     </update>
 
 <!-- 비밀번호 수정 -->
 <update id="pwUpdate">
-	UPDATE MEMBER
-	SET
-		PASSWORD = #{password}
-		
-		WHERE ID = #{id}
+   UPDATE MEMBER
+   SET
+      PASSWORD = #{password}
+      
+      WHERE ID = #{id}
 </update>
 
 
@@ -165,15 +181,15 @@ WHERE MEMBER_NUM = #{memberNum} AND MEMBER_ID = #{id}
 <select id="findId" resultType="memberVo">
 
 
-	SELECT * FROM MEMBER WHERE EMAIL = #{email}
-	
-	</select>
+   SELECT * FROM MEMBER WHERE EMAIL = #{email}
+   
+   </select>
 
 
 <!-- 비밀번호 찾기 -->
 <select id = "findPw" resultType="memberVo">
-	
-	SELECT * FROM MEMBER WHERE EMAIL = #{email} AND ID = #{id}
+   
+   SELECT * FROM MEMBER WHERE EMAIL = #{email} AND ID = #{id}
 
 </select>
 
