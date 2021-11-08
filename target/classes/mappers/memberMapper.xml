@@ -94,13 +94,13 @@
        
  <selectKey keyProperty="memberNum" resultType="int" order="BEFORE">
          select
-         member_seq.currval from dual
+         member_seq.nextval from dual
       </selectKey>
       
       insert into report_cnt
       (report_cnt_num, member_num, report_com_cnt, report_cnt, warning_cnt)
       values
-      (0,  member_seq.currval, 0, 0, 0)
+      (0,  member_seq.currval - 4, 0, 0, 0)
    </insert>
 
 
