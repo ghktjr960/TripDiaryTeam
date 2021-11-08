@@ -26,11 +26,12 @@
 
 	<div class="container">
 		<h2>글쓰기</h2>
-		
+
 		<div class="writeForm mt-5" style="text-align: left;">
-		<h4>키워드 검색 >> 여행간 곳 마커로 표시</h4>
-		<div class="map_wrap"style="margin: auto; color: black">
-			<div id="map"style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
+			<h4>키워드 검색 >> 여행간 곳 마커로 표시</h4>
+			<div class="map_wrap" style="margin: auto; color: black">
+				<div id="map"
+					style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
 				<div id="menu_wrap" class="bg_white">
 					<div class="option">
 						<div>
@@ -50,10 +51,10 @@
 		<form action="/write" method="post" enctype="multipart/form-data"
 			class="mt-5 mb-5">
 			<div id="clickLatlng" style="display: none"></div>
-				<input type="hidden" id="lat" name="markerLat" value="0"> 
-				<input type="hidden" id="lng" name="markerLng" value="0"> 
+			<input type="hidden" id="lat" name="markerLat" value="0"> <input
+				type="hidden" id="lng" name="markerLng" value="0">
 			<div class="writeForm mt-5">
-				<div class="writeSelect row ">	
+				<div class="writeSelect row ">
 					<div class="col-auto mb-5">
 						<h4>여행 날짜</h4>
 						<c:set var="year" value="2021" />
@@ -64,13 +65,13 @@
 										value="${year-i}" />
 								</option>
 							</c:forEach>
-	
+
 						</select> <select name="month" class="form-select">
 							<option value="1" selected>1</option>
 							<c:forEach var="i" begin="2" end="12">
 								<option value="${i}">${i}</option>
 							</c:forEach>
-	
+
 						</select> <select name="day" class="form-select">
 							<option value="1" selected>1</option>
 							<c:forEach var="i" begin="2" end="31">
@@ -90,7 +91,7 @@
 								onclick="disable_select2()" checked> <label
 								class="form-check-label">국내</label>
 						</div>
-	
+
 						<select name="place" id="select_place" class="form-select">
 							<option value="seoul" selected>서울특별시</option>
 							<option value="busan">부산광역시</option>
@@ -113,28 +114,29 @@
 					</div>
 				</div>
 
-				
-					
+
+
 				<label for="thumbnail" class="btn btn-outline-secondary mt-5"
 					id="image_container"> <span class="imgText">대표사진 업로드
 						(최대 1장)</span>
 				</label> <input name="thumbnail" type="file" id="thumbnail" accept="image/*"
-					onchange="checkImg(); thumbnailHide(); setThumbnail(event);" style="display: none" />
-				<div class="mt-3" id="image_container"></div> 
+					onchange="checkImg(); thumbnailHide(); setThumbnail(event);"
+					style="display: none" />
+				<div class="mt-3" id="image_container"></div>
 
 				<label for="input-file" class="btn btn-outline-secondary mt-3"
 					id="image_container"> <span class="imgText">추가사진 업로드
 						(최대 10장)</span>
 				</label> <input name="file" type="file" id="input-file" accept="image/*"
-					onchange="checkImg2(); fileHide(); setFile(event);" style="display: none"
-					multiple="multiple" />
+					onchange="checkImg2(); fileHide(); setFile(event);"
+					style="display: none" multiple="multiple" />
 				<div class="mt-5" id="image_container2"></div>
 				<h6 class="mt-5" style="color: red;">
 					* 등록할 사진을 한번에 클릭해 업로드 해주십시오.<br>* 버튼을 재클릭시 이전에 업로드한 사진은 등록되지
 					않습니다.
 				</h6>
-				
-				
+
+
 
 				<!-- 내용 입력란 -->
 				<textarea class="form-control mt-5 "

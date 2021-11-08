@@ -137,7 +137,10 @@
 										<c:if test="${count > 0 }">
 											<a href="/pickMainClick?pickNum=${pickNum}&memberNum=${memberNum}&boardNum=${boardNum}"
 												onclick="alert('찜하기가 취소되었습니다.')"> 
+<<<<<<< HEAD
 
+=======
+>>>>>>> develop
 												<c:if test="${empty darkmode }">
 													<img alt="" src="resources/img/pick_basic_dark.png" class=""
 													style="width: 40px; height: 40px; object-fit: cover; margin-top: 5px;">

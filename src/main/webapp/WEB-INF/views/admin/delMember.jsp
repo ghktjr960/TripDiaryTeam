@@ -72,7 +72,7 @@
 							<td>${delMember.memberId }</td>
 							<td>${delMember.timeover }</td>
 							<td><fmt:formatDate value="${delMember.delDate }" pattern="yyyy-MM-dd" /></td>
-							<td>하 하 하</td>
+							<td>${resignTime}</td>
 						</tr>
 						</c:forEach>
 					</table>

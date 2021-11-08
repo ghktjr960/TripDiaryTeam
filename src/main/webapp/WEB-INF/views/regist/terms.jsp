@@ -1,7 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,48 +17,49 @@
 <c:if test="${not empty darkmode}">
 	<link rel="stylesheet" href="/resources/css/darkstyle.css" />
 </c:if>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Trip Diary</title>
 </head>
-	<jsp:include page="../common/header.jsp" flush="false" />
+<jsp:include page="../common/header.jsp" flush="false" />
 
 <script type="text/javascript">
-		$(document).ready(function(){
-			
-			// 취소
-			$(".cancel").on("click", function(){
-				location.href = "/";
-			})
-			
-			//등록버튼 눌렀을 시, 공란으로 된 칸에 대해 alert + 공란으로 화면 focus하기 
-			$("#submit").on("click", function(){
-				
-				if($("#agree").val()==''){
-					alert("약관동의는 필수입니다.");
-					$("#agree").focus();
-					return false;
-				}
-				
-				//$("#registPage").submit();
-			});
+	$(document).ready(function() {
+
+		// 취소
+		$(".cancel").on("click", function() {
+			location.href = "/";
 		})
 
-		</script>
+		//등록버튼 눌렀을 시, 공란으로 된 칸에 대해 alert + 공란으로 화면 focus하기 
+		$("#submit").on("click", function() {
+
+			if ($("#agree").val() == '') {
+				alert("약관동의는 필수입니다.");
+				$("#agree").focus();
+				return false;
+			}
+
+			//$("#registPage").submit();
+		});
+	})
+</script>
 
 <!-- 여기서부터 -->
 <body>
 
-<div class="container">
-	<form method="post" action = "/regist/terms" name = "form">
-	 	
-	   <p align="left">
-	   <span style="padding-left: 70px">
-	   <b>Trip Diary 약관동의</b></span>
-	   </p>
-	   <textarea class="form-control" style="height:600px;" >가. 수집하는 개인정보의 항목첫째, 회사는 회원가 입, 원활한 고객상담, 각종 서비스의 제공을 위해 최초 회원가입 당시 아래와 같은 최소한의 개인정보를 필수항목으로 수집하고 있습니다.
+	<div class="container">
+		<form method="post" action="/regist/terms" name="form">
+			     
+			<p align="left">
+				   <span style="padding-left: 70px">    <b>Trip Diary
+						약관동의</b></span>    
+			</p>
+			   
+			<textarea class="form-control" style="height: 600px;">가. 수집하는 개인정보의 항목첫째, 회사는 회원가 입, 원활한 고객상담, 각종 서비스의 제공을 위해 최초 회원가입 당시 아래와 같은 최소한의 개인정보를 필수항목으로 수집하고 있습니다.
 		회원가입
 		- 이름, 생년월일, 성별, 아이디, 비밀번호, 별명, 연락처(메일주소, 휴대폰 번호 중 선택), 가입인증정보
 		만14세 미만 아동 회원가입
@@ -80,19 +82,18 @@
 		- 협력회사로부터의 제공
 		- 생성정보 수집 툴을 통한 수집
 	   </textarea>
-	   <br><br>
-	   <input type="checkbox" name="agree" id = "agree" value="true"><label for="agree"> 개인정보 수집 및 이용에 동의합니다.</label>
-	   <br>
-	   <hr>
-	 
-	
-		<input type="submit" class="mt-3 mb-5 btn btn-primary" value = "약관동의">
+			   <br>
+			<br>    <input type="checkbox" name="agree" id="agree"
+				value="true"><label for="agree"> 개인정보 수집 및 이용에
+				동의합니다.</label>    <br>    
+			<hr>
+			  <input type="submit" class="mt-3 mb-5 btn btn-primary" value="약관동의">
 
-	</form>
-</div>
+		</form>
+	</div>
 
 
-<!-- 여기까지 -->
+	<!-- 여기까지 -->
 
 
 
