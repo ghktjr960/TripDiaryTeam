@@ -19,6 +19,7 @@ public class ReportController {
 	
 	@RequestMapping(value = "/report/board", method = RequestMethod.GET)
 	public String reportBoardGet(ReportBoardVo reportBoardVo, Model model) throws Exception{
+		System.out.println("신고 게시글 확인"+reportBoardVo.toString());
 		model.addAttribute("reportBoardVo", reportBoardVo);
 		return "/report/reportBoard";
 	}

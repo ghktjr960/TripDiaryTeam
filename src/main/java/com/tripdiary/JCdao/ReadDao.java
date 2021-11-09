@@ -43,6 +43,9 @@ public interface ReadDao {
 
 	// 선택된 댓글 조회
 	public ReplyVo selectReply(int replyNum) throws Exception;
+	
+	// 대표 이미지 목록
+	public BoardImgVo ThumbnailImg(int boardNum) throws Exception;
 
 	// 보드 이미지 목록
 	public List<BoardImgVo> BoardImgList(int boardNum) throws Exception;

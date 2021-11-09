@@ -78,6 +78,12 @@ public class ReadServiceImpl implements ReadService {
 	public ReplyVo selectReply(int replyNum) throws Exception {
 		return dao.selectReply(replyNum);
 	}
+	
+	// 대표 이미지 목록
+	@Override
+	public BoardImgVo ThumbnailImg(int boardNum) throws Exception {
+		return dao.ThumbnailImg(boardNum);
+	}
 
 	// 보드 이미지 목록
 	@Override

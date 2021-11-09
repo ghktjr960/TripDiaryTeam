@@ -129,10 +129,10 @@ public class MemberDaoImpl implements MemberDao {
 	    
 	    
 	    @Override
-	    public void registAdd() throws Exception{
+	    public void registAdd(MemberVo memberVo) throws Exception{
 
 	  	  //회원가입시 멤버 활동 테이블 추가
-	    	sqlSession.insert(NAMESPACE +".registAdd", new MemberVo());
+	    	sqlSession.insert(NAMESPACE +".registAdd", memberVo);
 
 	    	
 	    	
@@ -140,10 +140,10 @@ public class MemberDaoImpl implements MemberDao {
 	
 	    
 	    @Override
-	    public void registAddP() throws Exception{
+	    public void registAddP(MemberVo memberVo) throws Exception{
 	    	
 	  	  //회원가입시 멤버 활동 테이블 추가
-	    	sqlSession.insert(NAMESPACE +".registAddP", new MemberVo());
+	    	sqlSession.insert(NAMESPACE +".registAddP", memberVo);
 
 	    	
 	    	
@@ -152,9 +152,9 @@ public class MemberDaoImpl implements MemberDao {
 
 	    
 	    @Override
-	    public void registAddPf() throws Exception{
+	    public void registAddPf(MemberVo memberVo) throws Exception{
 
-	    	sqlSession.insert(NAMESPACE + ".registAddPf", new MemberVo());
+	    	sqlSession.insert(NAMESPACE + ".registAddPf", memberVo);
 	    }
 
 
@@ -168,9 +168,9 @@ public class MemberDaoImpl implements MemberDao {
 	    }
 	
 	
-  public void reportAdd() throws Exception{
+  public void reportAdd(MemberVo memberVo) throws Exception{
 	    	
-	    	sqlSession.insert(NAMESPACE + ".reportAdd", new MemberVo());
+	    	sqlSession.insert(NAMESPACE + ".reportAdd", memberVo);
 	    	
 	    }
 		

@@ -191,10 +191,10 @@ public class RegistController {
     			
     			logger.info("회원가입 ??" + session.getAttribute("registInfo"));
     			
-    			memberService.registAdd();
-    			memberService.registAddP();
-    			memberService.registAddPf();
-    			memberService.reportAdd();
+    			memberService.registAdd(memberVo);
+    			memberService.registAddP(memberVo);
+    			memberService.registAddPf(memberVo);
+    			memberService.reportAdd(memberVo);
     			
     			session.removeAttribute("registInfo");
     			

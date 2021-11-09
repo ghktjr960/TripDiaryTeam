@@ -55,18 +55,18 @@ public interface MemberService {
     
     //회원가입 성공시 추가해주는 테이블
     
-    void registAdd() throws Exception;
+    void registAdd(MemberVo memberVo) throws Exception;
     
     
     //회원가입 성공시 회원 프로필 이미지에 추가해주는 테이블
     
-    void registAddP() throws Exception;
+    void registAddP(MemberVo memberVo) throws Exception;
     
-    void registAddPf() throws Exception;
+    void registAddPf(MemberVo memberVo) throws Exception;
 
     //프로필 조회
     String profile(int memberNum) throws Exception;
 
-    void reportAdd() throws Exception;
+    void reportAdd(MemberVo memberVo) throws Exception;
     
 }

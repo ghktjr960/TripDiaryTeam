@@ -81,6 +81,12 @@ public class ReadDaoImpl implements ReadDao {
 	public ReplyVo selectReply(int replyNum) throws Exception {
 		return sqlSession.selectOne("readMapper.selectReply", replyNum);
 	}
+	
+	// 대표 이미지 목록
+	@Override
+	public BoardImgVo ThumbnailImg(int boardNum) throws Exception {
+		return sqlSession.selectOne("readMapper.thumbnailImg", boardNum);
+	}
 
 	// 보드 이미지 목록
 	@Override

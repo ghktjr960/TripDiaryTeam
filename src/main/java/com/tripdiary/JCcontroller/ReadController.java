@@ -55,6 +55,11 @@ public class ReadController {
 		System.out.println(replyList.toString());
 		model.addAttribute("replyList", replyList);
 
+		// 대표사진 이미지 목록
+		BoardImgVo thumbnailImg = service.ThumbnailImg(read.getBoardNum());
+		System.out.println(thumbnailImg.toString());
+		model.addAttribute("thumbnailImg", thumbnailImg);
+		
 		// 보드 이미지 목록
 		List<BoardImgVo> boardImgList = service.BoardImgList(read.getBoardNum());
 		System.out.println(boardImgList.toString());

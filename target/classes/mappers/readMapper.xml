@@ -141,6 +141,23 @@
 			and A.reply_num = #{replyNum}
 	</select>
 
+	<!-- 대표사진 이미지 목록 -->
+	<select id="thumbnailImg" parameterType="int" resultType="boardImgVo">
+		select
+			A.board_img_num,
+			A.board_num,
+			A.org_file_name,
+			A.store_file_name,
+			A.file_size,
+			A.file_type,
+			A.main_img
+		from
+			board_img A, board B
+		where
+			A.board_num = B.board_num
+			and A.board_num = #{boardNum} and main_img = 1
+	</select>
+
 	<!-- 보드 이미지 목록 -->
 	<select id="boardImgList" parameterType="int" resultType="boardImgVo">
 		select
@@ -155,8 +172,10 @@
 			board_img A, board B
 		where
 			A.board_num = B.board_num
-			and A.board_num = #{boardNum}
+			and A.board_num = #{boardNum} and main_img = 0
 	</select>
+	
+
 	
 	<!-- 태그 -->
 	<select id="tagList" parameterType="int" resultType="tagVo" >

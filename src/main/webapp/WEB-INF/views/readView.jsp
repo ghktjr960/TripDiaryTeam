@@ -53,7 +53,10 @@
 			<form role="form" name="readForm" method="get"
 				class="col-4 border border-secondary mt-5 mb-5">
 				<div style="float: left;" class="mt-3">
-					<img alt="" src="<spring:url value='/profile/${read.profileStoreFileName}'/>" class="border rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
+					<img alt=""
+						src="<spring:url value='/profile/${read.profileStoreFileName}'/>"
+						class="border rounded-circle"
+						style="width: 50px; height: 50px; object-fit: cover;">
 					<c:out value="${read.nickname}" />
 				</div>
 
@@ -83,10 +86,13 @@
 				<div id="wrapper">
 					<div id="slider-wrap">
 						<ul id="slider" style="padding-left: 0;">
+							<li><img alt=""
+								src="<spring:url value='/thumbnail/${thumbnailImg.storeFileName}'/>"
+								style="object-fit: cover"></li>
 							<c:forEach items="${boardImgList }" var="boardImgList"
 								varStatus="loop">
 								<li><img alt=""
-									src="<spring:url value='/thumbnail/${boardImgList.storeFileName}'/>"
+									src="<spring:url value='/boardImg/${boardImgList.storeFileName}'/>"
 									style="object-fit: cover"></li>
 							</c:forEach>
 						</ul>
@@ -165,8 +171,7 @@
 							<!-- c:choose 예시 esle if 너낌? -->
 							<c:choose>
 								<c:when test="${memberVo.memberNum eq replyList.memberNum }">
-									<a
-										href="/replyUpdate?replyNum=${replyList.replyNum}&boardNum=${read.boardNum }&memberNum=${memberVo.memberNum }">
+									<a data-toggle="modal" href="#replyUpdate${replyList.replyNum}">
 										수정 </a>
 									<a
 										href="/replyDelete?replyNum=${replyList.replyNum}&boardNum=${read.boardNum }&memberNum=${memberVo.memberNum }"
@@ -178,8 +183,7 @@
 									<br>
 								</c:otherwise>
 							</c:choose>
-							<a
-								href="/report/reply?boardNum=${read.boardNum }&replyNum=${replyList.replyNum}&replyContent=${replyList.content}&reportReceive=${replyList.id}&memberNumReceive=${replyList.memberNum}">
+							<a data-toggle="modal" href="#reportReply${replyList.replyNum}">
 								신고 </a>
 
 							<p>작성 내용 : ${replyList.content}</p>
@@ -217,12 +221,152 @@
 						onclick="location.href='/delete?boardNum=${read.boardNum}'">삭제하기</button>
 				</div>
 				<div>
-					<button class="btn btn-outline-secondary mt-3"
-						onclick="location.href='/report/board?boardNum=${read.boardNum}&memberNumReceive=${read.memberNum }&reportReceive=${read.id }'">신고하기</button>
+					<button type="button" class="btn btn-outline-secondary mt-3"
+						data-toggle="modal" data-target="#reportBoard">신고하기</button>
 				</div>
 			</div>
 		</div>
 	</div>
+
+	<c:forEach items="${replyList}" var="replyList" varStatus="loop">
+		<div class="modal fade" id="replyUpdate${replyList.replyNum}"
+			tabindex="-1" role="dialog" aria-labelledby="modal"
+			aria-hidden="true">
+			<div class="modal-dialog modal-sm mt-5">
+				<div class="modal-content">
+					<form action="/replyUpdate" method="POST">
+						<div class="modal-header">
+							<h5 class="modal-title" id="modal">댓글수정</h5>
+							<button type="button" class="btn-close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true"></span>
+							</button>
+						</div>
+
+						<div class="modal-body" style="text-align: center">
+							<input type="hidden" id="replyNum" name="replyNum"
+								value="${replyList.replyNum}" readonly="readonly" /> <input
+								type="hidden" id="boardNum" name="boardNum"
+								value="${read.boardNum}" readonly="readonly" /> <input
+								type="hidden" id="memberNum" name="memberNum"
+								value="${memberVo.memberNum }" readonly="readonly">
+							<textarea class="form-control" name="content">${replyList.content}</textarea>
+						</div>
+						<div class="modal-footer">
+							<div>
+								<input type="submit" class="btn btn-primary" value="작성">
+								<button type="button" class="btn btn-secondary"
+									data-dismiss="modal" style="margin: auto;">닫기</button>
+							</div>
+
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</c:forEach>
+
+	<div class="modal fade" id="reportBoard" tabindex="-1" role="dialog"
+		aria-labelledby="modal" aria-hidden="true">
+		<div class="modal-dialog mt-5">
+			<div class="modal-content">
+				<form action="/report/board" method="POST">
+					<div class="modal-header">
+						<h5 class="modal-title" id="modal">게시글 신고</h5>
+
+					</div>
+
+					<div class="modal-body" style="text-align: center">
+						<input type="hidden" name="boardNum" id="boardNum"
+							value="${read.boardNum}"> <input type="hidden"
+							name="reportReceive" id="reportReceive" value="${read.id}">
+						<input type="hidden" name="memberNumReceive" id="memberNumReceive"
+							value="${read.memberNum}"> <input type="hidden"
+							name="reportSend" id="reportSend" value="${authInfo.id}">
+						<input type="hidden" name="memberNumSend" id="memberNumSend"
+							value="${authInfo.memberNum}"> <select id="reportType"
+							name="reportType" class="form-select mb-3">
+							<option selected disabled hidden>신고사유 선택</option>
+							<option value="부적절한 홍보 게시글">부적절한 홍보 게시글</option>
+							<option value="음란성 또는 청소년에게 부적합한 내용">음란성 또는 청소년에게 부적합한
+								내용</option>
+							<option value="저작권 침해">저작권 침해</option>
+							<option value="명예훼손 또는 사생활 침해">명예훼손 또는 사생활 침해</option>
+							<option value="불법 촬영물 등 신고">불법 촬영물 등 신고</option>
+							<option value="기타">기타</option>
+						</select><br> 신고 상세내용
+						<textarea class="form-control" rows="" cols=""
+							name="reportContent"></textarea>
+					</div>
+					<div class="modal-footer">
+						<div>
+							<input type="submit" class="btn btn-danger" value="신고">
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal" style="margin: auto;">닫기</button>
+						</div>
+
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<c:forEach items="${replyList}" var="replyList" varStatus="loop">
+		<div class="modal fade" id="reportReply${replyList.replyNum}"
+			tabindex="-1" role="dialog" aria-labelledby="modal"
+			aria-hidden="true">
+			<div class="modal-dialog mt-5">
+				<div class="modal-content">
+					<form action="/report/reply" method="POST">
+						<div class="modal-header">
+							<h5 class="modal-title" id="modal">댓글 신고</h5>
+
+						</div>
+
+						<div class="modal-body" style="text-align: center">
+							<input type="hidden" name="boardNum" id="boardNum"
+								value="${read.boardNum}"> 
+							<input type="hidden"
+								name="replyNum" id="replyNum" value="${replyList.replyNum}">
+							<input type="hidden" name="replyContent" id="replyContent"
+								value="${replyList.content}"> 
+							<input type="hidden" name="reportReceive" id="reportReceive"
+								value="${replyList.id}"> 
+							<input type="hidden" name="memberNumReceive" id="memberNumReceive"
+								value="${replyList.memberNum}"> 
+							<input
+								type="hidden" name="reportSend" id="reportSend"
+								value="${authInfo.id}"> 
+							<input type="hidden"
+								name="memberNumSend" id="memberNumSend"
+								value="${authInfo.memberNum}"> 
+							<select id="reportType"
+								name="reportType" class="form-select mb-3">
+								<option selected disabled hidden>신고사유 선택</option>
+								<option value="부적절한 홍보 게시글">부적절한 홍보 게시글</option>
+								<option value="음란성 또는 청소년에게 부적합한 내용">음란성 또는 청소년에게 부적합한
+									내용</option>
+								<option value="저작권 침해">저작권 침해</option>
+								<option value="명예훼손 또는 사생활 침해">명예훼손 또는 사생활 침해</option>
+								<option value="불법 촬영물 등 신고">불법 촬영물 등 신고</option>
+								<option value="기타">기타</option>
+							</select><br> 신고 상세내용
+							<textarea class="form-control" rows="" cols=""
+								name="reportContent"></textarea>
+						</div>
+						<div class="modal-footer">
+							<div>
+								<input type="submit" class="btn btn-danger" value="신고">
+								<button type="button" class="btn btn-secondary"
+									data-dismiss="modal" style="margin: auto;">닫기</button>
+							</div>
+
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</c:forEach>
 
 	<script
 		src="${pageContext.request.contextPath}/resources/js/slideShow.js"></script>

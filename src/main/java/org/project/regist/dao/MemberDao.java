@@ -52,15 +52,15 @@ public interface MemberDao {
     
     //회원가입시 부수적으로 추가되는 테이블들
     //멤버 활동 테이블 추가
-    void registAdd() throws Exception;
+    void registAdd(MemberVo memberVo) throws Exception;
     //회원 프로필 이미지 테이블 추가
-    void registAddP() throws Exception;
+    void registAddP(MemberVo memberVo) throws Exception;
     
     //회원 프로필 추가
-    void registAddPf() throws Exception;
+    void registAddPf(MemberVo memberVo) throws Exception;
 
     //이미지값 세션 저장용
     String findProfile(int memberNum) throws Exception;
 	
-    void reportAdd() throws Exception;
+    void reportAdd(MemberVo memberVo) throws Exception;
 }

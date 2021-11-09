@@ -11,7 +11,7 @@
 	</select>
 
 	<!-- 회원가입 -->
-	<insert id="regist">
+	<insert id="regist" useGeneratedKeys="true" keyProperty="memberNum">
 		<selectKey keyProperty="memberNum" resultType="int"
 			order="BEFORE">
 			select
@@ -91,7 +91,7 @@
 		insert into report_cnt
 		(report_cnt_num, member_num, report_com_cnt, report_cnt, warning_cnt)
 		values
-		(0, #{memberNum}, 0, 0, 0)
+		(report_cnt_seq.nextval, #{memberNum}, 0, 0, 0)
 	</insert>
 
 	<!-- 인터셉터 후 세션에 등록 -->
