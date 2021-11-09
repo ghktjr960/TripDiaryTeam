@@ -117,7 +117,7 @@
 											style="width: 50px; height: 50px; object-fit: cover;">
 									</c:if>
 									<!-- 각 닉네임별 다이어리 페이지 이동 -->
-									<a href="#" class="main-a">
+									<a href="/diary?memberNum=${mainBoardList.memberNum }" class="main-a">
 										${mainBoardList.nickname}
 									</a>
 								</div>
