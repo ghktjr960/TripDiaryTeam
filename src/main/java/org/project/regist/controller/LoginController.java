@@ -66,20 +66,20 @@ public class LoginController {
 		// member Table 내부에서 아이디와 일치하는 Vo를 가져옴;
 		MemberVo authInfo = memberService.login(memberVo);
 		
-		String profileImg = memberService.profile(authInfo.getMemberNum());
-		session.setAttribute("profileImg", profileImg);
-		
-		// 아이디기억 체크박스값
-		String idRemember = (String) req.getParameter("idRemember");
-
-		logger.info("아이디 기억값 : " + idRemember);
-
-		// jsp에서 입력한 비밀번호
-		String inputPw = req.getParameter("password");
-		logger.info(inputPw);
 
 		// 입력한 아이디와 일치하는 값이 있을때;
 		if (authInfo != null) {
+			String profileImg = memberService.profile(authInfo.getMemberNum());
+			session.setAttribute("profileImg", profileImg);
+			
+			// 아이디기억 체크박스값
+			String idRemember = (String) req.getParameter("idRemember");
+			
+			logger.info("아이디 기억값 : " + idRemember);
+			
+			// jsp에서 입력한 비밀번호
+			String inputPw = req.getParameter("password");
+			logger.info(inputPw);
 
 			// 암호화된 비밀번호와 입력 비밀번호를 확인하는 작업
 			boolean pwMatch = pwEncoder.matches(inputPw, authInfo.getPassword());
