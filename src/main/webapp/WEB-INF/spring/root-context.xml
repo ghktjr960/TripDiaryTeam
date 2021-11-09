@@ -27,24 +27,24 @@
 		</property>
 	</bean>
 	
-	<!-- 기존 오라클 접속	 -->
+	<!-- 기존 오라클 접속	
     <bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">
         <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
         <property name="url" value="jdbc:log4jdbc:oracle:thin:@localhost:1521/xe"/>
         <property name="username" value="tripdiary"/>
         <property name="password" value="1234"/>
     </bean>
-	
+	 -->
 	
    	
-	<!-- 오라클 접속 
+	<!-- 오라클 접속  	-->
 	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
 		<property name="url" value="jdbc:log4jdbc:oracle:thin:@cmh93.synology.me:49157/xe"/>
 		<property name="username" value="tripdiary"/>
 		<property name="password" value="tripdiary1110"/>
 	</bean>
-   	-->
+  
    	
     <!-- Mybatis 연동 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
