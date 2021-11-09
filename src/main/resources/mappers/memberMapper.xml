@@ -144,9 +144,14 @@
 
 	<!-- 회원탈퇴 신청 -->
 	<insert id="resign">
-		INSERT INTO DEL_MEMBER (MEMBER_NUM, MEMBER_ID)
+		INSERT INTO 
+			DEL_MEMBER 
 		VALUES (
-		#{memberNum}, #{id}
+					del_member_seq.nextval,
+					#{memberNum}, 
+					#{id},
+					0,
+					sysdate
 		)
 	</insert>
 

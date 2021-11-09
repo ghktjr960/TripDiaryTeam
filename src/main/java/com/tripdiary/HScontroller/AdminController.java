@@ -116,13 +116,14 @@ public class AdminController {
 				System.out.println("memberNum : " + memberNum[i]);
 				
 				DelMemberVo delMember = adminService.delMemberSelectOne(Integer.parseInt(memberNum[i]));
+				
+				MemberVo memberVo = adminService.getMemberVo(Integer.parseInt(memberNum[i]));
+				
 				System.out.println("delMember : " + delMember.toString());
 				System.out.println("delMember.gerTimeove : " + delMember.getTimeover());
 				if(delMember.getTimeover() == 0) {
 					adminService.delmemberUpdate(delMember.getMemberNum());
 					adminService.memberManageDelte(delMember.getMemberNum());
-					
-					emailSend.sendDelMember(loginMember);
 				} else {
 					
 				}
