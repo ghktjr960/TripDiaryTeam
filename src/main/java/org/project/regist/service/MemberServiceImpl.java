@@ -1,11 +1,6 @@
 package org.project.regist.service;
 
-import java.util.Date;
-
-import javax.inject.Inject;
-
 import org.project.regist.dao.MemberDao;
-import org.project.regist.vo.LoginVo;
 import org.project.regist.vo.MemberVo;
 import org.project.regist.vo.ResignVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +23,8 @@ public class MemberServiceImpl implements MemberService {
 	    @Override
 	    public void regist(MemberVo memberVo) throws Exception {
 	        memberDao.regist(memberVo);
+	        
+	        System.out.println("맴버 번호 확인"+memberVo.getMemberNum());
 	    }
 	    
 	    @Override
@@ -121,23 +118,23 @@ public class MemberServiceImpl implements MemberService {
 	    
 	    //회원가입 성공시 추가해주는 테이블 쿼리
 	    @Override
-	    public void registAdd() throws Exception{
+	    public void registAdd(MemberVo memberVo) throws Exception{
 	    	
-	    	memberDao.registAdd();
+	    	memberDao.registAdd(memberVo);
 	    	
 	    }
 	    //회원가입 성공시 회원 프로필 이미지 테이블에 데이터를 추가해주는 쿼리
 	    @Override
-	    public void registAddP() throws Exception{
+	    public void registAddP(MemberVo memberVo) throws Exception{
 	    	
-	    	memberDao.registAddP();
+	    	memberDao.registAddP(memberVo);
 	    }
 	    
 	    
 	    @Override
-	    public void registAddPf() throws Exception{
+	    public void registAddPf(MemberVo memberVo) throws Exception{
 
-	    	memberDao.registAddPf();
+	    	memberDao.registAddPf(memberVo);
 	    }
 
 
@@ -150,9 +147,9 @@ public class MemberServiceImpl implements MemberService {
 	   
 	    //회원신고횟수 추가
 		   @Override
-		   public void reportAdd() throws Exception{
+		   public void reportAdd(MemberVo memberVo) throws Exception{
 			   
-			   memberDao.reportAdd();
+			   memberDao.reportAdd(memberVo);
 		   }
 		    
 	   

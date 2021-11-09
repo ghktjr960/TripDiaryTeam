@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.tripdiary.JCservice.ReadService;
+import com.tripdiary.JCvo.ReadVo;
 import com.tripdiary.JCvo.TdLikeVo;
 
 @Controller
@@ -19,7 +20,7 @@ public class TdLikeController {
 	ReadService service;
 
 	@RequestMapping(value = "/likeClick", method = RequestMethod.GET)
-	public String tdlike(TdLikeVo tdlikeVo, ReadViewCmd readCmd, Model model, HttpSession session) throws Exception {
+	public String tdlike(TdLikeVo tdlikeVo, ReadVo readVo, Model model, HttpSession session) throws Exception {
 		// 현재 로그인 멤버 확인
 		MemberVo memberVo = (MemberVo) session.getAttribute("authInfo");
 		System.out.println("readView(memberVo) : " + memberVo.toString());
@@ -38,7 +39,7 @@ public class TdLikeController {
 		if (memberVo != null) {
 			System.out.println(memberVo.toString() + "이게 언제 뽑히냐");
 
-			MemberActCntCmd memberActCntCmd = new MemberActCntCmd(readCmd.getBoardNum(), readCmd.getMemberNum(),
+			MemberActCntCmd memberActCntCmd = new MemberActCntCmd(readVo.getBoardNum(), readVo.getBoardMemberNum(),
 					memberVo.getMemberNum(), "like");
 
 			TdLikeVo tdLikeCheck = service.tdLikeCheck(tdlikeVo);
@@ -50,7 +51,7 @@ public class TdLikeController {
 				service.deleteTdlike(tdlikeVo);
 				memberActCntCmd.setUpdateType("delete");
 				
-				System.out.println("삭제 후 readCmd(당연히 없겠찌..) : " + readCmd);
+				System.out.println("삭제 후 readCmd(당연히 없겠찌..) : " + readVo);
 				System.out.println("delete : " + tdLikeCheck.toString());
 				System.out.println("memberActCntCmd.delete : " + memberActCntCmd.toString());
 
@@ -61,7 +62,7 @@ public class TdLikeController {
 				service.insertTdlike(tdlikeVo);
 				memberActCntCmd.setUpdateType("insert");
 				
-				System.out.println("찜한 후 readCmd : " + readCmd);
+				System.out.println("찜한 후 readCmd : " + readVo);
 				System.out.println("readCmd.insert : " + tdlikeVo.toString());
 				System.out.println("memberActCntCmd.insert : " + memberActCntCmd.toString());
 

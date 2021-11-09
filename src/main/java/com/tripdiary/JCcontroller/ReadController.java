@@ -55,6 +55,11 @@ public class ReadController {
 		System.out.println(replyList.toString());
 		model.addAttribute("replyList", replyList);
 
+		// 대표사진 이미지 목록
+		BoardImgVo thumbnailImg = service.ThumbnailImg(read.getBoardNum());
+		System.out.println(thumbnailImg.toString());
+		model.addAttribute("thumbnailImg", thumbnailImg);
+		
 		// 보드 이미지 목록
 		List<BoardImgVo> boardImgList = service.BoardImgList(read.getBoardNum());
 		System.out.println(boardImgList.toString());
@@ -96,7 +101,38 @@ public class ReadController {
 
 		return "readView";
 	}
+	
+	// 게시글 삭제
+		@RequestMapping(value = "/delete", method = RequestMethod.GET)
+		public String delete(ReadVo readVo, ReadViewCmd readCmd, Model model, HttpSession session) throws Exception {
 
+			logger.info("delete");
+
+			// hidden에 들어가는거 - 삭제해야하나??
+			ReadVo read = service.read(readCmd.getBoardNum());
+			System.out.println(read.toString());
+			model.addAttribute("tdLikeCnt 활용할 read", read);
+
+			// 현재 로그인 된 회원인지 아닌지 파악 후 본인글이면 삭제진행, 아니면 본인 게시글이 아니라는 안내멘트
+			MemberVo memberVo = (MemberVo) session.getAttribute("authInfo");
+
+			MemberActCntCmd memberActCntCmd = new MemberActCntCmd(readCmd.getBoardNum(), memberVo.getMemberNum(),
+					memberVo.getMemberNum(), "deleteBoard");
+
+			if (memberVo != null) {
+				System.out.println("delete(memberVo) : " + memberVo.toString());
+				model.addAttribute("memberVo", memberVo);
+				
+				service.delete(readCmd.getBoardNum());
+				
+				memberActCntCmd.setTdLikeCnt(read.getTdLikeCnt());
+				memberActCntCmd.setUpdateType("delete");
+				service.deleteReceiveCnt(memberActCntCmd);
+				System.out.println("deleteReceiveCnt :memberActCntCmd.delete : " + memberActCntCmd.toString());
+			}
+			return "redirect:/";
+		}
+	
 	// 댓글 작성
 	@RequestMapping(value = "/replyWrite", method = RequestMethod.POST)
 	public String replyWrite(ReplyVo replyVo, ReadViewCmd readCmd, Model model, HttpSession session) throws Exception {

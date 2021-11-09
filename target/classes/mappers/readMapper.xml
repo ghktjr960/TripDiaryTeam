@@ -37,8 +37,11 @@
 	<select id="read" parameterType="int" resultType="readVo">
 		select
 			A.board_num,
-			B.member_num,
+			A.member_num as board_member_num,
+			B.member_num as member_num,
+			B.id,
 			A.content,
+			A.place,
 			A.regdate,
 			A.tripdate,
 			A.td_like_cnt,
@@ -57,7 +60,14 @@
 	<!-- 게시글 수정하기는 태민이꺼 게시글 작성 받아오기 -->
 
 	<!-- 게시글 삭제 마지막에 구현하기 -->
-
+   <delete id="delete" parameterType="int">
+      delete from
+         board
+      where
+         board_num = #{boardNum}
+   </delete>
+	
+	
 	<!-- 댓글 목록 -->
 	<select id="replyList" parameterType="int" resultType="replyCommand">
 		select
@@ -65,6 +75,7 @@
 			A.board_num,
 			A.member_num,
 			B.nickname,
+			B.id,
 			A.content,
 			A.regdate
 		from
@@ -130,6 +141,23 @@
 			and A.reply_num = #{replyNum}
 	</select>
 
+	<!-- 대표사진 이미지 목록 -->
+	<select id="thumbnailImg" parameterType="int" resultType="boardImgVo">
+		select
+			A.board_img_num,
+			A.board_num,
+			A.org_file_name,
+			A.store_file_name,
+			A.file_size,
+			A.file_type,
+			A.main_img
+		from
+			board_img A, board B
+		where
+			A.board_num = B.board_num
+			and A.board_num = #{boardNum} and main_img = 1
+	</select>
+
 	<!-- 보드 이미지 목록 -->
 	<select id="boardImgList" parameterType="int" resultType="boardImgVo">
 		select
@@ -144,8 +172,10 @@
 			board_img A, board B
 		where
 			A.board_num = B.board_num
-			and A.board_num = #{boardNum}
+			and A.board_num = #{boardNum} and main_img = 0
 	</select>
+	
+
 	
 	<!-- 태그 -->
 	<select id="tagList" parameterType="int" resultType="tagVo" >
@@ -286,4 +316,75 @@
 		</choose>
      </update>
 
+     <!-- 게시글 신고 : 신고 테이블에 추가-->
+     <insert id="boardReportInsert" parameterType="reportBoardVo">
+     	insert into
+     		report_board
+     	values
+     		(
+     			report_board_seq.nextval, 
+     			#{boardNum},
+     			#{reportSend},
+     			#{reportReceive},
+     			#{reportType},
+     			#{reportContent},
+     			sysdate,
+     			#{memberNumSend},
+     			#{memberNumReceive}
+     		)
+     </insert>
+     
+     <!-- 게시글 신고 : 신고 횟수 업데이트 -->
+     <update id="boardReportUpdate" parameterType="reportBoardVo">
+     	update
+     		report_cnt
+     	set
+     		report_cnt = report_cnt + 1
+     	where
+     		member_num = #{memberNumSend}
+     </update>
+    
+     <!-- 댓글 신고 : 신고 테이블에 추가-->
+     <insert id="replyReportInsert" parameterType="reportReplyVo">
+     	insert into
+     		report_reply
+     	values
+     		(
+     			report_reply_seq.nextval, 
+     			#{replyNum},
+     			#{replyContent},
+     			#{reportSend},
+     			#{reportReceive},
+     			#{reportContent},
+     			#{reportType},
+     			sysdate,
+     			#{memberNumSend},
+     			#{memberNumReceive}
+     		)
+     </insert>
+     
+     <!-- 게시글 신고 : 신고 횟수 업데이트 -->
+     <update id="replyReportUpdate" parameterType="reportReplyVo">
+     	update
+     		report_cnt
+     	set
+     		report_cnt = report_cnt + 1
+     	where
+     		member_num = #{memberNumSend}
+     </update>
+	
+    <!-- 게시글 삭제 후 해당 좋아요 횟수 차감 -->
+	<update id = "deleteReceiveCnt" parameterType="com.tripdiary.JCcontroller.MemberActCntCmd">
+			update member_act_cnt set
+			
+		<choose> 
+			<when test='memberAct.equals("deleteBoard") and updateType.equals("delete")'>
+             	 	td_like_receive_cnt = td_like_receive_cnt - #{tdLikeCnt} 
+             	 where 
+             	 	member_num = #{boardMemberNum}
+			</when>
+		</choose>
+     </update> 
+	
+	
 </mapper>

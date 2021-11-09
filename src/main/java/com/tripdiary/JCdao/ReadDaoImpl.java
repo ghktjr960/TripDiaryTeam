@@ -9,6 +9,8 @@ import org.project.regist.vo.MemberVo;
 import org.springframework.stereotype.Repository;
 
 import com.tripdiary.HSvo.PickVo;
+import com.tripdiary.HSvo.ReportBoardVo;
+import com.tripdiary.HSvo.ReportReplyVo;
 import com.tripdiary.HSvo.TagVo;
 import com.tripdiary.JCcontroller.MemberActCntCmd;
 import com.tripdiary.JCvo.BoardImgVo;
@@ -39,13 +41,6 @@ public class ReadDaoImpl implements ReadDao {
 	@Override
 	public ReadVo read(int boardNum) throws Exception {
 		return sqlSession.selectOne("readMapper.read", boardNum);
-	}
-
-	// 게시물 수정
-	@Override
-	public void update(ReadVo readVo) throws Exception {
-
-		sqlSession.update("readMapper.update", readVo);
 	}
 
 	// 게시물 삭제
@@ -85,6 +80,12 @@ public class ReadDaoImpl implements ReadDao {
 	@Override
 	public ReplyVo selectReply(int replyNum) throws Exception {
 		return sqlSession.selectOne("readMapper.selectReply", replyNum);
+	}
+	
+	// 대표 이미지 목록
+	@Override
+	public BoardImgVo ThumbnailImg(int boardNum) throws Exception {
+		return sqlSession.selectOne("readMapper.thumbnailImg", boardNum);
 	}
 
 	// 보드 이미지 목록
@@ -190,5 +191,34 @@ public class ReadDaoImpl implements ReadDao {
 	public void memberLikeReceiveCnt(MemberActCntCmd memberActCntCmd) throws Exception {
 		sqlSession.update("readMapper.memberLikeReceiveCnt", memberActCntCmd);
 	}
+	
+	@Override
+	public void deleteReceiveCnt(MemberActCntCmd memberActCntCmd) throws Exception {
+		sqlSession.update("readMapper.deleteReceiveCnt", memberActCntCmd);
 
+	}
+	
+	// 게시글 신고 : 신고 테이블에 추가
+	@Override
+	public void boardReportInsert(ReportBoardVo reportBoardVo) throws Exception {
+		sqlSession.insert("readMapper.boardReportInsert", reportBoardVo);
+	}
+	
+	// 게시글 신고 : 신고 횟수 업데이트
+	@Override
+	public void boardReportUpdate(ReportBoardVo reportBoardVo) throws Exception {
+		sqlSession.update("readMapper.boardReportUpdate", reportBoardVo);
+	}
+		
+	// 댓글 신고 : 신고 테이블에 추가
+	@Override
+	public void replyReportInsert(ReportReplyVo reportReplyVo) throws Exception {
+		sqlSession.insert("readMapper.replyReportInsert", reportReplyVo);
+	}
+	
+	// 댓글 신고 : 신고 횟수 업데이트
+	@Override
+	public void replyReportUpdate(ReportReplyVo reportReplyVo) throws Exception {
+		sqlSession.update("readMapper.replyReportUpdate", reportReplyVo);
+	}	
 }

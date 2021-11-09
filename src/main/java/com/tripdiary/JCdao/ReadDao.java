@@ -5,6 +5,8 @@ import java.util.List;
 import org.project.regist.vo.MemberVo;
 
 import com.tripdiary.HSvo.PickVo;
+import com.tripdiary.HSvo.ReportBoardVo;
+import com.tripdiary.HSvo.ReportReplyVo;
 import com.tripdiary.HSvo.TagVo;
 import com.tripdiary.JCcontroller.MemberActCntCmd;
 import com.tripdiary.JCvo.BoardImgVo;
@@ -24,9 +26,6 @@ public interface ReadDao {
 	// 게시물 상세 보기 - 맡은 주 기능
 	public ReadVo read(int boardNum) throws Exception;
 
-	// 게시물 수정
-	public void update(ReadVo readVo) throws Exception;
-
 	// 게시물 삭제
 	public void delete(int boardNum) throws Exception;
 
@@ -44,6 +43,9 @@ public interface ReadDao {
 
 	// 선택된 댓글 조회
 	public ReplyVo selectReply(int replyNum) throws Exception;
+	
+	// 대표 이미지 목록
+	public BoardImgVo ThumbnailImg(int boardNum) throws Exception;
 
 	// 보드 이미지 목록
 	public List<BoardImgVo> BoardImgList(int boardNum) throws Exception;
@@ -80,6 +82,21 @@ public interface ReadDao {
 	
 	// 멤버가 좋아요 받은 총 개수 
 	public void memberLikeReceiveCnt(MemberActCntCmd memberActCntCmd) throws Exception;
+	
+	// 게시글 삭제 후 해당 게시글이 받은 좋아요 횟수 차감
+	public void deleteReceiveCnt(MemberActCntCmd memberActCntCmd) throws Exception;
+	
+	// 게시글 신고 : 신고 테이블에 추가
+	public void boardReportInsert(ReportBoardVo reportBoardVo) throws Exception;
+	
+	// 게시글 신고 : 신고 횟수 업데이트
+	public void boardReportUpdate(ReportBoardVo reportBoardVo) throws Exception;
+	
+	// 댓글 신고 : 신고 테이블에 추가
+	public void replyReportInsert(ReportReplyVo reportReplyVo) throws Exception;
+	
+	// 댓글 신고 : 신고 횟수 업데이트
+	public void replyReportUpdate(ReportReplyVo reportReplyVo) throws Exception;
 	
 
 }

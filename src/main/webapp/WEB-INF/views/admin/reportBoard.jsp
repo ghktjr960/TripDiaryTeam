@@ -60,7 +60,7 @@
 								<input type="checkbox" name="reportBoardNumList" value="${reportBoardList.reportBoardNum}">
 							</td>
 							<td>
-								<a style="color: #2883f3; text-decoration:none;" href="/board?boardNum=${reportBoardList.boardNum}&memberNum=${reportBoardList.memberNumReceive}">
+								<a style="color: #2883f3; text-decoration:none;" href="/readView?boardNum=${reportBoardList.boardNum}&memberNum=${reportBoardList.memberNumReceive}">
 									${reportBoardList.boardNum }
 								</a>
 							</td>
