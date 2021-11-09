@@ -33,7 +33,6 @@
 }
 </style>
 
-
 <link
    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
    rel="stylesheet"
@@ -59,7 +58,7 @@
    window.onload = function() {
 
       fn_emailChkKakao();
-      fn_nickChkKakao();
+
    }
 
    </c:if>
@@ -107,7 +106,6 @@
             $("#email").focus();
             return false;
          }
-         //var idChkVal = $("#idChk").val();
          if ($("#idChk").val() == "N") {
             alert("아이디 중복확인 버튼을 눌러주세요.");
             $("#idChk").focus();
@@ -116,9 +114,18 @@
 
          if ($("#emailsendChk").val() == "N") {
             alert("이메일 인증을 진행해주세요.");
-         }//else if($("#emailsendChk").val() == "Y"){
-
-         //}
+            return false;
+            
+         }
+         //년월일 값 하나라도 추가 안되면 안넘어가게끔
+         
+         if($("#birth").val() == "" || $("#birth").val() == "월일" || $("#birth").val() == "0" || $("#birth").val() == 0){
+            alert("생년월일을 입력해주세요.");
+            $("#birth").focus();
+            return false;
+         }
+         
+         
          $("#registPage").submit();
       });
    })
@@ -168,14 +175,14 @@
                      document.getElementById('nickvalid').innerHTML = '닉네임을 다시 입력해주세요. (영문 소문자, 숫자만 입력 가능)'
                      document.getElementById('nickvalid').style.color = 'red';
                      alert("중복된 닉네임입니다.");
-
+                  return false;
                   } else if (data == 0) {
 
                      $("#nickChk").attr("value", "Y");
                      document.getElementById('nickvalid').innerHTML = '사용 가능한 닉네임 입니다.'
                      document.getElementById('nickvalid').style.color = 'blue';
                      alert("사용가능한 닉네임 입니다.");
-
+                  return true;
                   }
                }
             })
@@ -199,11 +206,12 @@
                .getElementById('passwordchk').value) {
             document.getElementById('pwvalid').innerHTML = '비밀번호가 일치합니다.'
             document.getElementById('pwvalid').style.color = 'blue';
+               return true;
          } else {
 
             document.getElementById('pwvalid').innerHTML = '비밀번호가 일치하지 않습니다.';
             document.getElementById('pwvalid').style.color = 'red';
-
+               return false;
          }
 
       }
@@ -286,11 +294,14 @@
                document.getElementById("countdown").innerHTML = "인증 번호 확인 완료";
                document.getElementById('countdown').style.color = 'blue';
                clearInterval(time);
+               return true;
+            
             }
 
          },
          error : function(data) {
             alert("인증 실패!");
+            return false;
          }
 
       })
@@ -313,6 +324,7 @@
                      document.getElementById('emailvalid').innerHTML = '이메일을 다시 입력해주세요.'
                      document.getElementById('emailvalid').style.color = 'red';
                      alert("이미 가입된 이메일 입니다.");
+                     return false;
 
                   } else if (data == 0) {
 
@@ -320,6 +332,7 @@
                      document.getElementById('emailvalid').innerHTML = '사용 가능한 이메일 입니다.'
                      document.getElementById('emailvalid').style.color = 'blue';
                      alert("사용가능한 이메일 입니다.");
+                     return true;
 
                   }
                }
@@ -353,10 +366,12 @@
 
       document.getElementById("countdown").innerHTML = count + "</b>초 남았습니다.";
       document.getElementById('countdown').style.color = 'green';
+      return true;
       if (count == 0) {
          clearInterval(time); // 시간 초기화
          document.getElementById("countdown").innerHTML = "인증 번호 유효시간이 초과되었습니다.";
          document.getElementById('countdown').style.color = 'red';
+         return false;
       }
    }
 </script>
@@ -385,7 +400,7 @@
                      alert('test1');
                      document.getElementById('emailvalid').innerHTML = '이미 사용중인 이메일입니다. '
                      document.getElementById('emailvalid').style.color = 'red';
-
+                  return false;
                   } else if (data == 0) {
 
                      alert('test2');
@@ -393,6 +408,7 @@
                      document.getElementById('emailvalid').innerHTML = '사용 가능한 이메일 입니다.'
                      document.getElementById('emailvalid').style.color = 'blue';
                      $("#emailChk").hide();
+                     return true;
 
                   } else {
 
@@ -403,46 +419,13 @@
                      $("#email").removeAttr('readonly');
                      $("#emailChk").removeAttr('disabled');
                      $("#emailChk").show();
-
+                  return false;
                   }
                }
             })
    }
 
-   //중복 닉네임 확인 
-   function fn_nickChkKakao() {
-
-      $
-            .ajax({
-               url : "../regist/nickChk",
-               type : "post",
-               dataType : "json",
-               data : {
-                  "nickname" : $("#nickname").val()
-               },
-               success : function(data2) {
-                  if (data2 == 1) {
-
-                     $("#nickChk").attr("value", "N");
-                     $("#nickname").removeAttr("readonly");
-
-                     $("#nickChk").removeAttr("disabled");
-                     $("#nickChk").show();
-                     document.getElementById('nickvalid').innerHTML = '닉네임을 다시 입력해주세요. (영문 소문자, 숫자만 입력 가능)'
-                     document.getElementById('nickvalid').style.color = 'red';
-
-                  } else if (data2 == 0) {
-
-                     $("#nickChk").attr("value", "Y");
-                     document.getElementById('nickvalid').innerHTML = '사용 가능한 닉네임 입니다.'
-                     document.getElementById('nickvalid').style.color = 'blue';
-                     $("#nickChk").attr("value", "N");
-                     $("#nickname").attr("readonly");
-                     $("#nickChk").attr("disabled");
-
-                  }
-               }
-            })
+  
    } //여기까지 api 조
 </script>
 

@@ -101,32 +101,27 @@
 		}
 	</script>
 
-
-
-
-
 	<form class="container" method="post" id="pwupdate" name="pwupdate"
 		action="/member/pwUpdate" style="width: 350px; text-align: left;">
 		<h2>비밀번호 변경</h2>
-		<input type="text" id="id" name="id" value=${authInfo.id } readonly
+		<input type="password" id="id" name="id" value=${authInfo.id } readonly
 			hidden>
 
 		<div class="form-group mt-3">
 			<div class="form-group">
-				<input type="text" class="form-control" name="oldpassword"
+				<input type="password" class="form-control" name="oldpassword"
 					id="oldpassword" placeholder="기존 암호 입력 " onchange="check_oldpw()">
 				<div class="validOldPw" id="validOldPw">(영문 대/소문자, 숫자를 모두 포함)</div>
 				<br>
 			</div>
 
-
-			<input type="text" class="form-control" name="password" id="password"
+			<input type="password" class="form-control" name="password" id="password"
 				placeholder="새로운 암호 입력 ">
 			<div class="validNewPw">(영문 대/소문자, 숫자를 모두 포함)</div>
 			<br>
 		</div>
 		<div class="form-group">
-			<input type="text" class="form-control" name="passwordchk"
+			<input type="password" class="form-control" name="passwordchk"
 				id="passwordchk" placeholder="새로운 암호 재입력 " onchange="check_newpw()">
 			<div class="validNewPw" id="validNewPw">비밀번호를 다시 한번 입력하세요.</div>
 		</div>

@@ -110,7 +110,7 @@
 				</div>
 
 				<div>
-					비밀번호 확인 : <input type="text" name="passwordchk" id="passwordchk"
+					비밀번호 확인 : <input type="password" name="passwordchk" id="passwordchk"
 						onchange="check_pw();">
 					<div class="pwchk" id="pwchk">비밀번호를 입력하세요.</div>
 				</div>

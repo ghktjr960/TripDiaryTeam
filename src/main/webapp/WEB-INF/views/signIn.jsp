@@ -34,11 +34,11 @@
             </div>
         	<div class="form-group">                                                                                                                                                          
                        <div class="custom-control custom-checkbox small mt-3 mb-3">
-	                       <c:if test = "${not empty test}">                                                                                               
+	                       <c:if test = "${not empty cookie.myCookieId.value}">                                                                                               
 	                           <input type="checkbox" class="custom-control-input" id="idRemember" name="idRemember" checked = "checked"/>                                           
 	                           <label class="custom-control-label" for="idRemember">아이디 기억</label>  
 	                       </c:if>                                                                               
-						   <c:if test = "${ empty test}">                                                                                                             
+						   <c:if test = "${ empty cookie.myCookieId.value}">                                                                                                             
 	                           <input type="checkbox" class="custom-control-input" id="idRemember" name="idRemember" />                                           
 	                           <label class="custom-control-label" for="idRemember">아이디 기억</label>   
 	                       </c:if>  
