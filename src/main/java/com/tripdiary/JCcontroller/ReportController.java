@@ -25,6 +25,9 @@ public class ReportController {
 
 	@RequestMapping(value = "/report/board", method = RequestMethod.POST)
 	public String reportBoardPost(ReportBoardVo reportBoardVo) throws Exception{
+		
+		System.out.println("ReportBoardVo : " + reportBoardVo.toString());
+		
 		service.boardBoartInsert(reportBoardVo);
 		service.boardBoartUpdate(reportBoardVo);
 		return "redirect:/readView?boardNum="+reportBoardVo.getBoardNum()+"&memberNum="+reportBoardVo.getMemberNumReceive();
@@ -38,6 +41,9 @@ public class ReportController {
 	
 	@RequestMapping(value = "/report/reply", method = RequestMethod.POST)
 	public String reportReplyPost(ReportReplyVo reportReplyVo) throws Exception{
+		
+		System.out.println("ReportReplyVo : " + reportReplyVo.toString());
+		
 		service.replyReportInsert(reportReplyVo);
 		service.replyReportUpdate(reportReplyVo);
 		return "redirect:/readView?boardNum="+reportReplyVo.getBoardNum()+"&memberNum="+reportReplyVo.getMemberNumReceive();
