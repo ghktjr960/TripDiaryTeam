@@ -1,5 +1,9 @@
 package com.tripdiary.TMcontroller;
 
+
+import javax.servlet.http.HttpSession;
+
+import org.project.regist.vo.MemberVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.tripdiary.HSservice.MainService;
+import com.tripdiary.HSvo.ProfileImgVo;
 import com.tripdiary.TMservice.DiaryService;
 import com.tripdiary.TMutil.PageCalc;
 import com.tripdiary.TMvo.GetEmblemCmd;
@@ -18,17 +24,23 @@ public class DiaryController {
 	private DiaryService diaryService;
 	private PageCalc pageCalc;
 	private PageCmd pageVO;
+	private MainService mainService;
 	
 	@Autowired
-	public DiaryController(DiaryService diaryService, PageCalc pageCalc, PageCmd pageVO) {
+	public DiaryController(DiaryService diaryService, PageCalc pageCalc, PageCmd pageVO, MainService mainService) {
 		this.diaryService = diaryService;
 		this.pageCalc = pageCalc;
 	    this.pageVO = pageVO;
+	    this.mainService = mainService;
 	}
-
 	
 	@RequestMapping(value = "/diary", method = RequestMethod.GET)
-	public String diary(Model model, int memberNum, String pageNum) throws Exception {
+	public String diary(Model model, int memberNum, String pageNum, HttpSession session) throws Exception {
+    	if(session.getAttribute("authInfo") != null) {
+    		MemberVo memberVo = (MemberVo) session.getAttribute("authInfo");
+    		ProfileImgVo profileImgVo = mainService.profileImg(memberVo.getMemberNum());
+    		session.setAttribute("profileImg", profileImgVo);
+    	}
 		int currentPage = 1;
 		int articleCount = diaryService.getArticleCount(memberNum);
 		if (pageNum != null) {
@@ -36,7 +48,8 @@ public class DiaryController {
 	    }
 	    pageVO = pageCalc.pageCalc(currentPage, articleCount);
 	    pageVO.setMemberNum(memberNum);
-		
+		 	
+	    
 		model.addAttribute("diaryBoardList", diaryService.getBoardList(pageVO));
 		model.addAttribute("page",pageVO);
 		model.addAttribute("mapCmd", diaryService.getMap(memberNum));
