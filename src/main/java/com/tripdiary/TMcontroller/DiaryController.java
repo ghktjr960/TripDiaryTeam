@@ -1,9 +1,5 @@
 package com.tripdiary.TMcontroller;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> e946de6ddfbea60aedf119a18e089b1cdb2ad697
 import javax.servlet.http.HttpSession;
 
 import org.project.regist.vo.MemberVo;
@@ -28,37 +24,10 @@ public class DiaryController {
 	private PageCalc pageCalc;
 	private PageCmd pageVO;
 	private MainService mainService;
-<<<<<<< HEAD
-	
-=======
-
->>>>>>> e946de6ddfbea60aedf119a18e089b1cdb2ad697
 	@Autowired
 	public DiaryController(DiaryService diaryService, PageCalc pageCalc, PageCmd pageVO, MainService mainService) {
 		this.diaryService = diaryService;
 		this.pageCalc = pageCalc;
-<<<<<<< HEAD
-	    this.pageVO = pageVO;
-	    this.mainService = mainService;
-	}
-	
-	@RequestMapping(value = "/diary", method = RequestMethod.GET)
-	public String diary(Model model, int memberNum, String pageNum, HttpSession session) throws Exception {
-    	if(session.getAttribute("authInfo") != null) {
-    		MemberVo memberVo = (MemberVo) session.getAttribute("authInfo");
-    		ProfileImgVo profileImgVo = mainService.profileImg(memberVo.getMemberNum());
-    		session.setAttribute("profileImg", profileImgVo);
-    	}
-		int currentPage = 1;
-		int articleCount = diaryService.getArticleCount(memberNum);
-		if (pageNum != null) {
-	         currentPage = Integer.parseInt(pageNum);
-	    }
-	    pageVO = pageCalc.pageCalc(currentPage, articleCount);
-	    pageVO.setMemberNum(memberNum);
-		 	
-	    
-=======
 		this.pageVO = pageVO;
 		this.mainService = mainService;
 	}
@@ -75,8 +44,6 @@ public class DiaryController {
 		}
 		pageVO = pageCalc.pageCalc(currentPage, articleCount);
 		pageVO.setMemberNum(memberNum);
-
->>>>>>> e946de6ddfbea60aedf119a18e089b1cdb2ad697
 		model.addAttribute("diaryBoardList", diaryService.getBoardList(pageVO));
 		model.addAttribute("page", pageVO);
 		model.addAttribute("mapCmd", diaryService.getMap(memberNum));
