@@ -1,5 +1,5 @@
 package com.tripdiary.JCvo;
-
+//보드 이미지
 public class BoardImgVo {
 	private int boardImgNum;
 	private int boardNum;

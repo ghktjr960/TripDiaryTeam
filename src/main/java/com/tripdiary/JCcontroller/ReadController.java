@@ -60,7 +60,7 @@ public class ReadController {
 		System.out.println(thumbnailImg.toString());
 		model.addAttribute("thumbnailImg", thumbnailImg);
 		
-		// 보드 이미지 목록
+		// 보드 이미지 목록X
 		List<BoardImgVo> boardImgList = service.BoardImgList(read.getBoardNum());
 		System.out.println(boardImgList.toString());
 		model.addAttribute("boardImgList", boardImgList);
